@@ -1,0 +1,79 @@
+[core]
+	editor = nvim
+	warnAmbiguousRefs = true
+[push]
+	default = simple
+[pull]
+	rebase = true
+[pager]
+	diff = diff-so-fancy | less --tabs=1,5 -RFX
+	show = diff-so-fancy | less --tabs=1,5 -RFX
+[merge]
+	keepBackup = false
+	tool = nvim
+[mergetool "nvim"]
+	path = /usr/bin/nvim -d
+	conflictstyle = diff3
+	prompt = false
+	keepTemporaries = false
+	keepBackup = false
+[rerere]
+	enabled = true
+[color]
+	ui = auto
+[alias]
+	lscfg = config -l
+
+	rv = remote -v
+
+	cl = clone
+	cloner = clone --recursive
+
+	ci = commit
+	cs = commit -S
+
+	co = checkout
+	cob = checkout -b
+	com = checkout master
+	cod = checkout develop
+
+	st = status
+
+	br = branch
+	brlocaloneline = !git branch | grep -v \\* | xargs
+	brdeletelocal = !git branch -D `git brlocaloneline` || echo "Nothing to delete"
+
+	;; brsync deletes all local branches and refetches all remotes!
+	brsync = !git com && git brdeletelocal && git fetcha
+
+	fetchp = fetch --prune
+	fetcha = fetch --all
+
+	spull = !git pull && git submodule sync --recursive && git submodule update --init --recursive
+	sspull = !git pull && git submodule update --init --recursive --remote
+	pullr = pull --rebase
+
+	pushf = push --force-with-lease
+
+	dc = diff --cached
+	df = diff
+	ds = diff --staged
+
+	dt = difftool
+	mt = mergetool
+
+	lg = log -p --abbrev-commit --date=relative
+	lgs = log --pretty=format:'%C(yellow)%h%Creset %s %C(bold blue)<%ae>%Creset %Cgreen(%cr)'
+	lgn = log --numstat --pretty=format:'%C(yellow)%h%Creset %s %C(bold blue)<%ae>%Creset %Cgreen(%cr)'
+	lol = log --graph --decorate --abbrev-commit --pretty=format:'%C(yellow)%h%Creset %s %C(bold blue)<%ae>%Creset %Cgreen(%cr)'
+	lola = log --graph --all --decorate --abbrev-commit --pretty=format:'%C(yellow)%h%Creset %s %C(bold blue)<%ae>%Creset %Cgreen(%cr)'
+
+	ls = ls-files
+	ignored = ls-files -o -i --exclude-standard
+
+	unstage = reset HEAD
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
