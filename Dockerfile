@@ -217,11 +217,6 @@ RUN \
     pip3 -q install flake8 && \
     echo '\n\n' && \
 
-    # Install Heroku Command Line Interface (CLI)
-    # Ref: https://devcenter.heroku.com/articles/heroku-cli#download-and-install
-    curl https://cli-assets.heroku.com/install.sh | bash && \
-    echo '\n\n' && \
-
     # Install bat
     #
     # A cat(1) clone with syntax highlighting and Git integration.
