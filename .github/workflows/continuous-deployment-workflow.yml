@@ -1,0 +1,20 @@
+name: cd
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci
+        uses: elgohr/Publish-Docker-Github-Action@2.19
+        with:
+          name: day8/dockerfile-for-dev-ci-image/dev-ci
+          tag_semver: true
+          registry: docker.pkg.github.com
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
