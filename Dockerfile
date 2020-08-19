@@ -90,12 +90,6 @@ RUN \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $GIT_GPGKEY && \
     echo '\n\n' && \
 
-    # Git Large File Storage is required when cloning any Git repository that uses the Git LFS
-    # Specification. See https://github.com/git-lfs/git-lfs
-    echo "Adding Git LFS package repository..." && \
-    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
-    echo '\n\n' && \
-
     # The 'Neovim Stable' PPA provides 0.4.x which is extremely out of date to the point of being
     # unusable so uses the 'Neovim Unstable' PPA for 0.5.x instead.
     echo "Adding 'Neovim Unstable' PPA..." && \
@@ -106,6 +100,13 @@ RUN \
     echo "Adding 'Mike Fikes's Planck' PPA..." && \
     echo "deb http://ppa.launchpad.net/mfikes/planck/ubuntu focal main" > /etc/apt/sources.list.d/mfikes-ubuntu-planck-focal.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $PLANCK_GPGKEY && \
+    echo '\n\n' && \
+
+    # Git Large File Storage is required when cloning any Git repository that uses the Git LFS
+    # Specification. See https://github.com/git-lfs/git-lfs
+    echo "Adding Git LFS package repository..." && \
+    curl -sS https://packagecloud.io/github/git-lfs/gpgkey | apt-key add - && \
+    echo "deb https://packagecloud.io/github/git-lfs/ubuntu/ focal main" > /etc/apt/sources.list.d/github_git-lfs.list && \
     echo '\n\n' && \
 
     echo "Adding NodeSource's Node.js v12.x package repository..." && \
