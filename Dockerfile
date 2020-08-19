@@ -2,6 +2,8 @@ FROM ubuntu:20.04
 
 ENV JVM_OPTS=-Xmx4g
 ENV LEIN_ROOT=true
+ENV CHROME_BIN=/usr/local/bin/chrome-wrapper
+ENV DISPLAY=:99
 
 # Every RUN command creates an intermediate layer. Every additional layer has a massive performance
 # impact on the 'Initialize containers' step in GitHub Actions, which in turn is by far the most
@@ -140,7 +142,6 @@ RUN \
 
     # Start a X11 virtual framebuffer to run tests in Chrome.
     echo 'Xvfb :99 -screen 0 1920x1080x24 &\n' >> /docker-entrypoint.sh && \
-    echo 'export DISPLAY=:99\n' >> /docker-entrypoint.sh && \
 
     # Install Clojure:
     echo "Installing 'Official' Clojure CLI ${CLOJURE_VERSION}..." && \
@@ -368,7 +369,6 @@ RUN \
     sed -i 's|HERE/chrome"|HERE/chrome" --disable-setuid-sandbox --no-sandbox|g' \
         /opt/chromium/$CHROMIUM_VERSION/chrome-wrapper && \
     rm chromium-linux.zip && \
-    echo 'export CHROME_BIN=/usr/local/bin/chrome-wrapper\n' >> /docker-entrypoint.sh && \
 
     # Install older libraries required by older Chrome release (56.x).
     #
@@ -493,9 +493,7 @@ RUN \
 
     wget -q -O /root/.gitconfig "${DOTFILES_BASE_URI}/.gitconfig" && \
 
-    # Finish Docker ENTRYPOINT script:
-    echo 'exec "$@"\n' >> /docker-entrypoint.sh && \
-    chmod +x /docker-entrypoint.sh && \
+
 
     # Pre-install common dependencies to improve build performance:
     #echo '(defproject deps "" :dependencies [[org.clojure/clojure "1.10.1"] [org.clojure/clojurescript "1.10.773"] [thheller/shadow-cljs "2.10.19"]] :plugins [[lein-shadow "0.2.2"] [day8/lein-git-inject "0.0.14"] [lein-ancient "0.6.15"] [lein-shell "0.5.0"] [lein-pprint "1.3.2"]])' > project.clj && \
@@ -508,6 +506,7 @@ RUN \
       karma-cli@$KARMA_CLI_VERSION \
       diff-so-fancy@$DIFF_SO_FANCY_VERSION && \
 
+    # Finish Docker ENTRYPOINT script:
     echo 'neofetch\n' >> /docker-entrypoint.sh && \
     echo "echo \"`lein version`\"\n" >> /docker-entrypoint.sh && \
     echo "echo \"lumo `lumo --version` and Planck `planck --version`\"\n" >> /docker-entrypoint.sh && \
@@ -519,6 +518,8 @@ RUN \
     echo "echo \"`chrome-wrapper --version`\"\n" >> /docker-entrypoint.sh && \
     echo "echo \"`chromedriver --version`\"\n" >> /docker-entrypoint.sh && \
     echo "echo \"PhantomJS `phantomjs --version`\"\n" >> /docker-entrypoint.sh && \
+    echo 'exec "$@"\n' >> /docker-entrypoint.sh && \
+    chmod +x /docker-entrypoint.sh && \
 
     # Cleanup
     rm -rf /usr/share/icons/* \
