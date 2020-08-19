@@ -105,7 +105,7 @@ RUN \
     # Git Large File Storage is required when cloning any Git repository that uses the Git LFS
     # Specification. See https://github.com/git-lfs/git-lfs
     echo "Adding Git LFS package repository..." && \
-    curl -sS https://packagecloud.io/github/git-lfs/gpgkey | apt-key add - && \
+    curl -sSL https://packagecloud.io/github/git-lfs/gpgkey | apt-key add - && \
     echo "deb https://packagecloud.io/github/git-lfs/ubuntu/ focal main" > /etc/apt/sources.list.d/github_git-lfs.list && \
     echo '\n\n' && \
 
