@@ -118,6 +118,9 @@ RUN \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo '\n\n' && \
 
+    # Refresh package lists after adding package repositories.
+    apt-get update -qq && \
+
     # Begin /docker-entrypoint.sh script. This is amended throughout the RUN
     # command with additional lines.
     echo '#!/bin/sh\n' > /docker-entrypoint.sh && \
