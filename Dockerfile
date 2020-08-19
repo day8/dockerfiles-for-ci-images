@@ -525,5 +525,7 @@ RUN \
     rm -rf /usr/share/icons/* \
            /var/lib/apt/lists/*
 
+LABEL com.circleci.preserve-entrypoint=true
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["/bin/zsh"]
