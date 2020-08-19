@@ -110,10 +110,10 @@ RUN \
     echo '\n\n' && \
 
     echo "Adding NodeSource's Node.js v12.x package repository..." && \
-    curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+    echo "deb https://deb.nodesource.com/node_12.x focal main" > /etc/apt/sources.list.d/nodesource.list && \
+    curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
     echo '\n\n' && \
 
-    # Add Yarn package repository.
     echo "Adding Yarn package repository..." && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
