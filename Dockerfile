@@ -542,7 +542,7 @@ RUN \
     #
     mv /usr/bin/tail /usr/bin/tail.original && \
     echo '#!/bin/sh' > /usr/bin/tail && \
-    echo 'exec "/docker-entrypoint.sh /usr/bin/tail.original $@"' >> /usr/bin/tail && \
+    echo 'exec /docker-entrypoint.sh /usr/bin/tail.original $@' >> /usr/bin/tail && \
     chmod +x /usr/bin/tail && \
 
     # Cleanup
