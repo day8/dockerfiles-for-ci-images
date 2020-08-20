@@ -132,7 +132,7 @@ RUN \
       neofetch ncdu htop \
       rlwrap less tmux openssh-client mosh \
       neovim emacs-nox \
-      zsh build-essential openjdk-$JVM_VERSION\-jdk-headless nodejs yarn python2 python3-pip planck \
+      zsh build-essential cmake openjdk-$JVM_VERSION\-jdk-headless nodejs yarn python2 python3-pip planck \
       pngnq pngquant pngtools pngmeta pngcrush pngcheck \
       jhead jpeginfo jpegoptim jpegpixi \
     # These are dependencies of xvfb and/or Chrome. Unfortunately due to the old version of Chrome
@@ -479,6 +479,17 @@ RUN \
     pwsh -Command 'echo "Set-Theme Agnoster" >> $PROFILE' && \
 
     echo '\n\n' && \
+
+    # gitstatus is a 10x faster alternative to `git status` and `git describe`.
+    #
+    # Included in the Docker image so that the shell won't auto download it on
+    # startup, reducing startup time.
+    git clone --depth=1 https://github.com/romkatv/gitstatus.git && \
+    cd gitstatus && \
+    ./build -w && \
+    mv usrbin/gitstatusd /usr/local/bin/gitstatusd && \
+    cd /tmp && \
+    rm -rf gitstatus && \
 
     #git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto" && \
     #zsh -c 'setopt EXTENDED_GLOB && for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"; done' && \
