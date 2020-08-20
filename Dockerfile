@@ -129,7 +129,7 @@ RUN \
     # Install development tooling, common editors and language runtimes.
     apt-get install -qq -y --no-install-recommends \
       git git-lfs diffstat jq silversearcher-ag fzf \
-      neofetch ncdu htop \
+      neofetch ncdu htop zstd \
       rlwrap less tmux openssh-client mosh \
       neovim emacs-nox \
       zsh build-essential cmake openjdk-$JVM_VERSION\-jdk-headless nodejs yarn python2 python3-pip planck \
