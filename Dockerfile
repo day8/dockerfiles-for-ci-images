@@ -525,11 +525,29 @@ RUN \
     echo 'exec "$@"\n' >> /docker-entrypoint.sh && \
     chmod +x /docker-entrypoint.sh && \
 
+    # GitHub Actions overrides ENTRYPOINT with the --entrypoint CLI option to execute a long-running
+    # tail command so that once created the container does not exit until explicitly stopped.
+    #
+    # So on GitHub Actions docker-entrypoint.sh is never executed. CircleCI allowed the use of a metadata
+    # LABEL com.circleci.preserve-entrypoint=true, but unfortunately GitHub Actions does not appear
+    # to have any mechanism to preserve the entrypoint.
+    #
+    # To exacerbate the confusion newer versions of ChromeDriver such as used in the CircleCI images,
+    # which are tied to newer version of Chrome, do not appear to require Xvfb to be running. The
+    # version of ChromeDriver that we are using currently does require Xvfb to be started beforehand.
+    #
+    # To workaround this issue so that we don't need to start Xvfb manually in every GitHub Action
+    # workflow YAML we replace /usr/bin/tail with our own script that first executes
+    # docker-entrypoint.sh (and thus Xvfb) before executing a backed up copy of tail at /usr/bin/tail.original
+    #
+    mv /usr/bin/tail /usr/bin/tail.original && \
+    echo '#!/bin/sh' > /usr/bin/tail && \
+    echo 'exec "/docker-entrypoint.sh /usr/bin/tail.original $@"' >> /usr/bin/tail && \
+    chmod +x /usr/bin/tail && \
+
     # Cleanup
     rm -rf /usr/share/icons/* \
            /var/lib/apt/lists/*
-
-LABEL com.circleci.preserve-entrypoint=true
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["/bin/zsh"]
