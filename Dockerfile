@@ -235,7 +235,7 @@ RUN \
     echo "Verifying docker-${DOCKER_VERSION}.tgz checksum..." && \
     sha256sum "docker-${DOCKER_VERSION}.tgz" && \
     echo "${DOCKER_SHA256SUM} *docker-${DOCKER_VERSION}.tgz" | sha256sum -c - && \
-    tar -xzC /usr/local/bin -f "docker-${DOCKER_VERSION}.tgz" && \
+    tar -xzC /usr/local/bin --strip-components=1 -f "docker-${DOCKER_VERSION}.tgz" && \
     rm -f "docker-${DOCKER_VERSION}.tgz" && \
 
     # Install Docker Compose
