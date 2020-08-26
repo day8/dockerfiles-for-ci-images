@@ -44,6 +44,12 @@ RUN \
     export POWERSHELL_MAJOR_VERSION=7 && \
     export POWERSHELL_VERSION=$POWERSHELL_MAJOR_VERSION.0.3 && \
     export POWERSHELL_SHA256SUM=a9c023940c77a96a9f5135309e44c93ed627983bb1a66ecf5beb42bbba54ead6 && \
+    export DOCKER_VERSION=19.03.9 && \
+    export DOCKER_SHA256SUM=1c03c78be198d9085e7dd6806fc5d93264baaf0c7ea17f584d00af48eae508ee && \
+    export DOCKER_COMPOSE_VERSION=1.26.2 && \
+    export DOCKER_COMPOSE_SHA256SUM=13e50875393decdb047993c3c0192b0a3825613e6dfc0fa271efed4f5dbdd6eb && \
+    export KUBECTL_VERSION=1.19.0 && \
+    export KUBECTL_SHA256SUM=79bb0d2f05487ff533999a639c075043c70a0a1ba25c1629eb1eef6ebe3ba70f && \
     export GIT_GPGKEY=E1DD270288B4E6030699E45FA1715D88E1DF1F24 && \
     export NEOVIM_GPGKEY=9DBB0BE9366964F134855E2255F96FCF8231B6DD && \
     export PLANCK_GPGKEY=A5D6812987A6E53579AF0308D3D743111F327606 && \
@@ -221,6 +227,34 @@ RUN \
     echo "Installing flake8..." && \
     pip3 -q install flake8 && \
     echo '\n\n' && \
+
+    # Install Docker
+    # Origin: https://download.docker.com/linux/static/stable/x86_64/
+    echo "Installing Docker ${DOCKER_VERSION}..." && \
+    wget -q "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz" && \
+    echo "Verifying docker-${DOCKER_VERSION}.tgz checksum..." && \
+    sha256sum "docker-${DOCKER_VERSION}.tgz" && \
+    echo "${DOCKER_SHA256SUM} *docker-${DOCKER_VERSION}.tgz" | sha256sum -c - && \
+    tar -xzC /usr/bin "docker-${DOCKER_VERSION}.tgz" && \
+    rm -f "docker-${DOCKER_VERSION}.tgz" && \
+
+    # Install Docker Compose
+    echo "Installing Docker Compose ${DOCKER_COMPOSE_VERSION}..." && \
+    wget -q "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64" && \
+    echo "Verifying docker-compose-Linux-x86_64 checksum..." && \
+    sha256sum "docker-compose-Linux-x86_64" && \
+    echo "${DOCKER_COMPOSE_SHA256SUM} *docker-compose-Linux-x86_64" | sha256sum -c - && \
+    mv "docker-compose-Linux-x86_64" /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose && \
+
+    # Install Kubectl
+    echo "Installing Kubectl ${KUBECTL_VERSION}..." && \
+    wget -q "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
+    echo "Verifying Kubectl checksum..." && \
+    sha256sum kubectl && \
+    echo "${KUBECTL_SHA256SUM} *kubectl" | sha256sum -c - && \
+    mv kubectl /usr/local/bin && \
+    chmod +x /usr/local/bin/kubectl && \
 
     # Install bat
     #
