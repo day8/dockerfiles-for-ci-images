@@ -531,9 +531,7 @@ RUN \
     cd /tmp && \
     rm -rf gitstatus && \
 
-    #git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto" && \
-    #zsh -c 'setopt EXTENDED_GLOB && for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"; done' && \
-
+    # Install Zsh, Bash and Vim configuration files:
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k && \
     echo 'source ~/.powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc && \
     echo '[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' >> ~/.zshrc && \
@@ -548,13 +546,7 @@ RUN \
 
     wget -q -O /root/.gitconfig "${DOTFILES_BASE_URI}/.gitconfig" && \
 
-
-
-    # Pre-install common dependencies to improve build performance:
-    #echo '(defproject deps "" :dependencies [[org.clojure/clojure "1.10.1"] [org.clojure/clojurescript "1.10.773"] [thheller/shadow-cljs "2.10.19"]] :plugins [[lein-shadow "0.2.2"] [day8/lein-git-inject "0.0.14"] [lein-ancient "0.6.15"] [lein-shell "0.5.0"] [lein-pprint "1.3.2"]])' > project.clj && \
-    #lein deps && \
-    #rm project.clj && \
-
+    # Install NPM-based tools incl Lumo, Karma and Diff so Fancy:
     echo "Installing Lumo, Karma CLI and Diff so Fancy..." && \
     npm install -g --unsafe-perm \
       lumo-cljs@$LUMO_VERSION \
