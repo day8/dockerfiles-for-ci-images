@@ -596,6 +596,23 @@ RUN \
     echo 'exec /docker-entrypoint.sh /usr/bin/tail.original $@' >> /usr/bin/tail && \
     chmod +x /usr/bin/tail && \
 
+    # Strip binaries of debugging symbols that are not stripped already so save
+    # some space:
+    strip --strip-unneeded \
+        /usr/bin/git-lfs && \
+        /usr/local/bin/docker && \
+        /usr/local/bin/dockerd && \
+        /usr/local/bin/docker-proxy && \
+
+    # Save about ~22MB by deleting the pip cache:
+    rm -rf /root/.cache && \
+
+    # Delete npm's cache:
+    rm -rf /root/.npm && \
+
+    # Delete the .m2 repository because we cache this with actions/cache in GitHub Actions:
+    rm -rf /root/.m2 && \
+
     # Cleanup
     rm -rf /usr/share/icons/* \
            /var/lib/apt/lists/*
