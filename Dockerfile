@@ -65,6 +65,9 @@ RUN \
 
     cd /tmp && \
 
+    # Turn on Bash extended glob support so we can use patterns like !("file1"|"file2")
+    shopt -s extglob && \
+
     apt-get update -qq && \
     apt-get dist-upgrade -qq -y && \
     echo '\n\n' && \
@@ -407,6 +410,9 @@ RUN \
     sed -i 's|HERE/chrome"|HERE/chrome" --disable-setuid-sandbox --no-sandbox|g' \
         /opt/chromium/$CHROMIUM_VERSION/chrome-wrapper && \
     rm chromium-linux.zip && \
+
+    # Save about ~18MB by deleting all Chromium locales except English:
+    rm -f /opt/chromium/latest/locales/!("en-GB.pak"|"en-US.pak") && \
 
     # Install older libraries required by older Chrome release (56.x).
     #
