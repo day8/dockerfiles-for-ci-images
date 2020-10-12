@@ -5,7 +5,7 @@ ENV LEIN_ROOT=true
 ENV CHROME_BIN=/usr/local/bin/chrome-wrapper
 ENV DISPLAY=:99
 
-SHELL ["/bin/bash"]
+SHELL ["/bin/bash", "-c"]
 
 # Every RUN command creates an intermediate layer. Every additional layer has a massive performance
 # impact on the 'Initialize containers' step in GitHub Actions, which in turn is by far the most
@@ -15,54 +15,54 @@ RUN \
     # Just like RUN commands, every ENV line creates a new intermediate layer. So ENV lines are
     # reserved only for those environment variables that must persist after this RUN script has
     # completed.
-    export JVM_VERSION=11 && \
-    export LEIN_VERSION=2.9.4 && \
-    export LEIN_INSTALL=/usr/local/bin && \
-    export LEIN_SHA256SUM=80d17479d89174fa83fa1709b9c9dabf9396b9923c1020c480ab9c27a4e37d61 && \
-    export LEIN_GPGKEY=20242BACBBE95ADA22D0AFD7808A33D379C806C3 && \
-    export CLOJURE_VERSION=1.10.1.619 && \
-    export CLOJURE_SHA256SUM=28b1652686426cdf856f83551b8ca01ff949b03bc9a533d270204d6511a8ca9d && \
-    export BOOT_INSTALL=/usr/local/bin && \
-    export BOOT_VERSION=2.8.3 && \
-    export BOOT_SHA256SUM=0ccd697f2027e7e1cd3be3d62721057cbc841585740d0aaa9fbb485d7b1f17c3 && \
-    export LUMO_VERSION=1.10.1 && \
-    export KARMA_CLI_VERSION=2.0.0 && \
-    export DIFF_SO_FANCY_VERSION=1.3.0 && \
-    export BAT_VERSION=0.15.4 && \
-    export BAT_SHA256SUM=66b5fa31e4946da9331824fba4b6a7076565fe83866f14562450a010a5112857 && \
-    export FD_VERSION=8.1.1 && \
-    export FD_SHA256SUM=90890739d3995ed721e2b858ef3de6c6a64d25f0eda2bbd1e136c041195d76f2 && \
-    export HEXYL_VERSION=0.8.0 && \
-    export HEXYL_SHA256SUM=2e85c60264161ba7b99d294e0eda1664b1df776a709286db942416e494168761 && \
-    export RIPGREP_VERSION=12.1.1 && \
-    export RIPGREP_SHA256SUM=18ef498312073da55d2f2f65c6a906085c68368a23c9a45a87fcb8539be96608 && \
-    export EXA_VERSION=0.9.0 && \
-    export EXA_SHA256SUM=53d8746b1ca2d945c5b75767edc83addfd1fe3c4a2b0b766c07172473330a50b && \
-    export WEBSOCAT_VERSION=1.6.0 && \
-    export WEBSOCAT_SHA256SUM=cfe30fb51ebbce16059315202dc55bc528e43b83fa2e20b2e9179a85f7f05c28 && \
-    export PUEUE_VERSION=0.7.1 && \
-    export PUEUE_SHA256SUM=f134b96cf0b3b7582df021ea34190d79e05615dd43374fc071ba9ddc4b4b345a && \
-    export PUEUED_SHA256SUM=57bf82b2b3064658968a3eb0e01d8f3d1a142190cfb8cc6ac114f6e4b8142336 && \
-    export POWERSHELL_MAJOR_VERSION=7 && \
-    export POWERSHELL_VERSION=$POWERSHELL_MAJOR_VERSION.0.3 && \
-    export POWERSHELL_SHA256SUM=a9c023940c77a96a9f5135309e44c93ed627983bb1a66ecf5beb42bbba54ead6 && \
-    export DOCKER_VERSION=19.03.9 && \
-    export DOCKER_SHA256SUM=1c03c78be198d9085e7dd6806fc5d93264baaf0c7ea17f584d00af48eae508ee && \
-    export DOCKER_COMPOSE_VERSION=1.26.2 && \
-    export DOCKER_COMPOSE_SHA256SUM=13e50875393decdb047993c3c0192b0a3825613e6dfc0fa271efed4f5dbdd6eb && \
-    export KUBECTL_VERSION=1.19.0 && \
-    export KUBECTL_SHA256SUM=79bb0d2f05487ff533999a639c075043c70a0a1ba25c1629eb1eef6ebe3ba70f && \
-    export GIT_GPGKEY=E1DD270288B4E6030699E45FA1715D88E1DF1F24 && \
-    export NEOVIM_GPGKEY=9DBB0BE9366964F134855E2255F96FCF8231B6DD && \
-    export PLANCK_GPGKEY=A5D6812987A6E53579AF0308D3D743111F327606 && \
-    export CHROMIUM_VERSION=56.0.2924.0 && \
+    export JVM_VERSION="11" && \
+    export LEIN_VERSION="2.9.4" && \
+    export LEIN_INSTALL="/usr/local/bin" && \
+    export LEIN_SHA256SUM="80d17479d89174fa83fa1709b9c9dabf9396b9923c1020c480ab9c27a4e37d61" && \
+    export LEIN_GPGKEY="20242BACBBE95ADA22D0AFD7808A33D379C806C3" && \
+    export CLOJURE_VERSION="1.10.1.619" && \
+    export CLOJURE_SHA256SUM="28b1652686426cdf856f83551b8ca01ff949b03bc9a533d270204d6511a8ca9d" && \
+    export BOOT_INSTALL="/usr/local/bin" && \
+    export BOOT_VERSION="2.8.3" && \
+    export BOOT_SHA256SUM="0ccd697f2027e7e1cd3be3d62721057cbc841585740d0aaa9fbb485d7b1f17c3" && \
+    export LUMO_VERSION="1.10.1" && \
+    export KARMA_CLI_VERSION="2.0.0" && \
+    export DIFF_SO_FANCY_VERSION="1.3.0" && \
+    export BAT_VERSION="0.15.4" && \
+    export BAT_SHA256SUM="66b5fa31e4946da9331824fba4b6a7076565fe83866f14562450a010a5112857" && \
+    export FD_VERSION="8.1.1" && \
+    export FD_SHA256SUM="90890739d3995ed721e2b858ef3de6c6a64d25f0eda2bbd1e136c041195d76f2" && \
+    export HEXYL_VERSION="0.8.0" && \
+    export HEXYL_SHA256SUM="2e85c60264161ba7b99d294e0eda1664b1df776a709286db942416e494168761" && \
+    export RIPGREP_VERSION="12.1.1" && \
+    export RIPGREP_SHA256SUM="18ef498312073da55d2f2f65c6a906085c68368a23c9a45a87fcb8539be96608" && \
+    export EXA_VERSION="0.9.0" && \
+    export EXA_SHA256SUM="53d8746b1ca2d945c5b75767edc83addfd1fe3c4a2b0b766c07172473330a50b" && \
+    export WEBSOCAT_VERSION="1.6.0" && \
+    export WEBSOCAT_SHA256SUM="cfe30fb51ebbce16059315202dc55bc528e43b83fa2e20b2e9179a85f7f05c28" && \
+    export PUEUE_VERSION="0.7.1" && \
+    export PUEUE_SHA256SUM="f134b96cf0b3b7582df021ea34190d79e05615dd43374fc071ba9ddc4b4b345a" && \
+    export PUEUED_SHA256SUM="57bf82b2b3064658968a3eb0e01d8f3d1a142190cfb8cc6ac114f6e4b8142336" && \
+    export POWERSHELL_MAJOR_VERSION="7" && \
+    export POWERSHELL_VERSION="${POWERSHELL_MAJOR_VERSION}.0.3" && \
+    export POWERSHELL_SHA256SUM="a9c023940c77a96a9f5135309e44c93ed627983bb1a66ecf5beb42bbba54ead6" && \
+    export DOCKER_VERSION="19.03.9" && \
+    export DOCKER_SHA256SUM="1c03c78be198d9085e7dd6806fc5d93264baaf0c7ea17f584d00af48eae508ee" && \
+    export DOCKER_COMPOSE_VERSION="1.26.2" && \
+    export DOCKER_COMPOSE_SHA256SUM="13e50875393decdb047993c3c0192b0a3825613e6dfc0fa271efed4f5dbdd6eb" && \
+    export KUBECTL_VERSION="1.19.0" && \
+    export KUBECTL_SHA256SUM="79bb0d2f05487ff533999a639c075043c70a0a1ba25c1629eb1eef6ebe3ba70f" && \
+    export GIT_GPGKEY="E1DD270288B4E6030699E45FA1715D88E1DF1F24" && \
+    export NEOVIM_GPGKEY="9DBB0BE9366964F134855E2255F96FCF8231B6DD" && \
+    export PLANCK_GPGKEY="A5D6812987A6E53579AF0308D3D743111F327606" && \
+    export CHROMIUM_VERSION="56.0.2924.0" && \
     export CHROMIUM_PACKAGE_URL="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F433062%2Fchrome-linux.zip?generation=1479441205933000&alt=media" && \
-    export CHROMIUM_SHA256SUM=5e2e38ffbed6ff9bef287026c8d2628b12b5a43b5bf7c235bfa182e7fd5d213f && \
-    export CHROMEDRIVER_VERSION=2.29 && \
-    export CHROMEDRIVER_SHA256SUM=bb2cf08f2c213f061d6fbca9658fc44a367c1ba7e40b3ee1e3ae437be0f901c2 && \
-    export PHANTOMJS_VERSION=2.1.1 && \
-    export PHANTOMJS_SHA256SUM=86dd9a4bf4aee45f1a84c9f61cf1947c1d6dce9b9e8d2a907105da7852460d2f && \
-    export DEBIAN_FRONTEND=noninteractive && \
+    export CHROMIUM_SHA256SUM="5e2e38ffbed6ff9bef287026c8d2628b12b5a43b5bf7c235bfa182e7fd5d213f" && \
+    export CHROMEDRIVER_VERSION="2.29" && \
+    export CHROMEDRIVER_SHA256SUM="bb2cf08f2c213f061d6fbca9658fc44a367c1ba7e40b3ee1e3ae437be0f901c2" && \
+    export PHANTOMJS_VERSION="2.1.1" && \
+    export PHANTOMJS_SHA256SUM="86dd9a4bf4aee45f1a84c9f61cf1947c1d6dce9b9e8d2a907105da7852460d2f" && \
+    export DEBIAN_FRONTEND="noninteractive" && \
     export DOTFILES_BASE_URI="https://raw.githubusercontent.com/day8/dockerfile-for-dev-ci-image/master/dotfiles/" && \
 
     cd /tmp && \
@@ -414,7 +414,7 @@ RUN \
     rm chromium-linux.zip && \
 
     # Save about ~18MB by deleting all Chromium locales except English:
-    rm -f /opt/chromium/latest/locales/!("en-GB.pak"|"en-US.pak") && \
+    #rm -f /opt/chromium/latest/locales/!(en-GB.pak|en-US.pak) && \
 
     # Install older libraries required by older Chrome release (56.x).
     #
@@ -593,9 +593,9 @@ RUN \
     # Strip binaries of debugging symbols that are not stripped already so save
     # some space:
     strip --strip-unneeded \
-        /usr/bin/git-lfs && \
-        /usr/local/bin/docker && \
-        /usr/local/bin/dockerd && \
+        /usr/bin/git-lfs \
+        /usr/local/bin/docker \
+        /usr/local/bin/dockerd \
         /usr/local/bin/docker-proxy && \
 
     # Save about ~22MB by deleting the pip cache:
