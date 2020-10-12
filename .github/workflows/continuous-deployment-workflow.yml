@@ -10,11 +10,21 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - name: Build registry.hub.docker.com/day8au/dev-ci
+      - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci
         uses: elgohr/Publish-Docker-Github-Action@2.19
         with:
-          name: day8au/dev-ci
+          name: dev-ci
           tag_semver: true
-          registry: registry.hub.docker.com
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
+      - name: Slack notification
+        uses: homoluctus/slatify@v2.0.1
+        if: always()
+        with:
+          type: ${{ job.status  }}
+          job_name: dev-ci Docker Image Release
+          channel: '#lib-robots'
+          url: ${{ secrets.SLACK_WEBHOOK }}
+          commit: true
+          token: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
