@@ -135,7 +135,7 @@ RUN \
 
     # Begin /docker-entrypoint.sh script. This is amended throughout the RUN
     # command with additional lines.
-    echo '#!/bin/bash\n' > /docker-entrypoint.sh && \
+    echo '#!/bin/bash' > /docker-entrypoint.sh && \
 
     # Install development tooling, common editors and language runtimes.
     apt-get install -qq -y --no-install-recommends \
@@ -556,18 +556,18 @@ RUN \
       diff-so-fancy@$DIFF_SO_FANCY_VERSION && \
 
     # Finish Docker ENTRYPOINT script:
-    echo 'neofetch\n' >> /docker-entrypoint.sh && \
-    echo "echo \"`lein version`\"\n" >> /docker-entrypoint.sh && \
-    echo "echo \"lumo `lumo --version` and Planck `planck --version`\"\n" >> /docker-entrypoint.sh && \
-    echo "echo \"Node.js `node --version` with NPM `npm --version` and Yarn `yarn --version`\"\n" >> /docker-entrypoint.sh && \
-    echo "echo \"`python2 --version` and `python3 --version`\"\n" >> /docker-entrypoint.sh && \
-    echo "echo \"`git --version`\"\n" >> /docker-entrypoint.sh && \
-    echo "echo \"`git-lfs --version`\"\n" >> /docker-entrypoint.sh && \
-    echo "echo \"`pwsh --version`\"\n" >> /docker-entrypoint.sh && \
-    echo "echo \"`chrome-wrapper --version`\"\n" >> /docker-entrypoint.sh && \
-    echo "echo \"`chromedriver --version`\"\n" >> /docker-entrypoint.sh && \
-    echo "echo \"PhantomJS `phantomjs --version`\"\n" >> /docker-entrypoint.sh && \
-    echo 'exec "$@"\n' >> /docker-entrypoint.sh && \
+    echo 'neofetch' >> /docker-entrypoint.sh && \
+    echo "echo \"`lein version`\"" >> /docker-entrypoint.sh && \
+    echo "echo \"lumo `lumo --version` and Planck `planck --version`\"" >> /docker-entrypoint.sh && \
+    echo "echo \"Node.js `node --version` with NPM `npm --version` and Yarn `yarn --version`\"" >> /docker-entrypoint.sh && \
+    echo "echo \"`python2 --version` and `python3 --version`\"" >> /docker-entrypoint.sh && \
+    echo "echo \"`git --version`\"" >> /docker-entrypoint.sh && \
+    echo "echo \"`git-lfs --version`\"" >> /docker-entrypoint.sh && \
+    echo "echo \"`pwsh --version`\"" >> /docker-entrypoint.sh && \
+    echo "echo \"`chrome-wrapper --version`\"" >> /docker-entrypoint.sh && \
+    echo "echo \"`chromedriver --version`\"" >> /docker-entrypoint.sh && \
+    echo "echo \"PhantomJS `phantomjs --version`\"" >> /docker-entrypoint.sh && \
+    echo 'exec "$@"' >> /docker-entrypoint.sh && \
     chmod +x /docker-entrypoint.sh && \
 
     # GitHub Actions overrides ENTRYPOINT with the --entrypoint CLI option to execute a long-running
