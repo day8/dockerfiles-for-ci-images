@@ -5,6 +5,8 @@ ENV LEIN_ROOT=true
 ENV CHROME_BIN=/usr/local/bin/chrome-wrapper
 ENV DISPLAY=:99
 
+SHELL ["/bin/bash"]
+
 # Every RUN command creates an intermediate layer. Every additional layer has a massive performance
 # impact on the 'Initialize containers' step in GitHub Actions, which in turn is by far the most
 # significant step in duration in most GitHub Actions workflows. Therefore we execute and cleanup
@@ -610,5 +612,4 @@ RUN \
            /var/lib/apt/lists/*
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-SHELL ["/bin/bash"]
 CMD ["/bin/bash"]
