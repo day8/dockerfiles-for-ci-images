@@ -133,7 +133,7 @@ RUN \
 
     # Begin /docker-entrypoint.sh script. This is amended throughout the RUN
     # command with additional lines.
-    echo '#!/bin/sh\n' > /docker-entrypoint.sh && \
+    echo '#!/bin/bash\n' > /docker-entrypoint.sh && \
 
     # Install development tooling, common editors and language runtimes.
     apt-get install -qq -y --no-install-recommends \
@@ -610,4 +610,5 @@ RUN \
            /var/lib/apt/lists/*
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["/bin/zsh"]
+SHELL ["/bin/bash"]
+CMD ["/bin/bash"]
