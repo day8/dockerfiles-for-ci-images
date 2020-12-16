@@ -28,10 +28,10 @@ RUN \
     export LUMO_VERSION="1.10.1" && \
     export KARMA_CLI_VERSION="2.0.0" && \
     export DIFF_SO_FANCY_VERSION="1.3.0" && \
-    export BAT_VERSION="0.15.4" && \
-    export BAT_SHA256SUM="66b5fa31e4946da9331824fba4b6a7076565fe83866f14562450a010a5112857" && \
-    export FD_VERSION="8.1.1" && \
-    export FD_SHA256SUM="90890739d3995ed721e2b858ef3de6c6a64d25f0eda2bbd1e136c041195d76f2" && \
+    export BAT_VERSION="0.17.1" && \
+    export BAT_SHA256SUM="0b50b6e654583e870725ed3b2db2c49f1e9612c5dd318f3fd4c4dafbb0f9ce84" && \
+    export FD_VERSION="8.2.1" && \
+    export FD_SHA256SUM="f3a949325f1893145ced2b269a67d5763af3bede435c40e3b85b29afdb78c3d2" && \
     export HEXYL_VERSION="0.8.0" && \
     export HEXYL_SHA256SUM="2e85c60264161ba7b99d294e0eda1664b1df776a709286db942416e494168761" && \
     export RIPGREP_VERSION="12.1.1" && \
