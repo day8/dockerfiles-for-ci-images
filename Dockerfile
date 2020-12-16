@@ -44,8 +44,8 @@ RUN \
     export PUEUE_SHA256SUM="0d69aa3e50a0bfd6c33ea611ce81cf388ae8664133735b13de31db2c7760e0c9" && \
     export PUEUED_SHA256SUM="7e04a13a369d10f9b41ce0e2bafc1bdbfd31e46a129bafea15a6e3c471f9f370" && \
     export POWERSHELL_MAJOR_VERSION="7" && \
-    export POWERSHELL_VERSION="${POWERSHELL_MAJOR_VERSION}.0.3" && \
-    export POWERSHELL_SHA256SUM="a9c023940c77a96a9f5135309e44c93ed627983bb1a66ecf5beb42bbba54ead6" && \
+    export POWERSHELL_VERSION="${POWERSHELL_MAJOR_VERSION}.1.0" && \
+    export POWERSHELL_SHA256SUM="09ac03bdcd7c74a36807beca62eb4ccfca690be1dc3936ed08a7b8f14fe0cff9" && \
     export DOCKER_VERSION="19.03.9" && \
     export DOCKER_SHA256SUM="1c03c78be198d9085e7dd6806fc5d93264baaf0c7ea17f584d00af48eae508ee" && \
     export DOCKER_COMPOSE_VERSION="1.26.2" && \
@@ -146,6 +146,8 @@ RUN \
       zsh build-essential cmake openjdk-$JVM_VERSION\-jdk-headless nodejs yarn python2 python3-pip planck \
       pngnq pngquant pngtools pngmeta pngcrush pngcheck \
       jhead jpeginfo jpegoptim jpegpixi \
+    # These are dependencies of powershell
+      liblttng-ust-ctl4 liblttng-ust0 \
     # These are dependencies of xvfb and/or Chrome. Unfortunately due to the old version of Chrome
     # used (56.x) there is a dependency on old libraries like libgtk2.0-0 that take up a lot of
     # extra space.
@@ -495,15 +497,12 @@ RUN \
     # a preferred editor handy, be it vim or emacs, it is also important to have a familiar shell available to those who
     # want to use it.
     echo "Installing PowerShell ${POWERSHELL_VERSION}..." && \
-    wget -q -O powershell.tar.gz https://github.com/PowerShell/PowerShell/releases/download/v${POWERSHELL_VERSION}/powershell-${POWERSHELL_VERSION}-linux-x64.tar.gz && \
+    wget -q https://github.com/PowerShell/PowerShell/releases/download/v${POWERSHELL_VERSION}/powershell_${POWERSHELL_VERSION}-1.ubuntu.20.04_amd64.deb && \
     echo "Verifying powershell package checksum..." && \
-    sha256sum powershell.tar.gz && \
-    echo "$POWERSHELL_SHA256SUM *powershell.tar.gz" | sha256sum -c - && \
-    mkdir -p /opt/microsoft/powershell/${POWERSHELL_MAJOR_VERSION} && \
-    tar zxf powershell.tar.gz -C /opt/microsoft/powershell/${POWERSHELL_MAJOR_VERSION} && \
-    rm -f powershell.tar.gz && \
-    chmod +x /opt/microsoft/powershell/${POWERSHELL_MAJOR_VERSION}/pwsh && \
-    ln -s /opt/microsoft/powershell/${POWERSHELL_MAJOR_VERSION}/pwsh /usr/local/bin/pwsh && \
+    sha256sum "powershell_${POWERSHELL_VERSION}-1.ubuntu.20.04_amd64.deb" && \
+    echo "$POWERSHELL_SHA256SUM *powershell_${POWERSHELL_VERSION}-1.ubuntu.20.04_amd64.deb" | sha256sum -c - && \
+    dpkg -i "powershell_${POWERSHELL_VERSION}-1.ubuntu.20.04_amd64.deb" && \
+    rm -f "powershell_${POWERSHELL_VERSION}-1.ubuntu.20.04_amd64.deb" && \
 
     # Ref: https://github.com/JanDeDobbeleer/oh-my-posh#installation
     pwsh -Command "Set-PSRepository PSGallery -InstallationPolicy Trusted" && \
