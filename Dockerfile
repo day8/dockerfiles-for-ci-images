@@ -20,8 +20,8 @@ RUN \
     export LEIN_INSTALL="/usr/local/bin" && \
     export LEIN_SHA256SUM="3601d55c4b5ac5c654e4ebd0d75abf7ad683f48cba8a7af1a8730b6590187b8a" && \
     export LEIN_GPGKEY="20242BACBBE95ADA22D0AFD7808A33D379C806C3" && \
-    export CLOJURE_VERSION="1.10.1.619" && \
-    export CLOJURE_SHA256SUM="28b1652686426cdf856f83551b8ca01ff949b03bc9a533d270204d6511a8ca9d" && \
+    export CLOJURE_VERSION="1.10.1.754" && \
+    export CLOJURE_SHA256SUM="1c623dd76ea75cb89623ffc71a5ec59297c785c0c19fc5c2fa0fe9428efe8a3d" && \
     export BOOT_INSTALL="/usr/local/bin" && \
     export BOOT_VERSION="2.8.3" && \
     export BOOT_SHA256SUM="0ccd697f2027e7e1cd3be3d62721057cbc841585740d0aaa9fbb485d7b1f17c3" && \
