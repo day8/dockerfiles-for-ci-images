@@ -16,9 +16,9 @@ RUN \
     # reserved only for those environment variables that must persist after this RUN script has
     # completed.
     export JVM_VERSION="11" && \
-    export LEIN_VERSION="2.9.4" && \
+    export LEIN_VERSION="2.9.5" && \
     export LEIN_INSTALL="/usr/local/bin" && \
-    export LEIN_SHA256SUM="80d17479d89174fa83fa1709b9c9dabf9396b9923c1020c480ab9c27a4e37d61" && \
+    export LEIN_SHA256SUM="3601d55c4b5ac5c654e4ebd0d75abf7ad683f48cba8a7af1a8730b6590187b8a" && \
     export LEIN_GPGKEY="20242BACBBE95ADA22D0AFD7808A33D379C806C3" && \
     export CLOJURE_VERSION="1.10.1.619" && \
     export CLOJURE_SHA256SUM="28b1652686426cdf856f83551b8ca01ff949b03bc9a533d270204d6511a8ca9d" && \
@@ -173,12 +173,7 @@ RUN \
     # Install Leiningen:
     echo "Installing Leiningen ${LEIN_VERSION}..." && \
     mkdir -p $LEIN_INSTALL && \
-    # Once leiningen 2.9.5 is released replace the below git commit-based URL with the following version-based URL.
-    # Leiningen 2.9.4 has a bug that was subsequently fixed but not released that causes a syntax error.
-    # See technomancy/leiningen#2691
-    #
-    # wget -q https://raw.githubusercontent.com/technomancy/leiningen/$LEIN_VERSION/bin/lein-pkg && \
-    wget -q "https://raw.githubusercontent.com/technomancy/leiningen/7677dabea40a2d17a42a718ca8c7e450b09e153c/bin/lein-pkg" && \
+    wget -q https://raw.githubusercontent.com/technomancy/leiningen/$LEIN_VERSION/bin/lein-pkg && \
     echo "Verifying lein-pkg checksum..." && \
     sha256sum lein-pkg && \
     echo "$LEIN_SHA256SUM *lein-pkg" | sha256sum -c - && \
