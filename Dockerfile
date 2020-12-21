@@ -28,6 +28,8 @@ RUN \
     export LUMO_VERSION="1.10.1" && \
     export KARMA_CLI_VERSION="2.0.0" && \
     export DIFF_SO_FANCY_VERSION="1.3.0" && \
+    export GH_VERSION="1.4.0" && \
+    export GH_SHA256SUM="d367db47772dc4fdce214925029a706213007902a2e575a0c891d4fb2a9e23a4" && \
     export BAT_VERSION="0.17.1" && \
     export BAT_SHA256SUM="0b50b6e654583e870725ed3b2db2c49f1e9612c5dd318f3fd4c4dafbb0f9ce84" && \
     export FD_VERSION="8.2.1" && \
@@ -257,6 +259,25 @@ RUN \
     echo "${KUBECTL_SHA256SUM} *kubectl" | sha256sum -c - && \
     mv kubectl /usr/local/bin && \
     chmod +x /usr/local/bin/kubectl && \
+
+    # Install gh
+    #
+    # GitHub's official command line tool.
+    #
+    # To update to a new release:
+    # 1. Open https://github.com/cli/cli/releases/
+    # 2. Download gh_VERSION_linux_amd64.deb for the desired version
+    # 3. Run `sha256sum gh_VERSION_linux_amd64.deb`
+    # 4. Copy/paste the checksum to GH_SHA256SUM in environment variables at the beginning of this RUN script
+    # 5. Edit the GH_VERSION in environment variables at the beginning of this RUN script
+    echo "Installing gh ${GH_VERSION}..." && \
+    wget -q "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.deb" && \
+    echo "Verifying gh_${GH_VERSION}_linux_amd64.deb checksum..." && \
+    sha256sum "gh_${GH_VERSION}_linux_amd64.deb" && \
+    echo "$GH_SHA256SUM *gh_${GH_VERSION}_linux_amd64.deb" | sha256sum -c - && \
+    dpkg -i "gh_${GH_VERSION}_linux_amd64.deb" && \
+    rm -f "gh_${GH_VERSION}_linux_amd64.deb" && \
+    echo '\n\n' && \
 
     # Install bat
     #

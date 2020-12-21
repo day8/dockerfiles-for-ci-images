@@ -78,6 +78,7 @@ usability when using the image as an interactive shell; e.g. `docker run -it --r
 
 | Tool                              | Description | Origin |
 | --------------------------------- | --- | --- |
+| [`gh`](https://github.com/cli/cli/) | GitHub's official command line tool. | [GitHub Releases Assets: `gh_N.N.N_linux_amd64.deb`](https://github.com/cli/cli/releases) |
 | [`exa`](https://the.exa.website/) | Modern replacement for `ls`. | [GitHub Releases Assets: `exa-linux-x86_64-N.N.N.zip`](https://github.com/ogham/exa/releases) |
 | [`bat`](https://github.com/sharkdp/bat) | `cat` clone with syntax highlighting and Git integration. | [GitHub Releases Assets: `bat_N.N.N_amd64.deb`](https://github.com/sharkdp/bat/releases) |
 | [`fd`](https://github.com/sharkdp/fd) | Simple, fast and user-friendly alternative to `find`. | [GitHub Releases Assets: `fd_N.N.N_amd64.deb`](https://github.com/sharkdp/fd/releases) |
