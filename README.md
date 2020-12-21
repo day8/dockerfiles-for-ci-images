@@ -124,17 +124,26 @@ situations less painful we include the following common editors:
 | [`nvim`](https://neovim.io/) ('NeoVim')        | [space-vim](https://github.com/liuchengxu/space-vim) | A better `vim`.                          | ['Neovim Unstable' Ubuntu PPA](https://launchpad.net/~neovim-ppa/+archive/ubuntu/unstable) |
 | [`emacs`](https://www.gnu.org/software/emacs/) | [Spacemacs](https://www.spacemacs.org/)              | For the grey-beards.                     | [Ubuntu Package: `emacs-nox`](https://packages.ubuntu.com/focal/emacs-nox)                 |
 
-## Why DockerHub ?
+## Why Not Docker Hub ?
 
-[GitHub Packages](https://github.com/features/packages) provide Docker image storage, so you may ask why DockerHub ?
+In 2020 [Docker Hub introduced rate limiting](https://www.docker.com/blog/scaling-docker-to-serve-millions-more-developers-network-egress/)
+and around the same time [GitHub Actions finally fixed use of GitHub Container Registry](https://github.blog/changelog/2020-09-24-github-actions-private-registry-support-for-job-and-service-containers/).
 
-Somewhat ironically, it turns out it is practically impossible to use GitHub Packages with GitHub
-Actions for `jobs.<job_id>.container.image` or `jobs.<job_id>.services.image`. 
+Therefore we no longer publish images to Docker Hub and use GitHub Container Registry instead.
 
-[GitHub Packages Docker registry always requires authentication](https://github.community/t/docker-pull-from-public-github-package-registry-fail-with-no-basic-auth-credentials-error/16358/37),
-even for public repositories! In addition, [GitHub Actions do not support providing credentials to Docker](https://github.community/t/how-to-use-private-docker-registry/17599).
-The combination of these two issues makes it practically impossible to use GitHub Packages for Docker images that are
-used for GitHub Actions at this time.
+## GitHub Actions Example
+
+```yaml
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-18.04
+    container:
+      image: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0.0.13
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }} # <-- you need to create a GitHub Secret with a manual token that has global access as github.token only has access to the current repo! 
+```
 
 ## Troubleshooting
 
