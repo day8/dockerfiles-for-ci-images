@@ -25,6 +25,8 @@ RUN \
     export BOOT_INSTALL="/usr/local/bin" && \
     export BOOT_VERSION="2.8.3" && \
     export BOOT_SHA256SUM="0ccd697f2027e7e1cd3be3d62721057cbc841585740d0aaa9fbb485d7b1f17c3" && \
+    export CLJ_KONDO_VERSION="2021.03.03" && \
+    export CLJ_KONDO_SHA256SUM="5b34edc5ff386fa33d49a75a64c22539032905020558fcd0f41a593d794cf584" && \
     export LUMO_VERSION="1.10.1" && \
     export KARMA_CLI_VERSION="2.0.0" && \
     export DIFF_SO_FANCY_VERSION="1.3.0" && \
@@ -205,6 +207,15 @@ RUN \
     mv boot.sh $BOOT_INSTALL/boot && \
     chmod 0755 $BOOT_INSTALL/boot && \
     echo '\n\n' && \
+
+    # Install clj-kondo:
+    echo "Installing clj-kondo..." && \
+    wget -q "https://github.com/clj-kondo/clj-kondo/releases/download/v${CLJ_KONDO_VERSION}/clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" && \
+    echo "Verifying clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" && \
+    sha256sum "clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" && \
+    echo "$CLJ_KONDO_SHA256SUM *clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" | sha256sum -c - && \
+    unzip "clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" -d /usr/local/bin && \
+    clj-kondo --version && \
 
     # Install pipenv
     echo "Installing pipenv..." && \
