@@ -1,29 +1,38 @@
 # Dockerfile for `day8au/dev-ci` Image
 
-The [`day8au/dev-ci`][1] Docker image is the reference development and testing environment used 
-throughout [Day8's](https://www.day8.com.au/) development pipeline.
+The [`docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci`][1] Docker image is the 
+reference development and testing environment used throughout [Day8's](https://www.day8.com.au/) 
+development pipeline.
 
-There are two main use cases for the [`day8au/dev-ci`][1] Docker image:
+There are two main use cases for the [`docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci`][1] Docker image:
 1. During development [Okteto](https://okteto.com/) is used to run this Docker image in Kubernetes.
 2. On pushing code to GitHub, this Docker image is the environment used to execute tests and build 
    releases for deployment with GitHub Actions.
  
-This repository contains the [`Dockerfile`][3] to build the [`day8au/dev-ci`][1] Docker image. It 
-also contains the [GitHub Actions][4] that test and deploy the Docker image.
+This repository contains the [`Dockerfile`][3] to build the [`docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci`][1] 
+Docker image. It also contains the [GitHub Actions][4] that test and deploy the Docker image.
 
 [Ubuntu 20.04 LTS][5] was chosen as the base image as it is a long term stable release of a widely 
 understood and supported distribution.
 
-[1]: https://hub.docker.com/r/day8au/dev-ci
+[1]: https://github.com/orgs/day8/packages?repo_name=dockerfile-for-dev-ci-image
 [2]: https://www.day8.com.au/
 [3]: https://github.com/day8/dockerfile-for-dev-ci-image/blob/master/Dockerfile
 [4]: https://github.com/day8/dockerfile-for-dev-ci-image/actions
 [5]: https://hub.docker.com/_/ubuntu
 
+## Quick Start
+
+To run an interactive terminal:
+```
+$ docker login docker.pkg.github.com
+$ docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0.1
+```
+
 ## Build Requirements
 
 On image startup the exact versions of important software are printed to the
-console; e.g. `docker run -it --rm day8au/dev-ci:0.0.8`.
+console.
 
 | Name                                                | Version               | Description | Origin | 
 | --------------------------------------------------- | --------------------- | ----------- | ------ |
@@ -60,24 +69,26 @@ available for exploratory programming and debugging of code snippets.
 
 | Name               | Language        | Example                                       |
 | ------------------ | --------------- | --------------------------------------------- | 
-| 'Official' Clojure | Clojure         | `docker run -it --rm day8au/dev-ci clojure`   |
-| Leiningen          | Clojure         | `docker run -it --rm day8au/dev-ci lein repl` |
-| Planck             | ClojureScript   | `docker run -it --rm day8au/dev-ci planck`    |
-| Lumo               | ClojureScript   | `docker run -it --rm day8au/dev-ci lumo`      |
-| Node.js            | JavaScript      | `docker run -it --rm day8au/dev-ci node`      |
-| Python 2           | Python 2        | `docker run -it --rm day8au/dev-ci python2`   |
-| Python 3           | Python 3        | `docker run -it --rm day8au/dev-ci python3`   |
-| Bash               | Bash            | `docker run -it --rm day8au/dev-ci bash`      |
-| PowerShell         | PowerShell Core | `docker run -it --rm day8au/dev-ci pwsh`      |
-| ZSH (default)      | ZSH             | `docker run -it --rm day8au/dev-ci`           |
+| 'Official' Clojure | Clojure         | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 clojure`   |
+| Leiningen          | Clojure         | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 lein repl` |
+| Planck             | ClojureScript   | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 planck`    |
+| Lumo               | ClojureScript   | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 lumo`      |
+| Node.js            | JavaScript      | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 node`      |
+| Python 2           | Python 2        | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 python2`   |
+| Python 3           | Python 3        | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 python3`   |
+| Bash               | Bash            | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 bash`      |
+| PowerShell         | PowerShell Core | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 pwsh`      |
+| ZSH (default)      | ZSH             | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0`           |
 
 ## Command-Line Tools
 
 The following tools are not usually required for builds (e.g. GitHub Actions). These are included for convenience and
-usability when using the image as an interactive shell; e.g. `docker run -it --rm day8au/dev-ci` (ZSH).
+usability when using the image as an interactive shell.
 
 | Tool                              | Description | Origin |
 | --------------------------------- | --- | --- |
+| [`clj-kondo`](https://github.com/clj-kondo/clj-kondo) | A linter for Clojure code that sparks joy. | GitHub Releases Assets |
+| [`babashka`](https://github.com/babashka/babashka) | Native Clojure interpreter for scripting. | GitHub Releases Assets |
 | [`gh`](https://github.com/cli/cli/) | GitHub's official command line tool. | [GitHub Releases Assets: `gh_N.N.N_linux_amd64.deb`](https://github.com/cli/cli/releases) |
 | [`exa`](https://the.exa.website/) | Modern replacement for `ls`. | [GitHub Releases Assets: `exa-linux-x86_64-N.N.N.zip`](https://github.com/ogham/exa/releases) |
 | [`bat`](https://github.com/sharkdp/bat) | `cat` clone with syntax highlighting and Git integration. | [GitHub Releases Assets: `bat_N.N.N_amd64.deb`](https://github.com/sharkdp/bat/releases) |
@@ -112,7 +123,7 @@ usability when using the image as an interactive shell; e.g. `docker run -it --r
 
 ## Editors
 
-Usually editing of source files is outside of the container and either synced with 
+Usually editing of source files is done outside of the container and either synced with 
 [Okteto]([Okteto](https://okteto.com/)) or checked out with Git in the case of GitHub Actions.
 
 However, on rare occasions it may be useful to shell into the container to edit a file. To make such
@@ -139,7 +150,7 @@ jobs:
     name: Test
     runs-on: ubuntu-18.04
     container:
-      image: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0.0.13
+      image: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0.1
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }} # <-- you need to create a GitHub Secret with a manual token that has global access as github.token only has access to the current repo! 
