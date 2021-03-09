@@ -34,8 +34,8 @@ RUN \
     export DIFF_SO_FANCY_VERSION="1.3.0" && \
     export GH_VERSION="1.4.0" && \
     export GH_SHA256SUM="d367db47772dc4fdce214925029a706213007902a2e575a0c891d4fb2a9e23a4" && \
-    export BAT_VERSION="0.17.1" && \
-    export BAT_SHA256SUM="0b50b6e654583e870725ed3b2db2c49f1e9612c5dd318f3fd4c4dafbb0f9ce84" && \
+    export BAT_VERSION="0.18.0" && \
+    export BAT_SHA256SUM="6bff050d021682ec9acee2b982d03c00a958bf5aafce88b5f5e95e59e0a7af6a" && \
     export FD_VERSION="8.2.1" && \
     export FD_SHA256SUM="f3a949325f1893145ced2b269a67d5763af3bede435c40e3b85b29afdb78c3d2" && \
     export HEXYL_VERSION="0.8.0" && \
