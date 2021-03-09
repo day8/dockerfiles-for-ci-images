@@ -49,9 +49,8 @@ RUN \
     export PUEUE_VERSION="0.9.0" && \
     export PUEUE_SHA256SUM="0d69aa3e50a0bfd6c33ea611ce81cf388ae8664133735b13de31db2c7760e0c9" && \
     export PUEUED_SHA256SUM="7e04a13a369d10f9b41ce0e2bafc1bdbfd31e46a129bafea15a6e3c471f9f370" && \
-    export POWERSHELL_MAJOR_VERSION="7" && \
-    export POWERSHELL_VERSION="${POWERSHELL_MAJOR_VERSION}.1.0" && \
-    export POWERSHELL_SHA256SUM="09ac03bdcd7c74a36807beca62eb4ccfca690be1dc3936ed08a7b8f14fe0cff9" && \
+    export POWERSHELL_VERSION="7.1.2" && \
+    export POWERSHELL_SHA256SUM="23639edff0487fe084d011767c67d35d55f37a22bd00cd0bb48acddff9f217b8" && \
     export DOCKER_VERSION="19.03.9" && \
     export DOCKER_SHA256SUM="1c03c78be198d9085e7dd6806fc5d93264baaf0c7ea17f584d00af48eae508ee" && \
     export DOCKER_COMPOSE_VERSION="1.26.2" && \
