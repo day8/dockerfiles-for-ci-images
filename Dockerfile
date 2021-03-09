@@ -32,8 +32,8 @@ RUN \
     export LUMO_VERSION="1.10.1" && \
     export KARMA_CLI_VERSION="2.0.0" && \
     export DIFF_SO_FANCY_VERSION="1.3.0" && \
-    export GH_VERSION="1.4.0" && \
-    export GH_SHA256SUM="d367db47772dc4fdce214925029a706213007902a2e575a0c891d4fb2a9e23a4" && \
+    export GH_VERSION="1.7.0" && \
+    export GH_SHA256SUM="1907a1094cb7eb5218ca4e22a27229849e9a2bfc07ad4e83e1cbf43487b9c1bc" && \
     export BAT_VERSION="0.18.0" && \
     export BAT_SHA256SUM="6bff050d021682ec9acee2b982d03c00a958bf5aafce88b5f5e95e59e0a7af6a" && \
     export FD_VERSION="8.2.1" && \
