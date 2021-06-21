@@ -25,8 +25,8 @@ RUN \
     export BOOT_INSTALL="/usr/local/bin" && \
     export BOOT_VERSION="2.8.3" && \
     export BOOT_SHA256SUM="0ccd697f2027e7e1cd3be3d62721057cbc841585740d0aaa9fbb485d7b1f17c3" && \
-    export BABASHKA_VERSION="0.2.13" && \
-    export BABASHKA_SHA256SUM="7fb8a5815a343698d0d66dad5da2d6631fbe4cf97b7a21ac52c5d10dbe3a7c2c" && \
+    export BABASHKA_VERSION="0.4.6" && \
+    export BABASHKA_SHA256SUM="7558f8a189ce40ff8e9871010e792360ec5c03a8eee87cc85e38f48c562a6e70" && \
     export CLJ_KONDO_VERSION="2021.03.03" && \
     export CLJ_KONDO_SHA256SUM="5b34edc5ff386fa33d49a75a64c22539032905020558fcd0f41a593d794cf584" && \
     export LUMO_VERSION="1.10.1" && \
@@ -211,11 +211,11 @@ RUN \
 
     # Install babashka:
     echo "Installing babashka..." && \
-    wget -q "https://github.com/babashka/babashka/releases/download/v${BABASHKA_VERSION}/babashka-${BABASHKA_VERSION}-linux-amd64.zip" && \
-    echo "Verifying babashka-${BABASHKA_VERSION}-linux-amd64.zip" && \
-    sha256sum "babashka-${BABASHKA_VERSION}-linux-amd64.zip" && \
-    echo "${BABASHKA_SHA256SUM} *babashka-${BABASHKA_VERSION}-linux-amd64.zip" | sha256sum -c - && \
-    unzip "babashka-${BABASHKA_VERSION}-linux-amd64.zip" -d /usr/local/bin && \
+    wget -q "https://github.com/babashka/babashka/releases/download/v${BABASHKA_VERSION}/babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz && \
+    echo "Verifying babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" && \
+    sha256sum "babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" && \
+    echo "${BABASHKA_SHA256SUM} *babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" | sha256sum -c - && \
+    tar -xzf "babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" -C /usr/local/bin && \
     bb --version && \
 
     # Install clj-kondo:
