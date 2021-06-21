@@ -43,7 +43,7 @@ RUN \
     export RIPGREP_VERSION="13.0.0" && \
     export RIPGREP_SHA256SUM="6d78bed13722019cb4f9d0cf366715e2dcd589f4cf91897efb28216a6bb319f1" && \
     export EXA_VERSION="0.10.1" && \
-    export EXA_SHA256SUM="a65a87bd545e969979ae9388f6333167f041a1f09fa9d60b32fd3072348ff6cea" && \
+    export EXA_SHA256SUM="a65a87bd545e969979ae9388f6333167f041a1f09fa9d60b32fd3072348ff6ce" && \
     export WEBSOCAT_VERSION="1.8.0" && \
     export WEBSOCAT_SHA256SUM="5968a3a2ede69fa8bb3df1419b908575f6532ce4eef250e1fcfbaadada3ccaef" && \
     export PUEUE_VERSION="0.12.0" && \
@@ -368,11 +368,11 @@ RUN \
     echo '\n\n' && \
 
     # Install exa
-    echo "Installing exa ${EVA_VERSION}..." && \
+    echo "Installing exa ${EXA_VERSION}..." && \
     wget -q "https://github.com/ogham/exa/releases/download/v${EXA_VERSION}/exa-linux-x86_64-v${EXA_VERSION}.zip" && \
     echo "Verifying exa-linux-x86_64-v${EXA_VERSION}.zip checksum..." && \
     sha256sum "exa-linux-x86_64-v${EXA_VERSION}.zip" && \
-    echo "${EXA_SHA256SUM} *exa-linux-x86_64-v${EXA_VERSION}.zip" | sha256sum -c - && \
+    echo "${EXA_SHA256SUM} exa-linux-x86_64-v${EXA_VERSION}.zip" | sha256sum -c - && \
     unzip -q "exa-linux-x86_64-v${EXA_VERSION}.zip" -d /usr/local && \
     rm -f "exa-linux-x86_64-v${EXA_VERSION}.zip" && \
     echo '\n\n' && \
