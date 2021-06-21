@@ -577,13 +577,9 @@ RUN \
     rm -rf gitstatus && \
 
     # Install Zsh, Bash and Vim configuration files:
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k && \
-    echo 'source ~/.powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc && \
-    echo '[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' >> ~/.zshrc && \
-    wget -q -O /root/.p10k.zsh "${DOTFILES_BASE_URI}/.p10k.zsh" && \
-
-    git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
-    ~/.bash_it/install.sh --silent && \
+    echo 'eval "$(oh-my-posh --init --shell zsh --config ~/jandedobbeleer.omp.json)"' >> ~/.zshrc && \
+    
+    echo 'eval "$(oh-my-posh --init --shell bash --config ~/jandedobbeleer.omp.json)"' >> ~/.bashrc && \
 
     git clone --depth 1 https://github.com/liuchengxu/space-vim.git ~/.space-vim && \
     wget -q -O /root/.spacevim "${DOTFILES_BASE_URI}/.spacevim" && \
