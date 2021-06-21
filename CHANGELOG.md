@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+## 1.0.0 (2021-06-21)
+
 #### Added
 
 - Add oh-my-posh v3 for all shells (PowerShell, ZSH, Bash).
