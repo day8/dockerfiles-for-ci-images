@@ -556,6 +556,7 @@ RUN \
     unzip ~/.poshthemes/themes.zip -d ~/.poshthemes && \
     chmod u+rw ~/.poshthemes/*.json && \
     rm ~/.poshthemes/themes.zip && \
+    cp ~/.poshthemes/jandedobbeleer.omp.json ~ && \
     pwsh -Command "Set-PSRepository PSGallery -InstallationPolicy Trusted" && \
     pwsh -Command "Install-Module posh-git -Scope CurrentUser" && \
     pwsh -Command "Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -SkipPublisherCheck" && \
