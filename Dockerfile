@@ -211,7 +211,7 @@ RUN \
 
     # Install babashka:
     echo "Installing babashka..." && \
-    wget -q "https://github.com/babashka/babashka/releases/download/v${BABASHKA_VERSION}/babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz && \
+    wget -q "https://github.com/babashka/babashka/releases/download/v${BABASHKA_VERSION}/babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" && \
     echo "Verifying babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" && \
     sha256sum "babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" && \
     echo "${BABASHKA_SHA256SUM} *babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" | sha256sum -c - && \
