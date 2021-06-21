@@ -29,6 +29,10 @@ RUN \
     export BABASHKA_SHA256SUM="7558f8a189ce40ff8e9871010e792360ec5c03a8eee87cc85e38f48c562a6e70" && \
     export CLJ_KONDO_VERSION="2021.06.18" && \
     export CLJ_KONDO_SHA256SUM="3a31983fb07086e0791de51e0f700a45265b20e4815855c10845da0452d4e9bb" && \
+    export AWS_CLI_VERSION="2.2.13" && \
+    export AWS_CLI_SHA256SUM="c4c3afec8c3ebf499df9e8b9b3075fbcf5d98000fcf41db5383ad17fc6f92bae" && \
+    export AWS_SAM_CLI_VERSION="1.24.1" && \
+    export AWS_SAM_CLI_SHA256SUM="ba424e9882d359294f12aec0552bc9b56d2db92b04cfbb8b549a2e7fde7fd006" && \
     export LUMO_VERSION="1.10.1" && \
     export KARMA_CLI_VERSION="2.0.0" && \
     export DIFF_SO_FANCY_VERSION="1.3.0" && \
@@ -214,7 +218,7 @@ RUN \
     # Install babashka:
     echo "Installing babashka..." && \
     wget -q "https://github.com/babashka/babashka/releases/download/v${BABASHKA_VERSION}/babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" && \
-    echo "Verifying babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" && \
+    echo "Verifying babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz checksum..." && \
     sha256sum "babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" && \
     echo "${BABASHKA_SHA256SUM} *babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" | sha256sum -c - && \
     tar -xzf "babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" -C /usr/local/bin && \
@@ -223,20 +227,37 @@ RUN \
     # Install clj-kondo:
     echo "Installing clj-kondo..." && \
     wget -q "https://github.com/clj-kondo/clj-kondo/releases/download/v${CLJ_KONDO_VERSION}/clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" && \
-    echo "Verifying clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" && \
+    echo "Verifying clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip checksum..." && \
     sha256sum "clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" && \
     echo "$CLJ_KONDO_SHA256SUM *clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" | sha256sum -c - && \
     unzip "clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" -d /usr/local/bin && \
     clj-kondo --version && \
 
+    # install AWS CLI
+    echo "Install AWS CLI..." && \
+    wget -q "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWS_CLI_VERSION}.zip" && \
+    echo "Verifying awscli-exe-linux-x86_64-${AWS_CLI_VERSION}.zip checksum..." && \
+    sha256sum awscli-exe-linux-x86_64-${AWS_CLI_VERSION}.zip && \
+    echo "${AWS_CLI_SHA256SUM} awscli-exe-linux-x86_64-${AWS_CLI_VERSION}.zip" | sha256sum -c - && \
+    unzip awscli-exe-linux-x86_64-${AWS_CLI_VERSION}.zip -d aws-installation && \
+    ./aws-installation/aws/install && \
+    rm -rf awscli-exe-linux-x86_64-${AWS_CLI_VERSION}.zip aws-installation && \
+    aws --version && \
+
+    # Install AWS SAM CLI
+    echo "Install AWS SAM CLI..." && \
+    wget -q "https://github.com/aws/aws-sam-cli/releases/download/v${AWS_SAM_CLI_VERSION}/aws-sam-cli-linux-x86_64.zip" && \
+    echo "Verifying aws-sam-cli-linux-x86_64.zip checksum.." && \
+    sha256sum aws-sam-cli-linux-x86_64.zip && \
+    echo "${AWS_SAM_CLI_SHA256SUM} aws-sam-cli-linux-x86_64.zip" | sha256sum -c - && \
+    unzip aws-sam-cli-linux-x86_64.zip -d sam-installation && \
+    ./sam-installation/install && \
+    rm -rf aws-sam-cli-linux-x86_64.zip sam-installation && \
+    sam --version && \
+    
     # Install pipenv
     echo "Installing pipenv..." && \
     pip3 -q install pipenv && \
-    echo '\n\n' && \
-
-    # Install AWS CLI
-    echo "Installing AWS CLI..." && \
-    pip3 -q install awscli && \
     echo '\n\n' && \
 
     # Install yq (jq wrapper for YAML and XML)
