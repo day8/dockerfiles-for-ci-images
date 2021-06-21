@@ -51,6 +51,8 @@ RUN \
     export PUEUED_SHA256SUM="f2fa8d5372c5c217808b5fe48200b2a7b2649159b2c9f69601a047b1cb61f524" && \
     export POWERSHELL_VERSION="7.1.3" && \
     export POWERSHELL_SHA256SUM="ed800c0e58560d6a4f743e68083f8b46bef29670917c250157aa2c1170a6e502" && \
+    export OH_MY_POSH_VERSION="3.164.0" && \
+    export OH_MY_POSH_SHA256SUM="40b3288def4fc15bf95c51dbfe486e0fdde8fae1521dda030b6cfceefeff15be" && \
     export DOCKER_VERSION="20.10.5" && \
     export DOCKER_SHA256SUM="3f18edc66e1faae607d428349e77f9800bdea554528521f0f6c49fc3f1de6abf" && \
     export DOCKER_COMPOSE_VERSION="1.28.5" && \
@@ -542,16 +544,25 @@ RUN \
     dpkg -i "powershell_${POWERSHELL_VERSION}-1.ubuntu.20.04_amd64.deb" && \
     rm -f "powershell_${POWERSHELL_VERSION}-1.ubuntu.20.04_amd64.deb" && \
 
-    # Ref: https://github.com/JanDeDobbeleer/oh-my-posh#installation
+    # Ref: https://ohmyposh.dev/docs/linux
+    wget -q "https://github.com/JanDeDobbeleer/oh-my-posh/releases/download/v${OH_MY_POSH_VERSION}/posh-linux-amd64" && \
+    echo "Verifying posh-linux-amd64 checksum..." && \
+    sha256sum posh-linux-amd64 && \
+    echo "${OH_MY_POSH_SHA256SUM} posh-linux-amd64" | sha256sum -c - && \
+    mv posh-linux-amd64 /usr/local/bin/oh-my-posh && \
+    chmod +x /usr/local/bin/oh-my-posh && \
+    mkdir ~/.poshthemes && \
+    wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip -O ~/.poshthemes/themes.zip && \
+    unzip ~/.poshthemes/themes.zip -d ~/.poshthemes && \
+    chmod u+rw ~/.poshthemes/*.json && \
+    rm ~/.poshthemes/themes.zip && \
     pwsh -Command "Set-PSRepository PSGallery -InstallationPolicy Trusted" && \
     pwsh -Command "Install-Module posh-git -Scope CurrentUser" && \
-    pwsh -Command "Install-Module oh-my-posh -Scope CurrentUser" && \
     pwsh -Command "Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -SkipPublisherCheck" && \
     pwsh -Command 'if (!(Test-Path -Path $PROFILE )) { New-Item -Type File -Path $PROFILE -Force }' && \
-    pwsh -Command 'echo "Import-Module posh-git" > $PROFILE' && \
-    pwsh -Command 'echo "Import-Module oh-my-posh" >> $PROFILE' && \
-    pwsh -Command 'echo "Set-Theme Agnoster" >> $PROFILE' && \
-
+    pwsh -Command 'echo "$env:POSH_GIT_ENABLED = $true" > $PROFILE' && \
+    pwsh -Command 'echo "Import-Module PSReadLine" > $PROFILE' && \
+    pwsh -Command 'echo "oh-my-posh --init --shell pwsh --config ~/jandedobbeleer.omp.json | Invoke-Expression" > $PROFILE' && \
     echo '\n\n' && \
 
     # gitstatus is a 10x faster alternative to `git status` and `git describe`.
