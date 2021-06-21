@@ -44,8 +44,8 @@ RUN \
     export RIPGREP_SHA256SUM="6d78bed13722019cb4f9d0cf366715e2dcd589f4cf91897efb28216a6bb319f1" && \
     export EXA_VERSION="0.10.1" && \
     export EXA_SHA256SUM="a65a87bd545e969979ae9388f6333167f041a1f09fa9d60b32fd3072348ff6cea" && \
-    export WEBSOCAT_VERSION="1.7.0" && \
-    export WEBSOCAT_SHA256SUM="ab8805344dcf225f0383bd359fe5c9fba8f3c0af7ca2f891cc727f8dce00b147" && \
+    export WEBSOCAT_VERSION="1.8.0" && \
+    export WEBSOCAT_SHA256SUM="5968a3a2ede69fa8bb3df1419b908575f6532ce4eef250e1fcfbaadada3ccaef" && \
     export PUEUE_VERSION="0.12.0" && \
     export PUEUE_SHA256SUM="4bed4517edbf2491f55b346ad9947b3cec526a96cd0cc81224f299fdb1a186b3" && \
     export PUEUED_SHA256SUM="f2fa8d5372c5c217808b5fe48200b2a7b2649159b2c9f69601a047b1cb61f524" && \
@@ -379,12 +379,12 @@ RUN \
 
     # Install websocat
     echo "Installing websocat ${WEBSOCAT_VERSION}..." && \
-    wget -q "https://github.com/vi/websocat/releases/download/v${WEBSOCAT_VERSION}/websocat_${WEBSOCAT_VERSION}_ssl1.1_amd64.deb" && \
-    echo "Verifying websocat_${WEBSOCAT_VERSION}_ssl1.1_amd64.deb checksum..." && \
-    sha256sum "websocat_${WEBSOCAT_VERSION}_ssl1.1_amd64.deb" && \
-    echo "${WEBSOCAT_SHA256SUM} *websocat_${WEBSOCAT_VERSION}_ssl1.1_amd64.deb" | sha256sum -c - && \
-    dpkg -i "websocat_${WEBSOCAT_VERSION}_ssl1.1_amd64.deb" && \
-    rm -f "websocat_${WEBSOCAT_VERSION}_ssl1.1_amd64.deb" && \
+    wget -q "https://github.com/vi/websocat/releases/download/v${WEBSOCAT_VERSION}/websocat_${WEBSOCAT_VERSION}_newer_amd64.deb" && \
+    echo "Verifying websocat_${WEBSOCAT_VERSION}_newer_amd64.deb checksum..." && \
+    sha256sum "websocat_${WEBSOCAT_VERSION}_newer_amd64.deb" && \
+    echo "${WEBSOCAT_SHA256SUM} *websocat_${WEBSOCAT_VERSION}_newer_amd64.deb" | sha256sum -c - && \
+    dpkg -i "websocat_${WEBSOCAT_VERSION}_newer_amd64.deb" && \
+    rm -f "websocat_${WEBSOCAT_VERSION}_newer_amd64.deb" && \
     echo '\n\n' && \
 
     # Install pueue
