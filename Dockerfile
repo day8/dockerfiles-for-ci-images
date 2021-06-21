@@ -22,9 +22,6 @@ RUN \
     export LEIN_GPGKEY="20242BACBBE95ADA22D0AFD7808A33D379C806C3" && \
     export CLOJURE_VERSION="1.10.3.855" && \
     export CLOJURE_SHA256SUM="4bafe3c7343b7d4ef44bd0145bf4203be1c144a30d99a1db53ab67abb2568e2b" && \
-    export BOOT_INSTALL="/usr/local/bin" && \
-    export BOOT_VERSION="2.8.3" && \
-    export BOOT_SHA256SUM="0ccd697f2027e7e1cd3be3d62721057cbc841585740d0aaa9fbb485d7b1f17c3" && \
     export BABASHKA_VERSION="0.4.6" && \
     export BABASHKA_SHA256SUM="7558f8a189ce40ff8e9871010e792360ec5c03a8eee87cc85e38f48c562a6e70" && \
     export CLJ_KONDO_VERSION="2021.06.18" && \
@@ -202,17 +199,6 @@ RUN \
     mv leiningen-$LEIN_VERSION-standalone.zip /usr/share/java/leiningen-$LEIN_VERSION-standalone.jar && \
     mkdir -p /root/.lein && \
     wget -q -O /root/.lein/profiles.clj "${DOTFILES_BASE_URI}/.lein/profiles.clj" && \
-    echo '\n\n' && \
-
-    # Install Boot:
-    echo "Installing Boot..." && \
-    mkdir -p $BOOT_INSTALL && \
-    wget -q "https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh" && \
-    echo "Verifying boot.sh checksum..." && \
-    sha256sum boot.sh && \
-    echo "$BOOT_SHA256SUM *boot.sh" | sha256sum -c - && \
-    mv boot.sh $BOOT_INSTALL/boot && \
-    chmod 0755 $BOOT_INSTALL/boot && \
     echo '\n\n' && \
 
     # Install babashka:
@@ -615,10 +601,12 @@ RUN \
 
     # Finish Docker ENTRYPOINT script:
     echo 'neofetch' >> /docker-entrypoint.sh && \
+    echo "echo \"`bb --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`lein version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"lumo `lumo --version` and Planck `planck --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"Node.js `node --version` with NPM `npm --version` and Yarn `yarn --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`python2 --version` and `python3 --version`\"" >> /docker-entrypoint.sh && \
+    echo "echo \"`aws --version` and `sam --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`git --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`git-lfs --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`pwsh --version`\"" >> /docker-entrypoint.sh && \
