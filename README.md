@@ -26,7 +26,7 @@ understood and supported distribution.
 To run an interactive terminal:
 ```
 $ docker login docker.pkg.github.com
-$ docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0.1
+$ docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1
 ```
 
 ## Build Requirements
@@ -38,8 +38,7 @@ console.
 | --------------------------------------------------- | --------------------- | ----------- | ------ |
 | Leiningen                                           | `2.9.x`               | Clojure(Script) build tool. Day8's main build tool. | [GitHub Releases Assets](https://github.com/technomancy/leiningen/releases) |
 | Clojure                                             | `1.10.x`              | 'Official' Clojure CLI tools. | [Clojure Website](https://clojure.org/guides/getting_started) |
-| Boot                                                |                       | Alternative to Leiningen. Day8 does not use it but several important 3rd party projects do use it. | [GitHub Release Assets](https://github.com/boot-clj/boot-bin/releases) |
-| OpenJDK                                             | `11.x` (LTS)          | Java runtime. Dependency of Leiningen, `clojure` CLI, Boot etc. | [Ubuntu Package: `openjdk-11-headless`](https://packages.ubuntu.com/focal-updates/openjdk-11-jdk-headless) |
+| OpenJDK                                             | `11.x` (LTS)          | Java runtime. Dependency of Leiningen, `clojure` CLI etc. | [Ubuntu Package: `openjdk-11-headless`](https://packages.ubuntu.com/focal-updates/openjdk-11-jdk-headless) |
 | Node.js                                             | `12.x` (LTS)          | JavaScript runtime. Dependency of `shadow-cljs`, `lumo`. | [NodeSource Package Repository](https://github.com/nodesource/distributions) |
 | NPM                                                 | `6.x` (LTS)           | JavaScript package manager. Dependency of `shadow-cljs`. | Bundled with Node.js |
 | Yarn                                                | `1.x` ('Classic')     | JavaScript package manager. Alternative to `npm`. | [Yarn Package Repository](https://classic.yarnpkg.com/en/docs/install#debian-stable) |
@@ -51,7 +50,8 @@ console.
 | `flake8`                                            | Latest at build time. | Python source code checker/linter. | [Python Package: `flake8`](https://pypi.org/project/flake8/) |
 | Git                                                 | Latest at build time. | Dependency of [`actions/checkout`](https://github.com/actions/checkout) and [`day8/lein-git-inject`](https://github.com/day8/lein-git-inject) | ['Git stable releases' Ubuntu PPA](https://launchpad.net/~git-core/+archive/ubuntu/ppa) |
 | Git LFS                                             | Latest at build time. | Required to clone Git repositories using Large File Storage (LFS). | [PackageCloud](https://packagecloud.io/github/git-lfs) |
-| [`aws`](https://docs.aws.amazon.com/cli/index.html) | Latest at build time. | Interface to Amazon Web Services. Dependency of S3 deployments. | [Python Package: `awscli`](https://pypi.org/project/awscli/) |
+| [`aws`](https://docs.aws.amazon.com/cli/index.html) | Latest at build time. | Interface to Amazon Web Services. Dependency of S3 deployments. | [Official AWS Package: `awscli-exe-linux-x86_64.zip`](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html) |
+| [`sam`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html) | | Creates and manages AWS serverless applications. | [Official AWS Package: `aws-sam-cli-linux-x86_64.zip`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-linux.html) |
 | GNU Compiler Collection                             | `9.3.x`               | C (`gcc`) and C++ (`g++`) compiler. Dependency of `npm install...` and therefore `shadow-cljs`. | [Ubuntu Package: `build-essential`](https://packages.ubuntu.com/focal/build-essential) |
 | `make`                                              | Latest at build time. | Build automation tool, esp common for older C/C++ projects. Dependency of space-vim. | [Ubuntu Package: `build-essential`](https://packages.ubuntu.com/focal/build-essential) |
 | `cmake`                                             | Latest at build time. | Build automation tool, esp common for newer C/C++ projects. Dependency of `gitstatusd`. |  [Ubuntu Package: `cmake`](https://packages.ubuntu.com/focal/cmake) |
@@ -69,16 +69,16 @@ available for exploratory programming and debugging of code snippets.
 
 | Name               | Language        | Example                                       |
 | ------------------ | --------------- | --------------------------------------------- | 
-| 'Official' Clojure | Clojure         | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 clojure`   |
-| Leiningen          | Clojure         | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 lein repl` |
-| Planck             | ClojureScript   | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 planck`    |
-| Lumo               | ClojureScript   | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 lumo`      |
-| Node.js            | JavaScript      | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 node`      |
-| Python 2           | Python 2        | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 python2`   |
-| Python 3           | Python 3        | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 python3`   |
-| Bash               | Bash            | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 bash`      |
-| PowerShell         | PowerShell Core | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0 pwsh`      |
-| ZSH (default)      | ZSH             | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0`           |
+| 'Official' Clojure | Clojure         | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 clojure`   |
+| Leiningen          | Clojure         | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 lein repl` |
+| Planck             | ClojureScript   | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 planck`    |
+| Lumo               | ClojureScript   | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 lumo`      |
+| Node.js            | JavaScript      | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 node`      |
+| Python 2           | Python 2        | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 python2`   |
+| Python 3           | Python 3        | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 python3`   |
+| Bash               | Bash            | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 bash`      |
+| PowerShell         | PowerShell Core | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 pwsh`      |
+| ZSH (default)      | ZSH             | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1`           |
 
 ## Command-Line Tools
 
@@ -150,7 +150,7 @@ jobs:
     name: Test
     runs-on: ubuntu-18.04
     container:
-      image: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:0.1
+      image: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }} # <-- you need to create a GitHub Secret with a manual token that has global access as github.token only has access to the current repo! 
@@ -195,7 +195,7 @@ If this error is occurring on GitHub Actions it may be because:
 ## Deployment
 
 Simply push a semver tag of the form `v1.2.3`. GitHub Actions will publish Docker images for 
-`day8au/dev-ci:1.2.3`, `day8au/dev-ci:1.2` and `day8au/dev-ci:1`. E.g.:
+`dockerfile-for-dev-ci-image/dev-ci:1.2.3`, `dockerfile-for-dev-ci-image/dev-ci:1.2` and `dockerfile-for-dev-ci-image/dev-ci:1`. E.g.:
 
 ```shell
 $ git tag v1.2.3 HEAD
