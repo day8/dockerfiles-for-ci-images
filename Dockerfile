@@ -46,9 +46,9 @@ RUN \
     export EXA_SHA256SUM="a65a87bd545e969979ae9388f6333167f041a1f09fa9d60b32fd3072348ff6ce" && \
     export WEBSOCAT_VERSION="1.8.0" && \
     export WEBSOCAT_SHA256SUM="5968a3a2ede69fa8bb3df1419b908575f6532ce4eef250e1fcfbaadada3ccaef" && \
-    export PUEUE_VERSION="0.12.0" && \
-    export PUEUE_SHA256SUM="4bed4517edbf2491f55b346ad9947b3cec526a96cd0cc81224f299fdb1a186b3" && \
-    export PUEUED_SHA256SUM="f2fa8d5372c5c217808b5fe48200b2a7b2649159b2c9f69601a047b1cb61f524" && \
+    export PUEUE_VERSION="1.0.0-rc.2" && \
+    export PUEUE_SHA256SUM="cf6868b55c3e6292c81a2353cec3e319237eded39e6fd492384ddc7caeb9cddc" && \
+    export PUEUED_SHA256SUM="ff61843bb0e60618efbdb936517b55c89decaab11a789f8617784ccc5e0199c2" && \
     export POWERSHELL_VERSION="7.1.3" && \
     export POWERSHELL_SHA256SUM="ed800c0e58560d6a4f743e68083f8b46bef29670917c250157aa2c1170a6e502" && \
     export OH_MY_POSH_VERSION="3.164.0" && \
@@ -399,12 +399,9 @@ RUN \
     echo "Verifying pueued-linux-x86_64 checksum..." && \
     sha256sum pueued-linux-x86_64 && \
     echo "${PUEUED_SHA256SUM} *pueued-linux-x86_64" | sha256sum -c - && \
-    mkdir -p "/opt/pueue/${PUEUE_VERSION}/bin" && \
-    ln -s "/opt/pueue/${PUEUE_VERSION}" /opt/pueue/latest && \
-    mv pueue-linux-x86_64 "/opt/pueue/${PUEUE_VERSION}/bin/pueue" && \
-    mv pueued-linux-x86_64 "/opt/pueue/${PUEUE_VERSION}/bin/pueued" && \
-    chmod +x "/opt/pueue/${PUEUE_VERSION}/bin/pueue" "/opt/pueue/${PUEUE_VERSION}/bin/pueued" && \
-    ln -s /opt/pueue/latest/bin/* /usr/local/bin && \
+    mv pueue-linux-x86_64 /usr/local/bin/pueue && \
+    mv pueued-linux-x86_64 /usr/local/bin/pueued && \
+    chmod +x /usr/local/bin/pueue /usr/local/bin/pueued && \
     echo '\n\n' && \
 
     # Install Chrome
