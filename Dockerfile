@@ -39,8 +39,8 @@ RUN \
     export BAT_SHA256SUM="801a5dbf16b9a2becfe17e07d30992cd2e8fa7b4a7f02d7488e403c034f8a0da" && \
     export FD_VERSION="8.2.1" && \
     export FD_SHA256SUM="f3a949325f1893145ced2b269a67d5763af3bede435c40e3b85b29afdb78c3d2" && \
-    export HEXYL_VERSION="0.8.0" && \
-    export HEXYL_SHA256SUM="2e85c60264161ba7b99d294e0eda1664b1df776a709286db942416e494168761" && \
+    export HEXYL_VERSION="0.9.0" && \
+    export HEXYL_SHA256SUM="9bf99a1441f2261fe3548a3b886e70a6e7bf78dc501b8209c2bbe342a535b194" && \
     export RIPGREP_VERSION="13.0.0" && \
     export RIPGREP_SHA256SUM="6d78bed13722019cb4f9d0cf366715e2dcd589f4cf91897efb28216a6bb319f1" && \
     export EXA_VERSION="0.10.1" && \
