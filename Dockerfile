@@ -32,6 +32,8 @@ RUN \
     export AWS_CLI_SHA256SUM="38008e384386cb048788e1058997228f6f1b461d2e231dd1478db5f24696d10c" && \
     export AWS_SAM_CLI_VERSION="1.27.2" && \
     export AWS_SAM_CLI_SHA256SUM="de615d0c4eefca60a9d7d623388767eccde93ca8c44d7f7c65e236c171cdd477" && \
+    export HASURA_CLI_VERSION="2.0.5" && \
+    export HASURA_CLI_SHA256SUM="b82a69685a31296f8a0e4db07843ea8f9f372a629f87446b063223cc3bfcc575" && \
     export LUMO_VERSION="1.10.1" && \
     export KARMA_CLI_VERSION="2.0.0" && \
     export GH_VERSION="1.14.0" && \
@@ -252,6 +254,16 @@ RUN \
     ./sam-installation/install && \
     rm -rf aws-sam-cli-linux-x86_64.zip sam-installation && \
     sam --version && \
+    
+    ## Install Hasura CLI
+    echo "Install Hasura CLI..." && \
+    wget -q "https://github.com/hasura/graphql-engine/releases/download/v${HASURA_CLI_VERSION}/cli-hasura-linux-amd64" && \
+    echo "Verifying cli-hasura-linux-amd64 checksum..." && \
+    sha256sum cli-hasura-linux-amd64 && \
+    echo "${HASURA_CLI_SHA256SUM} *cli-hasura-linux-amd64" | sha256sum -c - && \
+    mv cli-hasura-linux-amd64 /usr/local/bin/hasura && \
+    chmod +x /usr/local/bin/hasura && \
+    hasura version && \
     
     # Install pipenv
     echo "Installing pipenv..." && \
