@@ -26,6 +26,8 @@ RUN \
     export BABASHKA_SHA256SUM="bfd6e39f068fecfc9d0197daf78615b334cc93635056d92d329fd89ce2106b28" && \
     export CLJ_KONDO_VERSION="2021.08.03" && \
     export CLJ_KONDO_SHA256SUM="c8fc7114ed02117b43b9d6b21e464b866205a61e0f496715eade5cf844622fe2" && \
+    export TERRAFORM_VERSION="1.0.4" && \
+    export TERRAFORM_SHA256SUM="5c0be4d52de72143e2cd78e417ee2dd582ce229d73784fd19444445fa6e1335e" && \
     export AWS_CLI_VERSION="2.2.27" && \
     export AWS_CLI_SHA256SUM="38008e384386cb048788e1058997228f6f1b461d2e231dd1478db5f24696d10c" && \
     export AWS_SAM_CLI_VERSION="1.27.2" && \
@@ -218,6 +220,15 @@ RUN \
     echo "$CLJ_KONDO_SHA256SUM *clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" | sha256sum -c - && \
     unzip "clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" -d /usr/local/bin && \
     clj-kondo --version && \
+    
+    # Install Terraform:
+    echo "Installing Terraform..." && \
+    wget -q "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
+    echo "Verifying terraform_${TERRAFORM_VERSION}_linux_amd64.zip checksum..." && \
+    sha256sum "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
+    echo "${TERRAFORM_SHA256SUM} *terraform_${TERRAFORM_VERSION}_linux_amd64.zip" | sha256sum -c - && \
+    unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
+    terraform --version && \
 
     # install AWS CLI
     echo "Install AWS CLI..." && \
