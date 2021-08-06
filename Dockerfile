@@ -34,11 +34,12 @@ RUN \
     export AWS_SAM_CLI_SHA256SUM="de615d0c4eefca60a9d7d623388767eccde93ca8c44d7f7c65e236c171cdd477" && \
     export LUMO_VERSION="1.10.1" && \
     export KARMA_CLI_VERSION="2.0.0" && \
-    export DIFF_SO_FANCY_VERSION="1.3.0" && \
     export GH_VERSION="1.14.0" && \
     export GH_SHA256SUM="c5dafe3470a942212f6688bc3fdc19149cb7db3501ff3137e078434f26896a01" && \
     export BAT_VERSION="0.18.1" && \
     export BAT_SHA256SUM="801a5dbf16b9a2becfe17e07d30992cd2e8fa7b4a7f02d7488e403c034f8a0da" && \
+    export DELTA_VERSION="0.8.3" && \
+    export DELTA_SHA256SUM="b73f0e545f7ad1f4e55e0ef5b55efac26ce19c6b5a967ae7859ed38bd8508472" && \
     export FD_VERSION="8.2.1" && \
     export FD_SHA256SUM="f3a949325f1893145ced2b269a67d5763af3bede435c40e3b85b29afdb78c3d2" && \
     export HEXYL_VERSION="0.9.0" && \
@@ -337,6 +338,19 @@ RUN \
     echo "$BAT_SHA256SUM *bat_${BAT_VERSION}_amd64.deb" | sha256sum -c - && \
     dpkg -i "bat_${BAT_VERSION}_amd64.deb" && \
     rm -f "bat_${BAT_VERSION}_amd64.deb" && \
+    echo '\n\n' && \
+
+    # Install delta
+    #
+    # A viewer for git and diff output.
+    
+    echo "Installing delta ${DELTA_VERSION}..." && \
+    wget -q "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb" && \
+    echo "Verifying git-delta_${DELTA_VERSION}_amd64.deb checksum..." && \
+    sha256sum "git-delta_${DELTA_VERSION}_amd64.deb" && \
+    echo "$DELTA_SHA256SUM *git-delta_${DELTA_VERSION}_amd64.deb" | sha256sum -c - && \
+    dpkg -i "git-delta_${DELTA_VERSION}_amd64.deb" && \
+    rm -f "git-delta_${DELTA_VERSION}_amd64.deb" && \
     echo '\n\n' && \
 
     # Install fd
