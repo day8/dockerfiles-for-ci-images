@@ -28,8 +28,8 @@ RUN \
     export CLJ_KONDO_SHA256SUM="c8fc7114ed02117b43b9d6b21e464b866205a61e0f496715eade5cf844622fe2" && \
     export AWS_CLI_VERSION="2.2.27" && \
     export AWS_CLI_SHA256SUM="38008e384386cb048788e1058997228f6f1b461d2e231dd1478db5f24696d10c" && \
-    export AWS_SAM_CLI_VERSION="1.24.1" && \
-    export AWS_SAM_CLI_SHA256SUM="ba424e9882d359294f12aec0552bc9b56d2db92b04cfbb8b549a2e7fde7fd006" && \
+    export AWS_SAM_CLI_VERSION="1.27.2" && \
+    export AWS_SAM_CLI_SHA256SUM="de615d0c4eefca60a9d7d623388767eccde93ca8c44d7f7c65e236c171cdd477" && \
     export LUMO_VERSION="1.10.1" && \
     export KARMA_CLI_VERSION="2.0.0" && \
     export DIFF_SO_FANCY_VERSION="1.3.0" && \
