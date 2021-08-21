@@ -48,6 +48,8 @@ RUN \
     export HEXYL_SHA256SUM="9bf99a1441f2261fe3548a3b886e70a6e7bf78dc501b8209c2bbe342a535b194" && \
     export RIPGREP_VERSION="13.0.0" && \
     export RIPGREP_SHA256SUM="6d78bed13722019cb4f9d0cf366715e2dcd589f4cf91897efb28216a6bb319f1" && \
+    export NEOVIM_VERSION="0.5.0" && \
+    export NEOVIM_SHA256SUM="cd59e885143e0fa7e43cfdacbc8e37dc033c56d9205b8f8a8acd08cd9f93737d" && \
     export EXA_VERSION="0.10.1" && \
     export EXA_SHA256SUM="a65a87bd545e969979ae9388f6333167f041a1f09fa9d60b32fd3072348ff6ce" && \
     export WEBSOCAT_VERSION="1.8.0" && \
@@ -66,7 +68,6 @@ RUN \
     export KUBECTL_VERSION="1.22.0" && \
     export KUBECTL_SHA256SUM="703e70d49b82271535bc66bc7bd469a58c11d47f188889bd37101c9772f14fa1" && \
     export GIT_GPGKEY="E1DD270288B4E6030699E45FA1715D88E1DF1F24" && \
-    export NEOVIM_GPGKEY="9DBB0BE9366964F134855E2255F96FCF8231B6DD" && \
     export PLANCK_GPGKEY="A5D6812987A6E53579AF0308D3D743111F327606" && \
     export CHROMIUM_VERSION="56.0.2924.0" && \
     export CHROMIUM_PACKAGE_URL="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F433062%2Fchrome-linux.zip?generation=1479441205933000&alt=media" && \
@@ -112,13 +113,6 @@ RUN \
     echo "Adding 'Git stable releases' PPA..." && \
     echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu focal main" > /etc/apt/sources.list.d/git-core-ubuntu-ppa-focal.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $GIT_GPGKEY && \
-    echo '\n\n' && \
-
-    # The 'Neovim Stable' PPA provides 0.4.x which is extremely out of date to the point of being
-    # unusable so uses the 'Neovim Unstable' PPA for 0.5.x instead.
-    echo "Adding 'Neovim Unstable' PPA..." && \
-    echo "deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu focal main" >  /etc/apt/sources.list.d/neovim-ppa-ubuntu-unstable-focal.list && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $NEOVIM_GPGKEY && \
     echo '\n\n' && \
 
     echo "Adding 'Mike Fikes's Planck' PPA..." && \
@@ -214,7 +208,7 @@ RUN \
     echo "${BABASHKA_SHA256SUM} *babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" | sha256sum -c - && \
     tar -xzf "babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" -C /usr/local/bin && \
     bb --version && \
-
+    
     # Install clj-kondo:
     echo "Installing clj-kondo..." && \
     wget -q "https://github.com/clj-kondo/clj-kondo/releases/download/v${CLJ_KONDO_VERSION}/clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" && \
@@ -421,6 +415,16 @@ RUN \
     echo "${EXA_SHA256SUM} exa-linux-x86_64-v${EXA_VERSION}.zip" | sha256sum -c - && \
     unzip -q "exa-linux-x86_64-v${EXA_VERSION}.zip" -d /usr/local && \
     rm -f "exa-linux-x86_64-v${EXA_VERSION}.zip" && \
+    echo '\n\n' && \
+
+    # Install nvim
+    echo "Installing Neovim ${NEOVIM_VERSION}..." && \
+    wget -q "https://github.com/neovim/neovim/releases/download/v${NEOVIM_VERSION}/nvim-linux64.tar.gz" && \
+    echo "Verifying nvim-linux64.tar.gz checksum..." && \
+    sha256sum "nvim-linux64.tar.gz" && \
+    echo "${NEOVIM_SHA256SUM} nvim-linux64.tar.gz" | sha256sum -c - && \
+    tar --strip-components=1 -C /usr/local -xf nvim-linux64.tar.gz && \
+    rm -f nvim-linux64.tar.gz && \
     echo '\n\n' && \
 
     # Install websocat
