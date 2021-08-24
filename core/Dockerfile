@@ -535,8 +535,6 @@ RUN \
     echo "echo \"`git --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`git-lfs --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`pwsh --version`\"" >> /docker-entrypoint.sh && \
-    echo "echo \"`chrome-wrapper --version`\"" >> /docker-entrypoint.sh && \
-    echo "echo \"`chromedriver --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"PhantomJS `phantomjs --version`\"" >> /docker-entrypoint.sh && \
     echo 'exec "$@"' >> /docker-entrypoint.sh && \
     chmod +x /docker-entrypoint.sh && \
