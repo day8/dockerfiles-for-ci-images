@@ -9,6 +9,17 @@ RUN \
     # Turn on Bash extended glob support so we can use patterns like !("file1"|"file2")
     shopt -s extglob && \
 
+    # Refresh package lists.
+    apt-get update -qq && \
+
+    apt-get install -qq -y --no-install-recommends \
+      # These are dependencies of Chrome and ChromeDriver that are not common between the different
+      # versions.
+      fonts-liberation libatk-bridge2.0-0 libatk1.0-0 libatspi2.0-0 libcairo2 libgbm1 libgtk-3-0 \
+      libpango-1.0-0 libxdamage1 libxkbcommon0 xdg-utils && \
+
+    rm -rf /var/lib/apt/lists/* && \
+
     wget -q "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" && \
     dpkg -i google-chrome-stable_current_amd64.deb && \
     rm -f google-chrome-stable_current_amd64.deb && \

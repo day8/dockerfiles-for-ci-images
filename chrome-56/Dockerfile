@@ -23,7 +23,7 @@ RUN \
     # These are dependencies of xvfb and/or Chrome. Unfortunately due to the old version of Chrome
     # used (56.x) there is a dependency on old libraries like libgtk2.0-0 that take up a lot of
     # extra space.
-      libxcomposite1 libxcursor1 libxss1 libxrandr2 libgtk2.0-0 libgconf-2-4 && \
+       libxcursor1 libgtk2.0-0 libgconf-2-4 && \
 
     rm -rf /var/lib/apt/lists/* && \
 

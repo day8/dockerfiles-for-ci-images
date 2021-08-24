@@ -149,8 +149,8 @@ RUN \
       jhead jpeginfo jpegoptim jpegpixi \
     # These are dependencies of powershell
       liblttng-ust-ctl4 liblttng-ust0 \
-    # These are dependencies of xvfb.
-      xvfb \
+    # These are dependencies of xvfb, Chrome and ChromeDriver that are common to all versions.
+      xvfb libxcomposite1 libxrandr2 libxss1 \
     # Voting in the popularity contest may help keep packages we use supported by Ubuntu.
       popularity-contest && \
     rm -rf /var/lib/apt/lists/* && \
