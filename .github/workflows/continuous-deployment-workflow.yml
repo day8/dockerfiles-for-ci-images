@@ -7,17 +7,36 @@ on:
 jobs:
   deploy:
     name: Deploy
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci
+      - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/core
         uses: elgohr/Publish-Docker-Github-Action@2.19
         with:
-          name: dev-ci
+          name: core
           tag_semver: true
           registry: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
+          workdir: core
+      - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56
+        uses: elgohr/Publish-Docker-Github-Action@2.19
+        with:
+          name: chrome-56
+          tag_semver: true
+          registry: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
+          workdir: chrome-56
+      - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-latest
+        uses: elgohr/Publish-Docker-Github-Action@2.19
+        with:
+          name: chrome-latest
+          tag_semver: true
+          registry: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
+          workdir: chrome-latest
       - name: Slack notification
         uses: homoluctus/slatify@v2.0.1
         if: always()
