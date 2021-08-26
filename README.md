@@ -100,7 +100,7 @@ usability when using the image as an interactive shell.
 | [`pueue`](https://github.com/Nukesor/pueue) | Task management for sequential and parallel execution of long-running tasks. | [GitHub Releases Assets: `pueue-linux-x86_64` and `pueued-linux-x86_64`](https://github.com/Nukesor/pueue/releases) |
 | [`tmux`](https://github.com/tmux/tmux/wiki) | Terminal multiplexer. | [Ubuntu Package: `tmux`](https://packages.ubuntu.com/focal/tmux) |
 | [`rlwrap`](https://github.com/hanslub42/rlwrap)              | A 'readline wrapper' to allow the editing of keyboard input for any command. | [Ubuntu Package: `rlwrap`](https://packages.ubuntu.com/focal/rlwrap) |
-| [`diff-so-fancy`](https://github.com/so-fancy/diff-so-fancy) | Human readable diffs. | [npm: `diff-so-fancy`](https://www.npmjs.com/package/diff-so-fancy) |
+| [`delta`](https://github.com/dandavison/delta) | A viewer for git and diff output. | GitHub Release Assets |
 | [`diffstat`](https://invisible-island.net/diffstat/) | Make a histogram of diffs. | [Ubuntu Package: `diffstat`](https://packages.ubuntu.com/focal/diffstat) |
 | [`jq`](https://stedolan.github.io/jq/) | Like `sed` for JSON. | [Ubuntu Package: `jq`](https://packages.ubuntu.com/focal/jq) |
 | [`yq`](https://kislyuk.github.io/yq/) | `jq` wrapper for YAML and XML. |  [Python Package: `yq`](https://pypi.org/project/yq/) |
