@@ -185,7 +185,7 @@ RUN \
     gpg --batch --keyserver keys.openpgp.org --recv-key $LEIN_GPGKEY && \
     echo "Verifying leiningen-$LEIN_VERSION-standalone.zip PGP signature..." && \
     gpg --batch --verify leiningen-$LEIN_VERSION-standalone.zip.asc leiningen-$LEIN_VERSION-standalone.zip && \
-    rm leiningen-$LEIN_VERSION-standalone.zip.asc && \
+    rm -f leiningen-$LEIN_VERSION-standalone.zip.asc && \
     mkdir -p /usr/share/java && \
     mv leiningen-$LEIN_VERSION-standalone.zip /usr/share/java/leiningen-$LEIN_VERSION-standalone.jar && \
     mkdir -p /root/.lein && \
@@ -199,6 +199,7 @@ RUN \
     sha256sum "babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" && \
     echo "${BABASHKA_SHA256SUM} *babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" | sha256sum -c - && \
     tar -xzf "babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" -C /usr/local/bin && \
+    rm -f "babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" && \
     bb --version && \
     
     # Install clj-kondo:
@@ -208,6 +209,7 @@ RUN \
     sha256sum "clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" && \
     echo "$CLJ_KONDO_SHA256SUM *clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" | sha256sum -c - && \
     unzip "clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" -d /usr/local/bin && \
+    rm -f "clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" && \
     clj-kondo --version && \
     
     # Install Terraform:
@@ -217,6 +219,7 @@ RUN \
     sha256sum "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     echo "${TERRAFORM_SHA256SUM} *terraform_${TERRAFORM_VERSION}_linux_amd64.zip" | sha256sum -c - && \
     unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
+    rm -f "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     terraform --version && \
 
     # install AWS CLI
