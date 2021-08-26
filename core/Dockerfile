@@ -517,12 +517,11 @@ RUN \
 
     wget -q -O /root/.gitconfig "${DOTFILES_BASE_URI}/.gitconfig" && \
 
-    # Install NPM-based tools incl Lumo, Karma and Diff so Fancy:
-    echo "Installing Lumo, Karma CLI and Diff so Fancy..." && \
+    # Install NPM-based tools incl Lumo and Karma CLI:
+    echo "Installing Lumo and Karma CLI..." && \
     npm install -g --unsafe-perm \
       lumo-cljs@$LUMO_VERSION \
-      karma-cli@$KARMA_CLI_VERSION \
-      diff-so-fancy@$DIFF_SO_FANCY_VERSION && \
+      karma-cli@$KARMA_CLI_VERSION && \
 
     # Finish Docker ENTRYPOINT script:
     echo 'neofetch' >> /docker-entrypoint.sh && \
