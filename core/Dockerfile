@@ -143,7 +143,7 @@ RUN \
       git git-lfs diffstat jq silversearcher-ag fzf \
       neofetch ncdu htop zstd \
       rlwrap less tmux openssh-client mosh \
-      neovim emacs-nox \
+      emacs-nox \
       zsh build-essential cmake openjdk-$JVM_VERSION\-jdk-headless nodejs yarn python2 python3-pip planck \
       pngnq pngquant pngtools pngmeta pngcrush pngcheck \
       jhead jpeginfo jpegoptim jpegpixi \
