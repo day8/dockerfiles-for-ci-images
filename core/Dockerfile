@@ -19,8 +19,8 @@ RUN \
     export LEIN_INSTALL="/usr/local/bin" && \
     export LEIN_SHA256SUM="094b58e2b13b42156aaf7d443ed5f6665aee27529d9512f8d7282baa3cc01429" && \
     export LEIN_GPGKEY="20242BACBBE95ADA22D0AFD7808A33D379C806C3" && \
-    export CLOJURE_VERSION="1.10.3.943" && \
-    export CLOJURE_SHA256SUM="f1fdb786fa8b9ef3a08d0b331a51861cd5a6eea277e93bbad64bf37774df17c6" && \
+    export CLOJURE_VERSION="1.10.3.967" && \
+    export CLOJURE_SHA256SUM="d1fba0cd0733b7cb66e47620845ecedfd757a9bf84e8b276fdb37ed9c272d3ae" && \
     export BABASHKA_VERSION="0.6.0" && \
     export BABASHKA_SHA256SUM="f4822ae2f0ff2c616a8c889aa6ea277d109aa42f67db5cd03a4fd579f6b2fcc0" && \
     export CLJ_KONDO_VERSION="2021.08.06" && \
