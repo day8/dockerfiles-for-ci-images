@@ -31,8 +31,8 @@ RUN \
     export AWS_CLI_SHA256SUM="97163f45a0e630377c67192becfdaaf0e3ebd429f4a4900fa35ff3d40a5e587a" && \
     export AWS_SAM_CLI_VERSION="1.31.0" && \
     export AWS_SAM_CLI_SHA256SUM="458d961c27d0d6b61fa6857391a6698e5a9c47154c5f335c7c30d83d46a76d25" && \
-    export HASURA_CLI_VERSION="2.0.7" && \
-    export HASURA_CLI_SHA256SUM="a314f39e2c9edcd2f113c005a80f2c69edc4700127663a5e7eb78d7f208f2acc" && \
+    export HASURA_CLI_VERSION="2.0.9" && \
+    export HASURA_CLI_SHA256SUM="380c519676d92fc569a4c4d02ab21ae57ed44801e35a110767aefc528154465d" && \
     export LUMO_VERSION="1.10.1" && \
     export KARMA_CLI_VERSION="2.0.0" && \
     export GH_VERSION="2.0.0" && \
