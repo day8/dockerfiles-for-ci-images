@@ -180,14 +180,14 @@ RUN \
     echo "$LEIN_SHA256SUM *lein-pkg" | sha256sum -c - && \
     mv lein-pkg $LEIN_INSTALL/lein && \
     chmod 0755 $LEIN_INSTALL/lein && \
-    wget -q "https://github.com/technomancy/leiningen/releases/download/$LEIN_VERSION/leiningen-$LEIN_VERSION-standalone.zip" && \
-    wget -q "https://github.com/technomancy/leiningen/releases/download/$LEIN_VERSION/leiningen-$LEIN_VERSION-standalone.zip.asc" && \
+    wget -q "https://github.com/technomancy/leiningen/releases/download/$LEIN_VERSION/leiningen-$LEIN_VERSION-standalone.jar" && \
+    wget -q "https://github.com/technomancy/leiningen/releases/download/$LEIN_VERSION/leiningen-$LEIN_VERSION-standalone.jar.asc" && \
     gpg --batch --keyserver keys.openpgp.org --recv-key $LEIN_GPGKEY && \
-    echo "Verifying leiningen-$LEIN_VERSION-standalone.zip PGP signature..." && \
-    gpg --batch --verify leiningen-$LEIN_VERSION-standalone.zip.asc leiningen-$LEIN_VERSION-standalone.zip && \
-    rm -f leiningen-$LEIN_VERSION-standalone.zip.asc && \
+    echo "Verifying leiningen-$LEIN_VERSION-standalone.jar PGP signature..." && \
+    gpg --batch --verify leiningen-$LEIN_VERSION-standalone.jar.asc leiningen-$LEIN_VERSION-standalone.jar && \
+    rm -f leiningen-$LEIN_VERSION-standalone.jar.asc && \
     mkdir -p /usr/share/java && \
-    mv leiningen-$LEIN_VERSION-standalone.zip /usr/share/java/leiningen-$LEIN_VERSION-standalone.jar && \
+    mv leiningen-$LEIN_VERSION-standalone.jar /usr/share/java/leiningen-$LEIN_VERSION-standalone.jar && \
     mkdir -p /root/.lein && \
     wget -q -O /root/.lein/profiles.clj "${DOTFILES_BASE_URI}/.lein/profiles.clj" && \
     echo '\n\n' && \
