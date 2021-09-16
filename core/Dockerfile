@@ -15,9 +15,9 @@ RUN \
     # reserved only for those environment variables that must persist after this RUN script has
     # completed.
     export JVM_VERSION="11" && \
-    export LEIN_VERSION="2.9.6" && \
+    export LEIN_VERSION="2.9.7" && \
     export LEIN_INSTALL="/usr/local/bin" && \
-    export LEIN_SHA256SUM="094b58e2b13b42156aaf7d443ed5f6665aee27529d9512f8d7282baa3cc01429" && \
+    export LEIN_SHA256SUM="f78f20d1931f028270e77bc0f0c00a5a0efa4ecb7a5676304a34ae4f469e281d" && \
     export LEIN_GPGKEY="20242BACBBE95ADA22D0AFD7808A33D379C806C3" && \
     export CLOJURE_VERSION="1.10.3.967" && \
     export CLOJURE_SHA256SUM="d1fba0cd0733b7cb66e47620845ecedfd757a9bf84e8b276fdb37ed9c272d3ae" && \
