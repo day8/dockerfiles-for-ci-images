@@ -18,7 +18,7 @@ RUN \
     export LEIN_VERSION="2.9.7" && \
     export LEIN_INSTALL="/usr/local/bin" && \
     export LEIN_SHA256SUM="f78f20d1931f028270e77bc0f0c00a5a0efa4ecb7a5676304a34ae4f469e281d" && \
-    export LEIN_GPGKEY="20242BACBBE95ADA22D0AFD7808A33D379C806C3" && \
+    #export LEIN_GPGKEY="20242BACBBE95ADA22D0AFD7808A33D379C806C3" && \
     export CLOJURE_VERSION="1.10.3.967" && \
     export CLOJURE_SHA256SUM="d1fba0cd0733b7cb66e47620845ecedfd757a9bf84e8b276fdb37ed9c272d3ae" && \
     export BABASHKA_VERSION="0.6.1" && \
@@ -181,11 +181,11 @@ RUN \
     mv lein-pkg $LEIN_INSTALL/lein && \
     chmod 0755 $LEIN_INSTALL/lein && \
     wget -q "https://github.com/technomancy/leiningen/releases/download/$LEIN_VERSION/leiningen-$LEIN_VERSION-standalone.jar" && \
-    wget -q "https://github.com/technomancy/leiningen/releases/download/$LEIN_VERSION/leiningen-$LEIN_VERSION-standalone.jar.asc" && \
-    gpg --batch --keyserver keys.openpgp.org --recv-key $LEIN_GPGKEY && \
-    echo "Verifying leiningen-$LEIN_VERSION-standalone.jar PGP signature..." && \
-    gpg --batch --verify leiningen-$LEIN_VERSION-standalone.jar.asc leiningen-$LEIN_VERSION-standalone.jar && \
-    rm -f leiningen-$LEIN_VERSION-standalone.jar.asc && \
+    #wget -q "https://github.com/technomancy/leiningen/releases/download/$LEIN_VERSION/leiningen-$LEIN_VERSION-standalone.jar.asc" && \
+    #gpg --batch --keyserver keys.openpgp.org --recv-key $LEIN_GPGKEY && \
+    #echo "Verifying leiningen-$LEIN_VERSION-standalone.jar PGP signature..." && \
+    #gpg --batch --verify leiningen-$LEIN_VERSION-standalone.jar.asc leiningen-$LEIN_VERSION-standalone.jar && \
+    #rm -f leiningen-$LEIN_VERSION-standalone.jar.asc && \
     mkdir -p /usr/share/java && \
     mv leiningen-$LEIN_VERSION-standalone.jar /usr/share/java/leiningen-$LEIN_VERSION-standalone.jar && \
     mkdir -p /root/.lein && \
