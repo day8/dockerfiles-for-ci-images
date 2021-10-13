@@ -62,8 +62,8 @@ RUN \
     export OH_MY_POSH_SHA256SUM="9645ac7bf6fb7a87a35d30c42b4581d56426ee01b27233c726ba09d8132e59e7" && \
     export DOCKER_VERSION="20.10.9" && \
     export DOCKER_SHA256SUM="caf74e54b58c0b38bb4d96c8f87665f29b684371c9a325562a3904b8c389995e" && \
-    export DOCKER_COMPOSE_VERSION="1.29.2" && \
-    export DOCKER_COMPOSE_SHA256SUM="f3f10cf3dbb8107e9ba2ea5f23c1d2159ff7321d16f0a23051d68d8e2547b323" && \
+    export DOCKER_COMPOSE_VERSION="2.0.1" && \
+    export DOCKER_COMPOSE_SHA256SUM="b2aabbc04768efb0dc73c14d105781dd0aceb7a801d3a27d5113ad8e222f0395" && \
     export KUBECTL_VERSION="1.22.1" && \
     export KUBECTL_SHA256SUM="78178a8337fc6c76780f60541fca7199f0f1a2e9c41806bded280a4a5ef665c9" && \
     export GIT_GPGKEY="E1DD270288B4E6030699E45FA1715D88E1DF1F24" && \
@@ -287,12 +287,12 @@ RUN \
 
     # Install Docker Compose
     echo "Installing Docker Compose ${DOCKER_COMPOSE_VERSION}..." && \
-    wget -q "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64" && \
-    echo "Verifying docker-compose-Linux-x86_64 checksum..." && \
-    sha256sum "docker-compose-Linux-x86_64" && \
-    echo "${DOCKER_COMPOSE_SHA256SUM} *docker-compose-Linux-x86_64" | sha256sum -c - && \
-    mv "docker-compose-Linux-x86_64" /usr/local/bin/docker-compose && \
-    chmod +x /usr/local/bin/docker-compose && \
+    wget -q "https://github.com/docker/compose/releases/download/v${DOCKER_COMPOSE_VERSION}/docker-compose-linux-x86_64" && \
+    echo "Verifying docker-compose-linux-x86_64 checksum..." && \
+    sha256sum "docker-compose-linux-x86_64" && \
+    echo "${DOCKER_COMPOSE_SHA256SUM} *docker-compose-linux-x86_64" | sha256sum -c - && \
+    mv "docker-compose-linux-x86_64" /usr/local/lib/docker/cli-plugins/docker-compose && \
+    chmod +x /usr/local/lib/docker/cli-plugins/docker-compose && \
 
     # Install Kubectl
     echo "Installing Kubectl ${KUBECTL_VERSION}..." && \
