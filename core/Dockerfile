@@ -291,6 +291,7 @@ RUN \
     echo "Verifying docker-compose-linux-x86_64 checksum..." && \
     sha256sum "docker-compose-linux-x86_64" && \
     echo "${DOCKER_COMPOSE_SHA256SUM} *docker-compose-linux-x86_64" | sha256sum -c - && \
+    mkdir -p /usr/local/lib/docker/cli-plugins && \
     mv "docker-compose-linux-x86_64" /usr/local/lib/docker/cli-plugins/docker-compose && \
     chmod +x /usr/local/lib/docker/cli-plugins/docker-compose && \
 
