@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/core
-        uses: elgohr/Publish-Docker-Github-Action@2.19
+        uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
           name: core
           tag_semver: true
@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
           workdir: core
       - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-latest
-        uses: elgohr/Publish-Docker-Github-Action@2.19
+        uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
           name: chrome-latest
           tag_semver: true
@@ -29,7 +29,7 @@ jobs:
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
           workdir: chrome-latest
       - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56
-        uses: elgohr/Publish-Docker-Github-Action@2.19
+        uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
           name: chrome-56
           tag_semver: true
