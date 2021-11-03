@@ -35,8 +35,8 @@ RUN \
     export HASURA_CLI_SHA256SUM="380c519676d92fc569a4c4d02ab21ae57ed44801e35a110767aefc528154465d" && \
     export LUMO_VERSION="1.10.1" && \
     export KARMA_CLI_VERSION="2.0.0" && \
-    export GH_VERSION="2.0.0" && \
-    export GH_SHA256SUM="7108b8405dc88ec83e351646b7804315e0be51714aa8c759c6b57221c8310eb2" && \
+    export GH_VERSION="2.2.0" && \
+    export GH_SHA256SUM="effdb6df788f1e7af43857bda377c2c86d6905e0fa2b19c74c5552059df65830" && \
     export BAT_VERSION="0.18.3" && \
     export BAT_SHA256SUM="3e85d15e5757d9f56af8f15bb99a56aaaab33ed541fa3ff1e1c585f5733845c3" && \
     export DELTA_VERSION="0.8.3" && \
