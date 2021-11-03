@@ -12,13 +12,13 @@ jobs:
           docker build --tag docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/core:latest .
           docker image history docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/core:latest
           docker image inspect docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/core:latest
-      - working-directory: chrome-56
-        run: |
-          docker build --tag docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56:latest .
-          docker image history docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56:latest
-          docker image inspect docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56:latest
       - working-directory: chrome-latest
         run: |
           docker build --tag docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-latest:latest .
           docker image history docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-latest:latest
           docker image inspect docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-latest:latest
+      - working-directory: chrome-56
+        run: |
+          docker build --tag docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56:latest .
+          docker image history docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56:latest
+          docker image inspect docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56:latest
