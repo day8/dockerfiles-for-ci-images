@@ -157,7 +157,7 @@ RUN \
     echo '\n\n' && \
 
     # Start a X11 virtual framebuffer to run tests in Chrome.
-    echo 'Xvfb :99 -screen 0 1920x1080x24 &\n' >> /docker-entrypoint.sh && \
+    echo 'Xvfb :99 -screen 0 1920x1080x24 &' >> /docker-entrypoint.sh && \
 
     # Install Clojure:
     echo "Installing 'Official' Clojure CLI ${CLOJURE_VERSION}..." && \

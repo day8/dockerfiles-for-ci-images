@@ -41,8 +41,6 @@ RUN \
     rm -f chromedriver_linux64.zip && \
     mv chromedriver /usr/local/bin/chromedriver && \
     chmod +x /usr/local/bin/chromedriver && \
+    chrome-wrapper --version && \
     chromedriver --version && \
-    echo '\n\n' && \
-
-    echo "echo \"`chrome-wrapper --version`\"" >> /docker-entrypoint.sh && \
-    echo "echo \"`chromedriver --version`\"" >> /docker-entrypoint.sh
+    echo '\n\n'
