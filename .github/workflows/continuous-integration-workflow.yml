@@ -20,20 +20,20 @@ jobs:
       - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-latest
         uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
-          name: "chrome-latest"
+          name: chrome/latest
           tag_semver: true
           registry: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
-          workdir: "chrome-latest"
+          workdir: chrome-latest
           no_push: true
       - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56
         uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
-          name: "chrome-56"
+          name: chrome/56
           tag_semver: true
           registry: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
-          workdir: "chrome-56"
+          workdir: chrome-56
           no_push: true
