@@ -7,18 +7,33 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - working-directory: core
-        run: |
-          docker build --tag docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/core:latest .
-          docker image history docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/core:latest
-          docker image inspect docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/core:latest
-      - working-directory: chrome-latest
-        run: |
-          docker build --tag docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-latest:latest .
-          docker image history docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-latest:latest
-          docker image inspect docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-latest:latest
-      - working-directory: chrome-56
-        run: |
-          docker build --tag docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56:latest .
-          docker image history docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56:latest
-          docker image inspect docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56:latest
+      - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/core
+        uses: elgohr/Publish-Docker-Github-Action@3.04
+        with:
+          name: core
+          tag_semver: true
+          registry: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
+          workdir: core
+          no_push: true
+      - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-latest
+        uses: elgohr/Publish-Docker-Github-Action@3.04
+        with:
+          name: "chrome-latest"
+          tag_semver: true
+          registry: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
+          workdir: "chrome-latest"
+          no_push: true
+      - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56
+        uses: elgohr/Publish-Docker-Github-Action@3.04
+        with:
+          name: "chrome-56"
+          tag_semver: true
+          registry: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
+          workdir: "chrome-56"
+          no_push: true
