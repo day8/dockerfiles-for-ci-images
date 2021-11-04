@@ -1,8 +1,8 @@
 FROM docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/core
 
 RUN \
-    export CHROMEDRIVER_VERSION="94.0.4606.61" && \
-    export CHROMEDRIVER_SHA256SUM="d2011e5b7c7c13225d6d0e237d8cfbb2a52601c1a91005841a38358c31d2f4d0" && \
+    export CHROMEDRIVER_VERSION="95.0.4638.54" && \
+    export CHROMEDRIVER_SHA256SUM="d3db30c72d63a875b9fe1f1f23c8eff3914ea4146a35c7f11f7708c24f47425c" && \
 
     cd /tmp && \
 
