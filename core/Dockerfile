@@ -220,6 +220,7 @@ RUN \
     echo "${TERRAFORM_SHA256SUM} *terraform_${TERRAFORM_VERSION}_linux_amd64.zip" | sha256sum -c - && \
     unzip "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" -d /usr/local/bin && \
     rm -f "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
+    strip --strip-unneeded /usr/local/bin/terraform && \
     terraform --version && \
 
     # install AWS CLI
@@ -421,6 +422,7 @@ RUN \
     echo "${NEOVIM_SHA256SUM} nvim-linux64.tar.gz" | sha256sum -c - && \
     tar --strip-components=1 -C /usr/local -xf nvim-linux64.tar.gz && \
     rm -f nvim-linux64.tar.gz && \
+    strip --strip-unneeded /usr/local/bin/nvim && \
     echo '\n\n' && \
 
     # Install websocat
@@ -484,6 +486,7 @@ RUN \
     echo "${OH_MY_POSH_SHA256SUM} posh-linux-amd64" | sha256sum -c - && \
     mv posh-linux-amd64 /usr/local/bin/oh-my-posh && \
     chmod +x /usr/local/bin/oh-my-posh && \
+    strip --strip-unneeded /usr/local/bin/oh-my-posh && \
     mkdir ~/.poshthemes && \
     wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip -O ~/.poshthemes/themes.zip && \
     unzip ~/.poshthemes/themes.zip -d ~/.poshthemes && \
