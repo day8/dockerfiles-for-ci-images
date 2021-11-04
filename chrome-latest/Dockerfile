@@ -41,6 +41,6 @@ RUN \
     rm -f chromedriver_linux64.zip && \
     mv chromedriver /usr/local/bin/chromedriver && \
     chmod +x /usr/local/bin/chromedriver && \
-    chrome-wrapper --version && \
+    /opt/google/chrome/chrome --version && \
     chromedriver --version && \
     echo '\n\n'
