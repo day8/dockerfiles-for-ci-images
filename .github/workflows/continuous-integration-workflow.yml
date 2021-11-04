@@ -10,9 +10,9 @@ jobs:
       - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/core
         uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
-          name: core
+          name: day8/dockerfile-for-dev-ci-image/core
           tag_semver: true
-          registry: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image
+          registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
           workdir: core
@@ -20,9 +20,9 @@ jobs:
       - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-latest
         uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
-          name: chrome/latest
+          name: day8/dockerfile-for-dev-ci-image/chrome-latest
           tag_semver: true
-          registry: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image
+          registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
           workdir: chrome-latest
@@ -30,9 +30,9 @@ jobs:
       - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56
         uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
-          name: chrome/56
+          name: day8/dockerfile-for-dev-ci-image/chrome-56
           tag_semver: true
-          registry: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image
+          registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
           workdir: chrome-56
