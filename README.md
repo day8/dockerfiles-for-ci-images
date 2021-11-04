@@ -39,7 +39,7 @@ console.
 | Leiningen                                           | `2.9.x`               | Clojure(Script) build tool. Day8's main build tool. | [GitHub Releases Assets](https://github.com/technomancy/leiningen/releases) |
 | Clojure                                             | `1.10.x`              | 'Official' Clojure CLI tools. | [Clojure Website](https://clojure.org/guides/getting_started) |
 | OpenJDK                                             | `11.x` (LTS)          | Java runtime. Dependency of Leiningen, `clojure` CLI etc. | [Ubuntu Package: `openjdk-11-headless`](https://packages.ubuntu.com/focal-updates/openjdk-11-jdk-headless) |
-| Node.js                                             | `12.x` (LTS)          | JavaScript runtime. Dependency of `shadow-cljs`, `lumo`. | [NodeSource Package Repository](https://github.com/nodesource/distributions) |
+| Node.js                                             | `16.x` (LTS)          | JavaScript runtime. Dependency of `shadow-cljs`, `lumo`. | [NodeSource Package Repository](https://github.com/nodesource/distributions) |
 | NPM                                                 | `6.x` (LTS)           | JavaScript package manager. Dependency of `shadow-cljs`. | Bundled with Node.js |
 | Yarn                                                | `1.x` ('Classic')     | JavaScript package manager. Alternative to `npm`. | [Yarn Package Repository](https://classic.yarnpkg.com/en/docs/install#debian-stable) |
 | Python 2                                            | `2.7.x`               | Python 2 runtime. | [Ubuntu Package: `python2`](https://packages.ubuntu.com/focal/python2) |

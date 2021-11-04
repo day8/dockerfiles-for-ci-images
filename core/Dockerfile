@@ -121,8 +121,8 @@ RUN \
     echo "deb https://packagecloud.io/github/git-lfs/ubuntu/ focal main" > /etc/apt/sources.list.d/github_git-lfs.list && \
     echo '\n\n' && \
 
-    echo "Adding NodeSource's Node.js v14.x package repository..." && \
-    echo "deb https://deb.nodesource.com/node_14.x focal main" > /etc/apt/sources.list.d/nodesource.list && \
+    echo "Adding NodeSource's Node.js v16.x package repository..." && \
+    echo "deb https://deb.nodesource.com/node_16.x focal main" > /etc/apt/sources.list.d/nodesource.list && \
     curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
     echo '\n\n' && \
 
