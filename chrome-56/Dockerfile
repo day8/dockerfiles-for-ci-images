@@ -1,4 +1,4 @@
-FROM ghcr.io/day8/dockerfile-for-dev-ci-image/core
+FROM ghcr.io/day8/dockerfile-for-dev-ci-image/core:2
 
 ENV CHROME_BIN=/usr/local/bin/chrome-wrapper
 

@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/core
+      - name: Build ghcr.io/day8/dockerfile-for-dev-ci-image/core
         uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
           name: day8/dockerfile-for-dev-ci-image/core
@@ -19,7 +19,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
           workdir: core
-      - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-latest
+      - name: Build ghcr.io/day8/dockerfile-for-dev-ci-image/chrome-latest
         uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
           name: day8/dockerfile-for-dev-ci-image/chrome-latest
@@ -28,7 +28,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
           workdir: chrome-latest
-      - name: Build docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/chrome-56
+      - name: Build ghcr.io/day8/dockerfile-for-dev-ci-image/chrome-56
         uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
           name: day8/dockerfile-for-dev-ci-image/chrome-56
