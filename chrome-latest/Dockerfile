@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/core
+FROM ghcr.io/day8/dockerfile-for-dev-ci-image/core
 
 RUN \
     export CHROMEDRIVER_VERSION="95.0.4638.54" && \
