@@ -4,6 +4,14 @@
 
 ## Unreleased
 
+## 2.0.0 (2021-11-06)
+
+#### Changed
+
+- Migrated from docker.pkg.github.com to ghcr.io
+- Split image into `day8/core`, `day8/chrome-56` and `day8/chrome-latest`
+- Upgraded many of the included software packages.
+
 ## 1.0.0 (2021-06-21)
 
 #### Added
