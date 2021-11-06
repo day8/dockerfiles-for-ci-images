@@ -1,15 +1,15 @@
-# Dockerfile for `day8au/dev-ci` Image
+# Dockerfiles for `day8/core` and Derivative Images
 
-The [`docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci`][1] Docker image is the 
+The [`ghcr.io/day8/core`][1] and derivative Docker images are the 
 reference development and testing environment used throughout [Day8's](https://www.day8.com.au/) 
 development pipeline.
 
-There are two main use cases for the [`docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci`][1] Docker image:
+There are two main use cases for the [`ghcr.io/day8/core`][1] or derivative Docker images:
 1. During development [Okteto](https://okteto.com/) is used to run this Docker image in Kubernetes.
 2. On pushing code to GitHub, this Docker image is the environment used to execute tests and build 
    releases for deployment with GitHub Actions.
  
-This repository contains the [`Dockerfile`][3] to build the [`docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci`][1] 
+This repository contains the [`Dockerfile`s][3] to build the [`ghcr.io/day8/core`][1] 
 Docker image. It also contains the [GitHub Actions][4] that test and deploy the Docker image.
 
 [Ubuntu 20.04 LTS][5] was chosen as the base image as it is a long term stable release of a widely 
@@ -25,8 +25,8 @@ understood and supported distribution.
 
 To run an interactive terminal:
 ```
-$ docker login docker.pkg.github.com
-$ docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1
+$ docker login ghcr.io
+$ docker run -it --rm ghcr.io/day8/core:2
 ```
 
 ## Build Requirements
@@ -69,16 +69,16 @@ available for exploratory programming and debugging of code snippets.
 
 | Name               | Language        | Example                                       |
 | ------------------ | --------------- | --------------------------------------------- | 
-| 'Official' Clojure | Clojure         | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 clojure`   |
-| Leiningen          | Clojure         | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 lein repl` |
-| Planck             | ClojureScript   | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 planck`    |
-| Lumo               | ClojureScript   | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 lumo`      |
-| Node.js            | JavaScript      | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 node`      |
-| Python 2           | Python 2        | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 python2`   |
-| Python 3           | Python 3        | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 python3`   |
-| Bash               | Bash            | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 bash`      |
-| PowerShell         | PowerShell Core | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1 pwsh`      |
-| ZSH (default)      | ZSH             | `docker run -it --rm docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1`           |
+| 'Official' Clojure | Clojure         | `docker run -it --rm ghcr.io/day8/core:2 clojure`   |
+| Leiningen          | Clojure         | `docker run -it --rm ghcr.io/day8/core:2 lein repl` |
+| Planck             | ClojureScript   | `docker run -it --rm ghcr.io/day8/core:2 planck`    |
+| Lumo               | ClojureScript   | `docker run -it --rm ghcr.io/day8/core:2 lumo`      |
+| Node.js            | JavaScript      | `docker run -it --rm ghcr.io/day8/core:2 node`      |
+| Python 2           | Python 2        | `docker run -it --rm ghcr.io/day8/core:2 python2`   |
+| Python 3           | Python 3        | `docker run -it --rm ghcr.io/day8/core:2 python3`   |
+| Bash               | Bash            | `docker run -it --rm ghcr.io/day8/core:2 bash`      |
+| PowerShell         | PowerShell Core | `docker run -it --rm ghcr.io/day8/core:2 pwsh`      |
+| ZSH (default)      | ZSH             | `docker run -it --rm ghcr.io/day8/core:2`           |
 
 ## Command-Line Tools
 
@@ -148,9 +148,9 @@ Therefore we no longer publish images to Docker Hub and use GitHub Container Reg
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     container:
-      image: docker.pkg.github.com/day8/dockerfile-for-dev-ci-image/dev-ci:1
+      image: ghcr.io/day8/chrome-latest:2
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }} # <-- you need to create a GitHub Secret with a manual token that has global access as github.token only has access to the current repo! 
@@ -162,7 +162,9 @@ jobs:
 
 #### Problem
 
-The version of Chromium used needs to be upgraded to match an Electron upgrade.
+The `day8/chrome-56:2` Docker image is provided as we need to test against a version equivalent to an old Electron version.
+
+When the version of Chromium used needs to be upgraded to match an Electron upgrade.
 
 #### Solution
 
@@ -195,7 +197,7 @@ If this error is occurring on GitHub Actions it may be because:
 ## Deployment
 
 Simply push a semver tag of the form `v1.2.3`. GitHub Actions will publish Docker images for 
-`dockerfile-for-dev-ci-image/dev-ci:1.2.3`, `dockerfile-for-dev-ci-image/dev-ci:1.2` and `dockerfile-for-dev-ci-image/dev-ci:1`. E.g.:
+`day8/core:1.2.3`, `day8/core:1.2` and `day8/core:1`. E.g.:
 
 ```shell
 $ git tag v1.2.3 HEAD
