@@ -15,10 +15,10 @@ Docker image. It also contains the [GitHub Actions][4] that test and deploy the 
 [Ubuntu 20.04 LTS][5] was chosen as the base image as it is a long term stable release of a widely 
 understood and supported distribution.
 
-[1]: https://github.com/orgs/day8/packages?repo_name=dockerfile-for-dev-ci-image
+[1]: https://github.com/orgs/day8/packages?repo_name=dockerfiles-for-dev-ci-images
 [2]: https://www.day8.com.au/
-[3]: https://github.com/day8/dockerfile-for-dev-ci-image/blob/master/Dockerfile
-[4]: https://github.com/day8/dockerfile-for-dev-ci-image/actions
+[3]: https://github.com/day8/dockerfiles-for-dev-ci-images/blob/master/Dockerfile
+[4]: https://github.com/day8/dockerfiles-for-dev-ci-images/actions
 [5]: https://hub.docker.com/_/ubuntu
 
 ## Quick Start
@@ -58,7 +58,7 @@ console.
 | `zstd`                                              | Latest at build time. | Fast, lossless compression. Dependency of [`actions/cache@v2`](https://github.com/actions/cache). | [Ubuntu Package: `zstd`](https://packages.ubuntu.com/focal/zstd) |
 | `Xvfb`                                              | Latest at build time. | X virtual framebuffer. Dependency of running Chrome without a display in GitHub Actions. | [Ubuntu Package: `xvfb`](https://packages.ubuntu.com/focal/xvfb) |
 | `karma` CLI                                         | `2.0.0`               | Dependency of builds that use the [Karma test runner](https://karma-runner.github.io/latest/index.html). | [npm: `karma-cli`](https://www.npmjs.com/package/karma-cli) |
-| Chromium                                            | `56.0.2924.0`         | Used as a browser to execute Karma tests. This specific old version tracks the version of [Electron](https://www.electronjs.org/) that Day8 has deployed. | [Long storey](https://github.com/day8/dockerfile-for-dev-ci-image/blob/5dd8bbc8032f9ed17fd75da378e4d03a3c00cd5b/Dockerfile#L334)  |
+| Chromium                                            | `56.0.2924.0`         | Used as a browser to execute Karma tests. This specific old version tracks the version of [Electron](https://www.electronjs.org/) that Day8 has deployed. | [Long storey](https://github.com/day8/dockerfiles-for-dev-ci-images/blob/5dd8bbc8032f9ed17fd75da378e4d03a3c00cd5b/Dockerfile#L334)  |
 | ChromeDriver                                        | `2.29`                | Dependency of executing Karma tests in Chromium. | [Project Website](https://chromedriver.chromium.org/) |
 | PhantomJS                                           | `2.1.1`               | Obsolete headless browser to execute Karma tests. As of 2020 still used by [`cljs-oss/canary`](https://github.com/cljs-oss/canary) builds. | [Bitbucket](https://bitbucket.org/ariya/phantomjs/downloads/) |
 
@@ -168,7 +168,7 @@ When the version of Chromium used needs to be upgraded to match an Electron upgr
 
 #### Solution
 
-Hold on to your hat and [walk this path](https://github.com/day8/dockerfile-for-dev-ci-image/blob/5dd8bbc8032f9ed17fd75da378e4d03a3c00cd5b/Dockerfile#L334).
+Hold on to your hat and [walk this path](https://github.com/day8/dockerfiles-for-dev-ci-images/blob/5dd8bbc8032f9ed17fd75da378e4d03a3c00cd5b/Dockerfile#L334).
 
 ### Karma - 'Gtk: cannot open display: :99'
 
