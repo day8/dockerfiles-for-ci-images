@@ -4,6 +4,10 @@
 
 ## Unreleased
 
+### Removed
+
+- Remove PhantomJS
+
 ## 2.0.0 (2021-11-06)
 
 #### Changed

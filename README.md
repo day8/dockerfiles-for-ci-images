@@ -60,7 +60,6 @@ console.
 | `karma` CLI                                         | `2.0.0`               | Dependency of builds that use the [Karma test runner](https://karma-runner.github.io/latest/index.html). | [npm: `karma-cli`](https://www.npmjs.com/package/karma-cli) |
 | Chromium                                            | `56.0.2924.0`         | Used as a browser to execute Karma tests. This specific old version tracks the version of [Electron](https://www.electronjs.org/) that Day8 has deployed. | [Long storey](https://github.com/day8/dockerfiles-for-dev-ci-images/blob/5dd8bbc8032f9ed17fd75da378e4d03a3c00cd5b/Dockerfile#L334)  |
 | ChromeDriver                                        | `2.29`                | Dependency of executing Karma tests in Chromium. | [Project Website](https://chromedriver.chromium.org/) |
-| PhantomJS                                           | `2.1.1`               | Obsolete headless browser to execute Karma tests. As of 2020 still used by [`cljs-oss/canary`](https://github.com/cljs-oss/canary) builds. | [Bitbucket](https://bitbucket.org/ariya/phantomjs/downloads/) |
 
 ## REPLs
 

@@ -67,8 +67,6 @@ RUN \
     export KUBECTL_SHA256SUM="78178a8337fc6c76780f60541fca7199f0f1a2e9c41806bded280a4a5ef665c9" && \
     export GIT_GPGKEY="E1DD270288B4E6030699E45FA1715D88E1DF1F24" && \
     export PLANCK_GPGKEY="A5D6812987A6E53579AF0308D3D743111F327606" && \
-    export PHANTOMJS_VERSION="2.1.1" && \
-    export PHANTOMJS_SHA256SUM="86dd9a4bf4aee45f1a84c9f61cf1947c1d6dce9b9e8d2a907105da7852460d2f" && \
     export DEBIAN_FRONTEND="noninteractive" && \
     export DOTFILES_BASE_URI="https://raw.githubusercontent.com/day8/dockerfiles-for-dev-ci-images/master/dotfiles/" && \
 
@@ -444,25 +442,9 @@ RUN \
     chmod +x /usr/local/bin/pueue /usr/local/bin/pueued && \
     echo '\n\n' && \
 
-    # Install PhantomJS
-    #
-    # PhantomJS is a discontinued headless browser used for automated web page interaction, such as testing. Although
-    # normal unit test builds can use Chrome via Karma, unfortunately PhantomJS is required by cljs-oss/canary builds.
-    echo "Installing PhantomJS ${PHANTOMJS_VERSION}..." && \
-    wget -q -O phantomjs.tar.bz2 https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${PHANTOMJS_VERSION}-linux-x86_64.tar.bz2 && \
-    echo "Verifying PhantomJS package checksum..." && \
-    sha256sum phantomjs.tar.bz2 && \
-    echo "$PHANTOMJS_SHA256SUM *phantomjs.tar.bz2" | sha256sum -c - && \
-    mkdir -p /opt/phantomjs/${PHANTOMJS_VERSION} && \
-    tar jxf phantomjs.tar.bz2 --strip-components=1 -C /opt/phantomjs/${PHANTOMJS_VERSION} && \
-    rm -f phantomjs.tar.bz2 && \
-    ln -s /opt/phantomjs/${PHANTOMJS_VERSION} /opt/phantomjs/latest && \
-    ln -s /opt/phantomjs/latest/bin/phantomjs /usr/local/bin/phantomjs && \
-    echo '\n\n' && \
-
     # Install PowerShell
     #
-    # Windows 10 has become a surprisingly good platform for developers in recent times. Just like its important to have
+    # Windows has become a surprisingly good platform for developers in recent times. Just like its important to have
     # a preferred editor handy, be it vim or emacs, it is also important to have a familiar shell available to those who
     # want to use it.
     echo "Installing PowerShell ${POWERSHELL_VERSION}..." && \
@@ -535,7 +517,6 @@ RUN \
     echo "echo \"`git --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`git-lfs --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`pwsh --version`\"" >> /docker-entrypoint.sh && \
-    echo "echo \"PhantomJS `phantomjs --version`\"" >> /docker-entrypoint.sh && \
     echo 'exec "$@"' >> /docker-entrypoint.sh && \
     chmod +x /docker-entrypoint.sh && \
 
