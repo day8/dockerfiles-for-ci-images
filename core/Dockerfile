@@ -478,20 +478,8 @@ RUN \
     pwsh -Command 'echo "oh-my-posh --init --shell pwsh --config ~/jandedobbeleer.omp.json | Invoke-Expression" > $PROFILE' && \
     echo '\n\n' && \
 
-    # gitstatus is a 10x faster alternative to `git status` and `git describe`.
-    #
-    # Included in the Docker image so that the shell won't auto download it on
-    # startup, reducing startup time.
-    git clone --depth=1 https://github.com/romkatv/gitstatus.git && \
-    cd gitstatus && \
-    ./build -w && \
-    mv usrbin/gitstatusd /usr/local/bin/gitstatusd && \
-    cd /tmp && \
-    rm -rf gitstatus && \
-
     # Install Zsh, Bash and Vim configuration files:
     echo 'eval "$(oh-my-posh --init --shell zsh --config ~/jandedobbeleer.omp.json)"' >> ~/.zshrc && \
-    
     echo 'eval "$(oh-my-posh --init --shell bash --config ~/jandedobbeleer.omp.json)"' >> ~/.bashrc && \
 
     git clone --depth 1 https://github.com/liuchengxu/space-vim.git ~/.space-vim && \
