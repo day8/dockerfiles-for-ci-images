@@ -10,40 +10,14 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Build ghcr.io/day8/core
+      - name: Build ghcr.io/day8/demo
         uses: elgohr/Publish-Docker-Github-Action@3.04
         with:
-          name: day8/core
+          # day8/dockerfile-for-dev-ci-image/demo
+          name: day8/demo
           tag_semver: true
+          # registry: docker.pkg.github.com
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
-          workdir: core
-      - name: Build ghcr.io/day8/chrome-latest
-        uses: elgohr/Publish-Docker-Github-Action@3.04
-        with:
-          name: day8/chrome-latest
-          tag_semver: true
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
-          workdir: chrome-latest
-      - name: Build ghcr.io/day8/chrome-56
-        uses: elgohr/Publish-Docker-Github-Action@3.04
-        with:
-          name: day8/chrome-56
-          tag_semver: true
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
-          workdir: chrome-56
-      - name: Slack notification
-        uses: homoluctus/slatify@v2.0.1
-        if: always()
-        with:
-          type: ${{ job.status  }}
-          job_name: dev-ci Docker Image Release
-          channel: '#lib-robots'
-          url: ${{ secrets.SLACK_WEBHOOK }}
-          commit: true
-          token: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
+          workdir: demo
