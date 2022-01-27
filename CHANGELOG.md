@@ -4,6 +4,10 @@
 
 ## Unreleased
 
+### Changed
+
+- Upgrade AWS CLI to 2.4.15
+
 ### Removed
 
 - Remove PhantomJS

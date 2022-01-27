@@ -26,8 +26,8 @@ RUN \
     export CLJ_KONDO_SHA256SUM="bad383017ad460aa935c488d9806c459bb395f2a8f4ef57577930aa9143f3bf6" && \
     export TERRAFORM_VERSION="1.0.10" && \
     export TERRAFORM_SHA256SUM="a221682fcc9cbd7fde22f305ead99b3ad49d8303f152e118edda086a2807716d" && \
-    export AWS_CLI_VERSION="2.3.3" && \
-    export AWS_CLI_SHA256SUM="f444a11b9a06d27f336f2670e0b17a5e6f8efdc7c08fa9799f0dd031cad5042b" && \
+    export AWS_CLI_VERSION="2.4.15" && \
+    export AWS_CLI_SHA256SUM="9c243c0f83b736eaf1cb37fcc02a927799c771533531c5be67ba19778d56a43b" && \
     export AWS_SAM_CLI_VERSION="1.33.0" && \
     export AWS_SAM_CLI_SHA256SUM="3fcdf752ab30e6355087bcfa451a7d3ca6eb23445b893ecfcd0dea4fab166382" && \
     export HASURA_CLI_VERSION="2.0.10" && \
