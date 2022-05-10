@@ -492,7 +492,8 @@ RUN \
     echo "Installing Lumo and Karma CLI..." && \
     npm install -g --unsafe-perm \
       lumo-cljs@$LUMO_VERSION \
-      karma-cli@$KARMA_CLI_VERSION && \
+      karma-cli@$KARMA_CLI_VERSION \
+      cdk && \
 
     # Finish Docker ENTRYPOINT script:
     echo 'neofetch' >> /docker-entrypoint.sh && \
