@@ -111,13 +111,6 @@ RUN \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $PLANCK_GPGKEY && \
     echo '\n\n' && \
 
-    # Git Large File Storage is required when cloning any Git repository that uses the Git LFS
-    # Specification. See https://github.com/git-lfs/git-lfs
-    echo "Adding Git LFS package repository..." && \
-    curl -sSL https://packagecloud.io/github/git-lfs/gpgkey | apt-key add - && \
-    echo "deb https://packagecloud.io/github/git-lfs/ubuntu/ focal main" > /etc/apt/sources.list.d/github_git-lfs.list && \
-    echo '\n\n' && \
-
     echo "Adding NodeSource's Node.js v16.x package repository..." && \
     echo "deb https://deb.nodesource.com/node_16.x focal main" > /etc/apt/sources.list.d/nodesource.list && \
     curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
@@ -132,7 +125,7 @@ RUN \
 
     # Install development tooling, common editors and language runtimes.
     apt-get install -qq -y --no-install-recommends \
-      git git-lfs diffstat jq silversearcher-ag fzf \
+      git diffstat jq silversearcher-ag fzf \
       neofetch ncdu htop zstd \
       rlwrap less tmux openssh-client mosh \
       emacs-nox \
