@@ -123,11 +123,6 @@ RUN \
     curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
     echo '\n\n' && \
 
-    echo "Adding Yarn package repository..." && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo '\n\n' && \
-
     # Refresh package lists after adding package repositories.
     apt-get update -qq && \
 
@@ -141,7 +136,7 @@ RUN \
       neofetch ncdu htop zstd \
       rlwrap less tmux openssh-client mosh \
       emacs-nox \
-      zsh build-essential cmake openjdk-$JVM_VERSION\-jdk-headless nodejs yarn python2 python3-pip planck \
+      zsh build-essential cmake openjdk-$JVM_VERSION\-jdk-headless nodejs python2 python3-pip planck \
     # These are dependencies of powershell
       liblttng-ust-ctl4 liblttng-ust0 \
     # These are dependencies of xvfb, Chrome and ChromeDriver that are common to all versions.
