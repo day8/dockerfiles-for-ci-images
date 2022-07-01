@@ -126,7 +126,7 @@ RUN \
     # Install development tooling, common editors and language runtimes.
     apt-get install -qq -y --no-install-recommends \
       git diffstat jq silversearcher-ag fzf \
-      neofetch ncdu htop zstd \
+      ncdu htop zstd \
       rlwrap less tmux openssh-client mosh \
       emacs-nox \
       zsh build-essential cmake openjdk-$JVM_VERSION\-jdk-headless nodejs python2 python3-pip planck \
@@ -482,15 +482,13 @@ RUN \
       @datadog/datadog-ci && \
 
     # Finish Docker ENTRYPOINT script:
-    echo 'neofetch' >> /docker-entrypoint.sh && \
     echo "echo \"`bb --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`lein version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"lumo `lumo --version` and Planck `planck --version`\"" >> /docker-entrypoint.sh && \
-    echo "echo \"Node.js `node --version` with NPM `npm --version` and Yarn `yarn --version`\"" >> /docker-entrypoint.sh && \
+    echo "echo \"Node.js `node --version` with NPM `npm --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`python2 --version` and `python3 --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`aws --version` and `sam --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`git --version`\"" >> /docker-entrypoint.sh && \
-    echo "echo \"`git-lfs --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`pwsh --version`\"" >> /docker-entrypoint.sh && \
     echo 'exec "$@"' >> /docker-entrypoint.sh && \
     chmod +x /docker-entrypoint.sh && \
@@ -518,7 +516,6 @@ RUN \
     # Strip binaries of debugging symbols that are not stripped already so save
     # some space:
     strip --strip-unneeded \
-        /usr/bin/git-lfs \
         /usr/local/bin/docker \
         /usr/local/bin/dockerd \
         /usr/local/bin/docker-proxy && \
