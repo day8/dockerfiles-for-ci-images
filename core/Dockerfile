@@ -15,9 +15,9 @@ RUN \
     # reserved only for those environment variables that must persist after this RUN script has
     # completed.
     export JVM_VERSION="11" && \
-    export LEIN_VERSION="2.9.7" && \
+    export LEIN_VERSION="2.9.8" && \
     export LEIN_INSTALL="/usr/local/bin" && \
-    export LEIN_SHA256SUM="f78f20d1931f028270e77bc0f0c00a5a0efa4ecb7a5676304a34ae4f469e281d" && \
+    export LEIN_SHA256SUM="9952cba539cc6454c3b7385ebce57577087bf2b9001c3ab5c55d668d0aeff6e9" && \
     export CLOJURE_VERSION="1.11.1.1149" && \
     export CLOJURE_SHA256SUM="9aadc1a1840a458517a6efb111eba72be93c17bbdc874c833ef781e77aacc55e" && \
     export BABASHKA_VERSION="0.6.4" && \
