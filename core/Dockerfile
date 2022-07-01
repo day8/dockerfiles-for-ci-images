@@ -142,8 +142,6 @@ RUN \
       rlwrap less tmux openssh-client mosh \
       emacs-nox \
       zsh build-essential cmake openjdk-$JVM_VERSION\-jdk-headless nodejs yarn python2 python3-pip planck \
-      pngnq pngquant pngtools pngmeta pngcrush pngcheck \
-      jhead jpeginfo jpegoptim jpegpixi \
     # These are dependencies of powershell
       liblttng-ust-ctl4 liblttng-ust0 \
     # These are dependencies of xvfb, Chrome and ChromeDriver that are common to all versions.
