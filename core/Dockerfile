@@ -38,8 +38,8 @@ RUN \
     export KARMA_CLI_VERSION="2.0.0" && \
     export GH_VERSION="2.2.0" && \
     export GH_SHA256SUM="effdb6df788f1e7af43857bda377c2c86d6905e0fa2b19c74c5552059df65830" && \
-    export BAT_VERSION="0.18.3" && \
-    export BAT_SHA256SUM="3e85d15e5757d9f56af8f15bb99a56aaaab33ed541fa3ff1e1c585f5733845c3" && \
+    export BAT_VERSION="0.22.1" && \
+    export BAT_SHA256SUM="1d1b629247ac23d870cfde9f8eebbb4af7468f5c7c0914d9246c50bf0c72c1fd" && \
     export DELTA_VERSION="0.9.2" && \
     export DELTA_SHA256SUM="1f927b5eda756ce048146159bd30973f06c15448deefd06f60749d6aa15d255d" && \
     export FD_VERSION="8.2.1" && \
