@@ -15,6 +15,8 @@ RUN \
     # reserved only for those environment variables that must persist after this RUN script has
     # completed.
     export JVM_VERSION="11" && \
+    export NODEJS_VERSION="16.18.0" && \
+    export NODEJS_SHA256SUM="a50dd97f8deb363c61d7026e5f0abc0f140916d7fcabcc549e9444c1f5c97f03" && \
     export LEIN_VERSION="2.9.8" && \
     export LEIN_INSTALL="/usr/local/bin" && \
     export LEIN_SHA256SUM="9952cba539cc6454c3b7385ebce57577087bf2b9001c3ab5c55d668d0aeff6e9" && \
@@ -111,11 +113,6 @@ RUN \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $PLANCK_GPGKEY && \
     echo '\n\n' && \
 
-    echo "Adding NodeSource's Node.js v16.x package repository..." && \
-    echo "deb https://deb.nodesource.com/node_16.x focal main" > /etc/apt/sources.list.d/nodesource.list && \
-    curl -sS https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-    echo '\n\n' && \
-
     # Refresh package lists after adding package repositories.
     apt-get update -qq && \
 
@@ -129,7 +126,7 @@ RUN \
       ncdu htop zstd \
       rlwrap less tmux openssh-client mosh \
       emacs-nox \
-      zsh build-essential cmake openjdk-$JVM_VERSION\-jdk-headless nodejs python2 python3-pip planck \
+      zsh build-essential cmake openjdk-$JVM_VERSION\-jdk-headless python2 python3-pip planck \
     # These are dependencies of powershell
       liblttng-ust-ctl4 liblttng-ust0 \
     # These are dependencies of xvfb, Chrome and ChromeDriver that are common to all versions.
@@ -141,6 +138,15 @@ RUN \
 
     # Start a X11 virtual framebuffer to run tests in Chrome.
     echo 'Xvfb :99 -screen 0 1920x1080x24 &' >> /docker-entrypoint.sh && \
+
+    # Install Node.js:
+    echo "Installing Node.js LTS ${NODEJS_VERSION}..." && \
+    wget -q "https://nodejs.org/dist/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.xz" && \
+    echo "Verifying node-v${NODEJS_VERSION}-linux-x64.tar.xz checksum..." && \
+    sha256sum node-v${NODEJS_VERSION}-linux-x64.tar.xz && \
+    echo "${NODEJS_SHA256SUM} *node-v${NODEJS_VERSION}-linux-x64.tar.xz" | sha256sum -c - && \
+    tar --strip-components=1 -C /usr -Jxf "node-v${NODEJS_VERSION}-linux-x64.tar.xz" && \
+    rm -f "node-v${NODEJS_VERSION}-linux-x64.tar.xz" && \
 
     # Install Clojure:
     echo "Installing 'Official' Clojure CLI ${CLOJURE_VERSION}..." && \
