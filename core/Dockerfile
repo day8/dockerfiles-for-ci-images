@@ -40,8 +40,8 @@ RUN \
     export GH_SHA256SUM="aca6852c457ae975155c936ad5c2691ff65a62a33142c94722bf76034a7ac43f" && \
     export BAT_VERSION="0.22.1" && \
     export BAT_SHA256SUM="1d1b629247ac23d870cfde9f8eebbb4af7468f5c7c0914d9246c50bf0c72c1fd" && \
-    export DELTA_VERSION="0.9.2" && \
-    export DELTA_SHA256SUM="1f927b5eda756ce048146159bd30973f06c15448deefd06f60749d6aa15d255d" && \
+    export DELTA_VERSION="0.14.0" && \
+    export DELTA_SHA256SUM="77020b6bdea08cfd2f9ffcbacbde337f0a1bbb11444be0f115bef04a356c0969" && \
     export FD_VERSION="8.2.1" && \
     export FD_SHA256SUM="f3a949325f1893145ced2b269a67d5763af3bede435c40e3b85b29afdb78c3d2" && \
     export HEXYL_VERSION="0.9.0" && \
