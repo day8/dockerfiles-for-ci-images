@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build ghcr.io/day8/core
-        uses: elgohr/Publish-Docker-Github-Action@4
+        uses: elgohr/Publish-Docker-Github-Action@v4
         with:
           name: day8/core
           tag_names: true
@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
           workdir: core
       - name: Build ghcr.io/day8/chrome-latest
-        uses: elgohr/Publish-Docker-Github-Action@4
+        uses: elgohr/Publish-Docker-Github-Action@v4
         with:
           name: day8/chrome-latest
           tag_names: true
@@ -29,7 +29,7 @@ jobs:
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
           workdir: chrome-latest
       - name: Build ghcr.io/day8/chrome-56
-        uses: elgohr/Publish-Docker-Github-Action@4
+        uses: elgohr/Publish-Docker-Github-Action@v4
         with:
           name: day8/chrome-56
           tag_names: true
