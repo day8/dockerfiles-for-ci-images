@@ -8,30 +8,30 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build ghcr.io/day8/core
-        uses: elgohr/Publish-Docker-Github-Action@3.04
+        uses: elgohr/Publish-Docker-Github-Action@4
         with:
           name: day8/core
-          tag_semver: true
+          tag_names: true
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
           workdir: core
           no_push: true
       - name: Build ghcr.io/day8/chrome-latest
-        uses: elgohr/Publish-Docker-Github-Action@3.04
+        uses: elgohr/Publish-Docker-Github-Action@4
         with:
           name: day8/chrome-latest
-          tag_semver: true
+          tag_names: true
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
           workdir: chrome-latest
           no_push: true
       - name: Build docker.pkg.github.com/day8/chrome-56
-        uses: elgohr/Publish-Docker-Github-Action@3.04
+        uses: elgohr/Publish-Docker-Github-Action@4
         with:
           name: day8/chrome-56
-          tag_semver: true
+          tag_names: true
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
