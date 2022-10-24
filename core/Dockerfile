@@ -17,9 +17,10 @@ RUN \
     export JVM_VERSION="11" && \
     export NODEJS_VERSION="16.18.0" && \
     export NODEJS_SHA256SUM="a50dd97f8deb363c61d7026e5f0abc0f140916d7fcabcc549e9444c1f5c97f03" && \
-    export LEIN_VERSION="2.9.8" && \
+    export LEIN_VERSION="2.9.10" && \
     export LEIN_INSTALL="/usr/local/bin" && \
-    export LEIN_SHA256SUM="9952cba539cc6454c3b7385ebce57577087bf2b9001c3ab5c55d668d0aeff6e9" && \
+    export LEIN_SHA256SUM="dbb84d13d6df5b85bbf7f89a39daeed103133c24a4686d037fe6bd65e38e7f32" && \
+    export LEIN_STANDALONE_JAR="895a0a0d-f20d-4580-a277-e06b5eec3b6b" && \
     export CLOJURE_VERSION="1.11.1.1165" && \
     export CLOJURE_SHA256SUM="72d662bdc99b79037f9e34996272384de35e01e0416d8eb79cc940ee0f0fc808" && \
     export BABASHKA_VERSION="1.0.164" && \
@@ -163,15 +164,15 @@ RUN \
     # Install Leiningen:
     echo "Installing Leiningen ${LEIN_VERSION}..." && \
     mkdir -p $LEIN_INSTALL && \
-    wget -q https://raw.githubusercontent.com/technomancy/leiningen/$LEIN_VERSION/bin/lein-pkg && \
+    wget -q https://codeberg.org/leiningen/leiningen/raw/tag/$LEIN_VERSION/bin/lein-pkg && \
     echo "Verifying lein-pkg checksum..." && \
     sha256sum lein-pkg && \
     echo "$LEIN_SHA256SUM *lein-pkg" | sha256sum -c - && \
     mv lein-pkg $LEIN_INSTALL/lein && \
     chmod 0755 $LEIN_INSTALL/lein && \
-    wget -q "https://github.com/technomancy/leiningen/releases/download/$LEIN_VERSION/leiningen-$LEIN_VERSION-standalone.jar" && \
+    wget -q "https://codeberg.org/attachments/$LEIN_STANDALONE_JAR" && \
     mkdir -p /usr/share/java && \
-    mv leiningen-$LEIN_VERSION-standalone.jar /usr/share/java/leiningen-$LEIN_VERSION-standalone.jar && \
+    mv $LEIN_STANDALONE_JAR /usr/share/java/leiningen-$LEIN_VERSION-standalone.jar && \
     mkdir -p /root/.lein && \
     wget -q -O /root/.lein/profiles.clj "${DOTFILES_BASE_URI}/.lein/profiles.clj" && \
     echo '\n\n' && \
