@@ -15,6 +15,7 @@ jobs:
         with:
           name: day8/core
           tag_names: true
+          tags: "latest"
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}

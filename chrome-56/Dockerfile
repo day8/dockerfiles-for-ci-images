@@ -1,4 +1,4 @@
-FROM ghcr.io/day8/core
+FROM ghcr.io/day8/core:latest
 
 ENV CHROME_BIN=/usr/local/bin/chrome-wrapper
 
