@@ -1,4 +1,4 @@
-FROM ghcr.io/day8/core:2
+FROM ghcr.io/day8/core
 
 RUN \
     export CHROMEDRIVER_VERSION="95.0.4638.54" && \
