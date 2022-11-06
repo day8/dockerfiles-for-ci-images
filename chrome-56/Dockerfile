@@ -135,3 +135,5 @@ RUN \
     chrome-wrapper --version && \
     chromedriver --version && \
     echo '\n\n'
+
+USER runner
