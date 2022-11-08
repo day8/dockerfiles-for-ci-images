@@ -1,13 +1,11 @@
 # Dockerfiles for `day8/core` and Derivative Images
 
 The [`ghcr.io/day8/core`][1] and derivative Docker images are the 
-reference development and testing environment used throughout [Day8's](https://www.day8.com.au/) 
-development pipeline.
+reference testing environment used throughout [Day8's](https://www.day8.com.au/) 
+continuous integration pipeline.
 
-There are two main use cases for the [`ghcr.io/day8/core`][1] or derivative Docker images:
-1. During development [Okteto](https://okteto.com/) is used to run this Docker image in Kubernetes.
-2. On pushing code to GitHub, this Docker image is the environment used to execute tests and build 
-   releases for deployment with GitHub Actions.
+On pushing code to GitHub, this Docker image is the environment used to execute tests and build 
+releases for deployment with GitHub Actions.
  
 This repository contains the [`Dockerfile`s][3] to build the [`ghcr.io/day8/core`][1] 
 Docker image. It also contains the [GitHub Actions][4] that test and deploy the Docker image.
@@ -26,7 +24,7 @@ understood and supported distribution.
 To run an interactive terminal:
 ```
 $ docker login ghcr.io
-$ docker run -it --rm ghcr.io/day8/core:2
+$ docker run -it --rm ghcr.io/day8/core:5.0.0
 ```
 
 ## Build Requirements
@@ -39,17 +37,14 @@ console.
 | Leiningen                                           | `2.9.x`               | Clojure(Script) build tool. Day8's main build tool. | [GitHub Releases Assets](https://github.com/technomancy/leiningen/releases) |
 | Clojure                                             | `1.10.x`              | 'Official' Clojure CLI tools. | [Clojure Website](https://clojure.org/guides/getting_started) |
 | OpenJDK                                             | `11.x` (LTS)          | Java runtime. Dependency of Leiningen, `clojure` CLI etc. | [Ubuntu Package: `openjdk-11-headless`](https://packages.ubuntu.com/focal-updates/openjdk-11-jdk-headless) |
-| Node.js                                             | `16.x` (LTS)          | JavaScript runtime. Dependency of `shadow-cljs`, `lumo`. | [NodeSource Package Repository](https://github.com/nodesource/distributions) |
+| Node.js                                             | `16.x` (LTS)          | JavaScript runtime. Dependency of `shadow-cljs`. | [NodeSource Package Repository](https://github.com/nodesource/distributions) |
 | NPM                                                 | `6.x` (LTS)           | JavaScript package manager. Dependency of `shadow-cljs`. | Bundled with Node.js |
-| Yarn                                                | `1.x` ('Classic')     | JavaScript package manager. Alternative to `npm`. | [Yarn Package Repository](https://classic.yarnpkg.com/en/docs/install#debian-stable) |
 | Python 2                                            | `2.7.x`               | Python 2 runtime. | [Ubuntu Package: `python2`](https://packages.ubuntu.com/focal/python2) |
 | Python 3                                            | `3.8.x`               | Python 3 runtime. | [Ubuntu Package: `python3`](https://packages.ubuntu.com/focal/python3) |
 | `pip`                                               | Latest at build time. | Python package manager. | [Ubuntu Package: `python3-pip`](https://packages.ubuntu.com/focal/python3-pip) |
 | `pipenv`                                            | Latest at build time. | Python package manager. | [Python Package: `pipenv`](https://pypi.org/project/pipenv/) |
 | `pytest`                                            | Latest at build time. | Python test runner. | [Python Package: `pytest`](https://pypi.org/project/pytest/) |
-| `flake8`                                            | Latest at build time. | Python source code checker/linter. | [Python Package: `flake8`](https://pypi.org/project/flake8/) |
 | Git                                                 | Latest at build time. | Dependency of [`actions/checkout`](https://github.com/actions/checkout) and [`day8/lein-git-inject`](https://github.com/day8/lein-git-inject) | ['Git stable releases' Ubuntu PPA](https://launchpad.net/~git-core/+archive/ubuntu/ppa) |
-| Git LFS                                             | Latest at build time. | Required to clone Git repositories using Large File Storage (LFS). | [PackageCloud](https://packagecloud.io/github/git-lfs) |
 | [`aws`](https://docs.aws.amazon.com/cli/index.html) | Latest at build time. | Interface to Amazon Web Services. Dependency of S3 deployments. | [Official AWS Package: `awscli-exe-linux-x86_64.zip`](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html) |
 | [`sam`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html) | | Creates and manages AWS serverless applications. | [Official AWS Package: `aws-sam-cli-linux-x86_64.zip`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-linux.html) |
 | GNU Compiler Collection                             | `9.3.x`               | C (`gcc`) and C++ (`g++`) compiler. Dependency of `npm install...` and therefore `shadow-cljs`. | [Ubuntu Package: `build-essential`](https://packages.ubuntu.com/focal/build-essential) |
@@ -70,14 +65,10 @@ available for exploratory programming and debugging of code snippets.
 | ------------------ | --------------- | --------------------------------------------- | 
 | 'Official' Clojure | Clojure         | `docker run -it --rm ghcr.io/day8/core:2 clojure`   |
 | Leiningen          | Clojure         | `docker run -it --rm ghcr.io/day8/core:2 lein repl` |
-| Planck             | ClojureScript   | `docker run -it --rm ghcr.io/day8/core:2 planck`    |
-| Lumo               | ClojureScript   | `docker run -it --rm ghcr.io/day8/core:2 lumo`      |
 | Node.js            | JavaScript      | `docker run -it --rm ghcr.io/day8/core:2 node`      |
 | Python 2           | Python 2        | `docker run -it --rm ghcr.io/day8/core:2 python2`   |
 | Python 3           | Python 3        | `docker run -it --rm ghcr.io/day8/core:2 python3`   |
 | Bash               | Bash            | `docker run -it --rm ghcr.io/day8/core:2 bash`      |
-| PowerShell         | PowerShell Core | `docker run -it --rm ghcr.io/day8/core:2 pwsh`      |
-| ZSH (default)      | ZSH             | `docker run -it --rm ghcr.io/day8/core:2`           |
 
 ## Command-Line Tools
 
@@ -89,50 +80,7 @@ usability when using the image as an interactive shell.
 | [`clj-kondo`](https://github.com/clj-kondo/clj-kondo) | A linter for Clojure code that sparks joy. | GitHub Releases Assets |
 | [`babashka`](https://github.com/babashka/babashka) | Native Clojure interpreter for scripting. | GitHub Releases Assets |
 | [`gh`](https://github.com/cli/cli/) | GitHub's official command line tool. | [GitHub Releases Assets: `gh_N.N.N_linux_amd64.deb`](https://github.com/cli/cli/releases) |
-| [`exa`](https://the.exa.website/) | Modern replacement for `ls`. | [GitHub Releases Assets: `exa-linux-x86_64-N.N.N.zip`](https://github.com/ogham/exa/releases) |
-| [`bat`](https://github.com/sharkdp/bat) | `cat` clone with syntax highlighting and Git integration. | [GitHub Releases Assets: `bat_N.N.N_amd64.deb`](https://github.com/sharkdp/bat/releases) |
-| [`fd`](https://github.com/sharkdp/fd) | Simple, fast and user-friendly alternative to `find`. | [GitHub Releases Assets: `fd_N.N.N_amd64.deb`](https://github.com/sharkdp/fd/releases) |
-| [`fzf`](https://github.com/junegunn/fzf) | Fuzzy finder. | [Ubuntu Package: `fzf`](https://packages.ubuntu.com/focal/fzf) |
-| [`rgrep`](https://github.com/BurntSushi/ripgrep) ('ripgrep') | `grep` that respects `.gitignore` and automatically skips hidden files/directories and binary files. | [GitHub Releases Assets: `ripgrep_N.N.N_amd64.deb`](https://github.com/BurntSushi/ripgrep/releases) |
-| [`ag`](https://github.com/ggreer/the_silver_searcher) | The silver searcher, a code-searching tool similar to `ack`. | [Ubuntu Package: `silversearcher-ag`](https://packages.ubuntu.com/focal/silversearcher-ag) |
-| [`websocat`](https://github.com/vi/websocat) | Client for WebSockets, like `curl` for `ws://`. | [GitHub Releases Assets: `websocat_N.N.N_ssl1.1_amd64.deb`](https://github.com/vi/websocat/releases) |
-| [`pueue`](https://github.com/Nukesor/pueue) | Task management for sequential and parallel execution of long-running tasks. | [GitHub Releases Assets: `pueue-linux-x86_64` and `pueued-linux-x86_64`](https://github.com/Nukesor/pueue/releases) |
-| [`tmux`](https://github.com/tmux/tmux/wiki) | Terminal multiplexer. | [Ubuntu Package: `tmux`](https://packages.ubuntu.com/focal/tmux) |
-| [`rlwrap`](https://github.com/hanslub42/rlwrap)              | A 'readline wrapper' to allow the editing of keyboard input for any command. | [Ubuntu Package: `rlwrap`](https://packages.ubuntu.com/focal/rlwrap) |
-| [`delta`](https://github.com/dandavison/delta) | A viewer for git and diff output. | GitHub Release Assets |
-| [`diffstat`](https://invisible-island.net/diffstat/) | Make a histogram of diffs. | [Ubuntu Package: `diffstat`](https://packages.ubuntu.com/focal/diffstat) |
-| [`jq`](https://stedolan.github.io/jq/) | Like `sed` for JSON. | [Ubuntu Package: `jq`](https://packages.ubuntu.com/focal/jq) |
-| [`yq`](https://kislyuk.github.io/yq/) | `jq` wrapper for YAML and XML. |  [Python Package: `yq`](https://pypi.org/project/yq/) |
-| [`hexyl`](https://github.com/sharkdp/hexyl) | Hex viewer. | [GitHub Releases Assets: `hexyl_N.N.N_amd64.deb`](https://github.com/sharkdp/hexyl/releases) |
-| [`neofetch`](https://github.com/dylanaraps/neofetch) | System information tool. | [Ubuntu Package: `neofetch`](https://packages.ubuntu.com/focal/neofetch) |
-| [`htop`](https://hisham.hm/htop/) | Interactive process viewer. | [Ubuntu Package: `htop`](https://packages.ubuntu.com/focal/htop) |
-| [`ncdu`](https://en.wikipedia.org/wiki/Ncdu) | Interactive disk usage analyzer. | [Ubuntu Package: `ncdu`](https://packages.ubuntu.com/focal/ncdu) |
 | [`ssh`](https://www.openssh.com/) | OpenSSH client. | [Ubuntu Package: `openssh-client`](https://packages.ubuntu.com/focal/openssh-client) |
-| [`mosh`](https://mosh.org/) | More robust and responsive SSH client. | [Ubuntu Package: `mosh`](https://packages.ubuntu.com/focal/mosh) |
-| [`pngnq`](http://pngnq.sourceforge.net/) | Lossy PNG compressor. | [Ubuntu Package: `pngnq`](https://packages.ubuntu.com/focal/pngnq) | 
-| [`pngquant`](https://pngquant.org/) | Lossy PNG compressor. | [Ubuntu Package: `pngquant`](https://packages.ubuntu.com/focal/pngquant) |
-| [`pngcrush`](https://en.wikipedia.org/wiki/Pngcrush) | Lossless PNG compressor. | [Ubuntu Package: `pngcrush`](https://packages.ubuntu.com/focal/pngcrush) |
-| `pngtools` | Series of tools for PNGs. | [Ubuntu Package: `pngtools`](https://packages.ubuntu.com/focal/pngtools) |
-| [`pngmeta`](http://www.libpng.org/pub/png/apps/pngmeta.html) | Extracts metadata from PNGs. | [Ubuntu Package: `pngmeta`](https://packages.ubuntu.com/focal/pngmeta) |
-| [`pngcheck`](http://www.libpng.org/pub/png/apps/pngcheck.html) | Verifies integrity of PNGs. | [Ubuntu Package: `pngcheck`](https://packages.ubuntu.com/focal/pngcheck) |
-| [`jpegoptim`](https://github.com/tjko/jpegoptim) | Lossy JPEG compressor. | [Ubuntu Package: `jpegoptim`](https://packages.ubuntu.com/focal/jpegoptim) |
-| [`jhead`](https://packages.ubuntu.com/focal/jhead) | JPEG metadata manipulation tool. | [Ubuntu Package: `jhead`](https://packages.ubuntu.com/focal/jhead) |
-| `jpegpixi` | Removes defects from JPEGs. | [Ubuntu Package: `jpegpixi`](https://packages.ubuntu.com/focal/jpegpixi) |
-| [`jpeginfo`](https://github.com/tjko/jpeginfo) | Verifies integrity of JPEGs. | [Ubuntu Package: `jpeginfo`](https://packages.ubuntu.com/focal/jpeginfo) |
-
-## Editors
-
-Usually editing of source files is done outside of the container and either synced with 
-[Okteto]([Okteto](https://okteto.com/)) or checked out with Git in the case of GitHub Actions.
-
-However, on rare occasions it may be useful to shell into the container to edit a file. To make such
-situations less painful we include the following common editors:
-
-| Name                                           | Configuration                                        | Description                              | Origin                                                                                     | 
-| ---------------------------------------------- | ---------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------ |
-| [`nano`](https://www.nano-editor.org/)         | Ubuntu Defaults                                      | The simplest editor. Good for beginners. | [Ubuntu Package: `nano`](https://packages.ubuntu.com/focal/nano)                           |
-| [`nvim`](https://neovim.io/) ('NeoVim')        | [space-vim](https://github.com/liuchengxu/space-vim) | A better `vim`.                          | ['Neovim Unstable' Ubuntu PPA](https://launchpad.net/~neovim-ppa/+archive/ubuntu/unstable) |
-| [`emacs`](https://www.gnu.org/software/emacs/) | [Spacemacs](https://www.spacemacs.org/)              | For the grey-beards.                     | [Ubuntu Package: `emacs-nox`](https://packages.ubuntu.com/focal/emacs-nox)                 |
 
 ## Why Not Docker Hub ?
 
@@ -149,7 +97,7 @@ jobs:
     name: Test
     runs-on: ubuntu-20.04
     container:
-      image: ghcr.io/day8/chrome-latest:2
+      image: ghcr.io/day8/chrome-latest:5.0.0
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }} # <-- you need to create a GitHub Secret with a manual token that has global access as github.token only has access to the current repo! 
@@ -161,7 +109,7 @@ jobs:
 
 #### Problem
 
-The `day8/chrome-56:2` Docker image is provided as we need to test against a version equivalent to an old Electron version.
+The `day8/chrome-56:5.0.0` Docker image is provided as we need to test against a version equivalent to an old Electron version.
 
 When the version of Chromium used needs to be upgraded to match an Electron upgrade.
 

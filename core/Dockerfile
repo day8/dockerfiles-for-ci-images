@@ -39,37 +39,7 @@ RUN \
     export KARMA_CLI_VERSION="2.0.0" && \
     export GH_VERSION="2.18.1" && \
     export GH_SHA256SUM="aca6852c457ae975155c936ad5c2691ff65a62a33142c94722bf76034a7ac43f" && \
-    export BAT_VERSION="0.22.1" && \
-    export BAT_SHA256SUM="1d1b629247ac23d870cfde9f8eebbb4af7468f5c7c0914d9246c50bf0c72c1fd" && \
-    export DELTA_VERSION="0.14.0" && \
-    export DELTA_SHA256SUM="77020b6bdea08cfd2f9ffcbacbde337f0a1bbb11444be0f115bef04a356c0969" && \
-    export FD_VERSION="8.2.1" && \
-    export FD_SHA256SUM="f3a949325f1893145ced2b269a67d5763af3bede435c40e3b85b29afdb78c3d2" && \
-    export HEXYL_VERSION="0.9.0" && \
-    export HEXYL_SHA256SUM="9bf99a1441f2261fe3548a3b886e70a6e7bf78dc501b8209c2bbe342a535b194" && \
-    export RIPGREP_VERSION="13.0.0" && \
-    export RIPGREP_SHA256SUM="6d78bed13722019cb4f9d0cf366715e2dcd589f4cf91897efb28216a6bb319f1" && \
-    export NEOVIM_VERSION="0.5.0" && \
-    export NEOVIM_SHA256SUM="cd59e885143e0fa7e43cfdacbc8e37dc033c56d9205b8f8a8acd08cd9f93737d" && \
-    export EXA_VERSION="0.10.1" && \
-    export EXA_SHA256SUM="a65a87bd545e969979ae9388f6333167f041a1f09fa9d60b32fd3072348ff6ce" && \
-    export WEBSOCAT_VERSION="1.8.0" && \
-    export WEBSOCAT_SHA256SUM="5968a3a2ede69fa8bb3df1419b908575f6532ce4eef250e1fcfbaadada3ccaef" && \
-    export PUEUE_VERSION="1.0.3" && \
-    export PUEUE_SHA256SUM="e79f0764ae7ec1e6d1ea0dae3f2ee6a6310fe3697e821cc20db4452a2c285364" && \
-    export PUEUED_SHA256SUM="f5bcd2e8469898302446161bca3f9eb0e64e406051a90928795fca11678cfd40" && \
-    export POWERSHELL_VERSION="7.1.5" && \
-    export POWERSHELL_SHA256SUM="4d0ee19617ebd696527e966a35a00f94ca3e83c850efdde10cd4b27369a17288" && \
-    export OH_MY_POSH_VERSION="5.19.1" && \
-    export OH_MY_POSH_SHA256SUM="2bbad1b8c88d7ed5349ef3d2d5c4fe88dde632e6dfaf83e84cece90cbc269e59" && \
-    export DOCKER_VERSION="20.10.9" && \
-    export DOCKER_SHA256SUM="caf74e54b58c0b38bb4d96c8f87665f29b684371c9a325562a3904b8c389995e" && \
-    export DOCKER_COMPOSE_VERSION="2.1.0" && \
-    export DOCKER_COMPOSE_SHA256SUM="90990e7268e954e7930353650d7bcf5a37d29c77925ea2066335367b5f27ec9a" && \
-    export KUBECTL_VERSION="1.22.1" && \
-    export KUBECTL_SHA256SUM="78178a8337fc6c76780f60541fca7199f0f1a2e9c41806bded280a4a5ef665c9" && \
     export GIT_GPGKEY="E1DD270288B4E6030699E45FA1715D88E1DF1F24" && \
-    export PLANCK_GPGKEY="A5D6812987A6E53579AF0308D3D743111F327606" && \
     export DEBIAN_FRONTEND="noninteractive" && \
     export DOTFILES_BASE_URI="https://raw.githubusercontent.com/day8/dockerfiles-for-dev-ci-images/master/dotfiles/" && \
 
@@ -109,11 +79,6 @@ RUN \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $GIT_GPGKEY && \
     echo '\n\n' && \
 
-    echo "Adding 'Mike Fikes's Planck' PPA..." && \
-    echo "deb http://ppa.launchpad.net/mfikes/planck/ubuntu focal main" > /etc/apt/sources.list.d/mfikes-ubuntu-planck-focal.list && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $PLANCK_GPGKEY && \
-    echo '\n\n' && \
-
     # Refresh package lists after adding package repositories.
     apt-get update -qq && \
 
@@ -123,13 +88,9 @@ RUN \
 
     # Install development tooling, common editors and language runtimes.
     apt-get install -qq -y --no-install-recommends \
-      git diffstat jq silversearcher-ag fzf \
-      ncdu htop zstd \
-      rlwrap less tmux openssh-client mosh \
-      emacs-nox \
-      zsh build-essential cmake openjdk-$JVM_VERSION\-jdk-headless python2 python3-pip planck \
-    # These are dependencies of powershell
-      liblttng-ust-ctl4 liblttng-ust0 \
+      git zstd \
+      openssh-client \
+      build-essential cmake openjdk-$JVM_VERSION\-jdk-headless python2 python3-pip \
     # These are dependencies of xvfb, Chrome and ChromeDriver that are common to all versions.
       xvfb libxcomposite1 libxrandr2 libxss1 libxext6 \
     # Voting in the popularity contest may help keep packages we use supported by Ubuntu.
@@ -173,8 +134,6 @@ RUN \
     wget -q "https://codeberg.org/attachments/$LEIN_STANDALONE_JAR" && \
     mkdir -p /usr/share/java && \
     mv $LEIN_STANDALONE_JAR /usr/share/java/leiningen-$LEIN_VERSION-standalone.jar && \
-    mkdir -p /root/.lein && \
-    wget -q -O /root/.lein/profiles.clj "${DOTFILES_BASE_URI}/.lein/profiles.clj" && \
     echo '\n\n' && \
 
     # Install babashka:
@@ -245,50 +204,10 @@ RUN \
     pip3 -q install pipenv && \
     echo '\n\n' && \
 
-    # Install yq (jq wrapper for YAML and XML)
-    echo "Installing yq..." && \
-    pip3 -q install yq && \
-    echo '\n\n' && \
-
     # Install pytest
     echo "Installing pytest..." && \
     pip3 -q install pytest && \
     echo '\n\n' && \
-
-    # Install flake8
-    # Ref: https://gitlab.com/pycqa/flake8
-    echo "Installing flake8..." && \
-    pip3 -q install flake8 && \
-    echo '\n\n' && \
-
-    # Install Docker
-    # Origin: https://download.docker.com/linux/static/stable/x86_64/
-    echo "Installing Docker ${DOCKER_VERSION}..." && \
-    wget -q "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz" && \
-    echo "Verifying docker-${DOCKER_VERSION}.tgz checksum..." && \
-    sha256sum "docker-${DOCKER_VERSION}.tgz" && \
-    echo "${DOCKER_SHA256SUM} *docker-${DOCKER_VERSION}.tgz" | sha256sum -c - && \
-    tar -xzC /usr/local/bin --strip-components=1 -f "docker-${DOCKER_VERSION}.tgz" && \
-    rm -f "docker-${DOCKER_VERSION}.tgz" && \
-
-    # Install Docker Compose
-    echo "Installing Docker Compose ${DOCKER_COMPOSE_VERSION}..." && \
-    wget -q "https://github.com/docker/compose/releases/download/v${DOCKER_COMPOSE_VERSION}/docker-compose-linux-x86_64" && \
-    echo "Verifying docker-compose-linux-x86_64 checksum..." && \
-    sha256sum "docker-compose-linux-x86_64" && \
-    echo "${DOCKER_COMPOSE_SHA256SUM} *docker-compose-linux-x86_64" | sha256sum -c - && \
-    mkdir -p /usr/local/lib/docker/cli-plugins && \
-    mv "docker-compose-linux-x86_64" /usr/local/lib/docker/cli-plugins/docker-compose && \
-    chmod +x /usr/local/lib/docker/cli-plugins/docker-compose && \
-
-    # Install Kubectl
-    echo "Installing Kubectl ${KUBECTL_VERSION}..." && \
-    wget -q "https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
-    echo "Verifying Kubectl checksum..." && \
-    sha256sum kubectl && \
-    echo "${KUBECTL_SHA256SUM} *kubectl" | sha256sum -c - && \
-    mv kubectl /usr/local/bin && \
-    chmod +x /usr/local/bin/kubectl && \
 
     # Install gh
     #
@@ -309,194 +228,21 @@ RUN \
     rm -f "gh_${GH_VERSION}_linux_amd64.deb" && \
     echo '\n\n' && \
 
-    # Install bat
-    #
-    # A cat(1) clone with syntax highlighting and Git integration.
-    #
-    # To update to a new release:
-    # 1. Open https://github.com/sharkdp/bat/releases
-    # 2. Download bat_VERSION_amd64.deb for the desired version
-    # 3. Run `sha256sum bat_VERSION_amd64.deb`
-    # 4. Copy/paste the checksum to BAT_SHA256SUM in environment variables at the beginning of this RUN script
-    # 5. Edit the BAT_VERSION in environment variables at the beginning of this RUN script
-    echo "Installing bat ${BAT_VERSION}..." && \
-    wget -q "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb" && \
-    echo "Verifying bat_${BAT_VERSION}_amd64.deb checksum..." && \
-    sha256sum "bat_${BAT_VERSION}_amd64.deb" && \
-    echo "$BAT_SHA256SUM *bat_${BAT_VERSION}_amd64.deb" | sha256sum -c - && \
-    dpkg -i "bat_${BAT_VERSION}_amd64.deb" && \
-    rm -f "bat_${BAT_VERSION}_amd64.deb" && \
-    echo '\n\n' && \
-
-    # Install delta
-    #
-    # A viewer for git and diff output.
-    
-    echo "Installing delta ${DELTA_VERSION}..." && \
-    wget -q "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb" && \
-    echo "Verifying git-delta_${DELTA_VERSION}_amd64.deb checksum..." && \
-    sha256sum "git-delta_${DELTA_VERSION}_amd64.deb" && \
-    echo "$DELTA_SHA256SUM *git-delta_${DELTA_VERSION}_amd64.deb" | sha256sum -c - && \
-    dpkg -i "git-delta_${DELTA_VERSION}_amd64.deb" && \
-    rm -f "git-delta_${DELTA_VERSION}_amd64.deb" && \
-    echo '\n\n' && \
-
-    # Install fd
-    #
-    # fd is a simple, fast and user-friendly alternative to 'find'.
-    #
-    # To update to a new release:
-    # 1. Open https://github.com/sharkdp/fd/releases
-    # 2. Download fd_VERSION_amd64.deb for the desired version
-    # 3. Run `sha256sum fd_VERSION_amd64.deb`
-    # 4. Copy/paste the checksum to FD_SHA256SUM in environment variables at the beginning of this RUN script
-    # 5. Edit the FD_VERSION in environment variables at the beginning of this RUN script
-    echo "Installing fd ${FD_VERSION}..." && \
-    wget -q "https://github.com/sharkdp/fd/releases/download/v${FD_VERSION}/fd_${FD_VERSION}_amd64.deb" && \
-    echo "Verifying fd_${FD_VERSION}_amd64.deb checksum..." && \
-    sha256sum "fd_${FD_VERSION}_amd64.deb" && \
-    echo "$FD_SHA256SUM *fd_${FD_VERSION}_amd64.deb" | sha256sum -c - && \
-    dpkg -i "fd_${FD_VERSION}_amd64.deb" && \
-    rm -f "fd_${FD_VERSION}_amd64.deb" && \
-    echo '\n\n' && \
-
-    # Install hexyl
-    #
-    # hexyl is a command-line hex viewer.
-    #
-    # To update to a new release:
-    # 1. Open https://github.com/sharkdp/hexyl/releases
-    # 2. Download hexyl_VERSION_amd64.deb for the desired version
-    # 3. Run `sha256sum hexyl_VERSION_amd64.deb`
-    # 4. Copy/paste the checksum to HEXYL_SHA256SUM in environment variables at the beginning of this RUN script
-    # 5. Edit the HEXYL_VERSION in environment variables at the beginning of this RUN script
-    echo "Installing hexyl ${HEXYL_VERSION}..." && \
-    wget -q "https://github.com/sharkdp/hexyl/releases/download/v${HEXYL_VERSION}/hexyl_${HEXYL_VERSION}_amd64.deb" && \
-    echo "Verifying hexyl package checksum..." && \
-    sha256sum "hexyl_${HEXYL_VERSION}_amd64.deb" && \
-    echo "$HEXYL_SHA256SUM *hexyl_${HEXYL_VERSION}_amd64.deb" | sha256sum -c - && \
-    dpkg -i "hexyl_${HEXYL_VERSION}_amd64.deb" && \
-    rm -f "hexyl_${HEXYL_VERSION}_amd64.deb" && \
-    echo '\n\n' && \
-
-    # Install ripgrep
-    echo "Installing ripgrep ${RIPGREP_VERSION}..." && \
-    wget -q "https://github.com/BurntSushi/ripgrep/releases/download/${RIPGREP_VERSION}/ripgrep_${RIPGREP_VERSION}_amd64.deb" && \
-    echo "Verifying ripgrep_${RIPGREP_VERSION}_amd64.deb checksum..." && \
-    sha256sum "ripgrep_${RIPGREP_VERSION}_amd64.deb" && \
-    echo "${RIPGREP_SHA256SUM} *ripgrep_${RIPGREP_VERSION}_amd64.deb" | sha256sum -c - && \
-    dpkg -i "ripgrep_${RIPGREP_VERSION}_amd64.deb" && \
-    rm -f "ripgrep_${RIPGREP_VERSION}_amd64.deb" && \
-    echo '\n\n' && \
-
-    # Install exa
-    echo "Installing exa ${EXA_VERSION}..." && \
-    wget -q "https://github.com/ogham/exa/releases/download/v${EXA_VERSION}/exa-linux-x86_64-v${EXA_VERSION}.zip" && \
-    echo "Verifying exa-linux-x86_64-v${EXA_VERSION}.zip checksum..." && \
-    sha256sum "exa-linux-x86_64-v${EXA_VERSION}.zip" && \
-    echo "${EXA_SHA256SUM} exa-linux-x86_64-v${EXA_VERSION}.zip" | sha256sum -c - && \
-    unzip -q "exa-linux-x86_64-v${EXA_VERSION}.zip" -d /usr/local && \
-    rm -f "exa-linux-x86_64-v${EXA_VERSION}.zip" && \
-    echo '\n\n' && \
-
-    # Install nvim
-    echo "Installing Neovim ${NEOVIM_VERSION}..." && \
-    wget -q "https://github.com/neovim/neovim/releases/download/v${NEOVIM_VERSION}/nvim-linux64.tar.gz" && \
-    echo "Verifying nvim-linux64.tar.gz checksum..." && \
-    sha256sum "nvim-linux64.tar.gz" && \
-    echo "${NEOVIM_SHA256SUM} nvim-linux64.tar.gz" | sha256sum -c - && \
-    tar --strip-components=1 -C /usr/local -xf nvim-linux64.tar.gz && \
-    rm -f nvim-linux64.tar.gz && \
-    strip --strip-unneeded /usr/local/bin/nvim && \
-    echo '\n\n' && \
-
-    # Install websocat
-    echo "Installing websocat ${WEBSOCAT_VERSION}..." && \
-    wget -q "https://github.com/vi/websocat/releases/download/v${WEBSOCAT_VERSION}/websocat_${WEBSOCAT_VERSION}_newer_amd64.deb" && \
-    echo "Verifying websocat_${WEBSOCAT_VERSION}_newer_amd64.deb checksum..." && \
-    sha256sum "websocat_${WEBSOCAT_VERSION}_newer_amd64.deb" && \
-    echo "${WEBSOCAT_SHA256SUM} *websocat_${WEBSOCAT_VERSION}_newer_amd64.deb" | sha256sum -c - && \
-    dpkg -i "websocat_${WEBSOCAT_VERSION}_newer_amd64.deb" && \
-    rm -f "websocat_${WEBSOCAT_VERSION}_newer_amd64.deb" && \
-    echo '\n\n' && \
-
-    # Install pueue
-    echo "Installing pueue and pueued ${PUEUE_VERSION}..." && \
-    wget -q "https://github.com/Nukesor/pueue/releases/download/v${PUEUE_VERSION}/pueue-linux-x86_64" && \
-    wget -q "https://github.com/Nukesor/pueue/releases/download/v${PUEUE_VERSION}/pueued-linux-x86_64" && \
-    echo "Verifying pueue-linux-x86_64 checksum..." && \
-    sha256sum pueue-linux-x86_64 && \
-    echo "${PUEUE_SHA256SUM} *pueue-linux-x86_64" | sha256sum -c - && \
-    echo "Verifying pueued-linux-x86_64 checksum..." && \
-    sha256sum pueued-linux-x86_64 && \
-    echo "${PUEUED_SHA256SUM} *pueued-linux-x86_64" | sha256sum -c - && \
-    mv pueue-linux-x86_64 /usr/local/bin/pueue && \
-    mv pueued-linux-x86_64 /usr/local/bin/pueued && \
-    chmod +x /usr/local/bin/pueue /usr/local/bin/pueued && \
-    echo '\n\n' && \
-
-    # Install PowerShell
-    #
-    # Windows has become a surprisingly good platform for developers in recent times. Just like its important to have
-    # a preferred editor handy, be it vim or emacs, it is also important to have a familiar shell available to those who
-    # want to use it.
-    echo "Installing PowerShell ${POWERSHELL_VERSION}..." && \
-    wget -q https://github.com/PowerShell/PowerShell/releases/download/v${POWERSHELL_VERSION}/powershell_${POWERSHELL_VERSION}-1.ubuntu.20.04_amd64.deb && \
-    echo "Verifying powershell package checksum..." && \
-    sha256sum "powershell_${POWERSHELL_VERSION}-1.ubuntu.20.04_amd64.deb" && \
-    echo "$POWERSHELL_SHA256SUM *powershell_${POWERSHELL_VERSION}-1.ubuntu.20.04_amd64.deb" | sha256sum -c - && \
-    dpkg -i "powershell_${POWERSHELL_VERSION}-1.ubuntu.20.04_amd64.deb" && \
-    rm -f "powershell_${POWERSHELL_VERSION}-1.ubuntu.20.04_amd64.deb" && \
-
-    # Ref: https://ohmyposh.dev/docs/linux
-    wget -q "https://github.com/JanDeDobbeleer/oh-my-posh/releases/download/v${OH_MY_POSH_VERSION}/posh-linux-amd64" && \
-    echo "Verifying posh-linux-amd64 checksum..." && \
-    sha256sum posh-linux-amd64 && \
-    echo "${OH_MY_POSH_SHA256SUM} posh-linux-amd64" | sha256sum -c - && \
-    mv posh-linux-amd64 /usr/local/bin/oh-my-posh && \
-    chmod +x /usr/local/bin/oh-my-posh && \
-    strip --strip-unneeded /usr/local/bin/oh-my-posh && \
-    mkdir ~/.poshthemes && \
-    wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip -O ~/.poshthemes/themes.zip && \
-    unzip ~/.poshthemes/themes.zip -d ~/.poshthemes && \
-    chmod u+rw ~/.poshthemes/*.json && \
-    rm ~/.poshthemes/themes.zip && \
-    cp ~/.poshthemes/jandedobbeleer.omp.json ~ && \
-    pwsh -Command "Set-PSRepository PSGallery -InstallationPolicy Trusted" && \
-    pwsh -Command "Install-Module posh-git -Scope CurrentUser" && \
-    pwsh -Command "Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -SkipPublisherCheck" && \
-    pwsh -Command 'if (!(Test-Path -Path $PROFILE )) { New-Item -Type File -Path $PROFILE -Force }' && \
-    pwsh -Command 'echo "$env:POSH_GIT_ENABLED = $true" > $PROFILE' && \
-    pwsh -Command 'echo "Import-Module PSReadLine" > $PROFILE' && \
-    pwsh -Command 'echo "oh-my-posh --init --shell pwsh --config ~/jandedobbeleer.omp.json | Invoke-Expression" > $PROFILE' && \
-    echo '\n\n' && \
-
-    # Install Zsh, Bash and Vim configuration files:
-    echo 'eval "$(oh-my-posh --init --shell zsh --config ~/jandedobbeleer.omp.json)"' >> ~/.zshrc && \
-    echo 'eval "$(oh-my-posh --init --shell bash --config ~/jandedobbeleer.omp.json)"' >> ~/.bashrc && \
-
-    git clone --depth 1 https://github.com/liuchengxu/space-vim.git ~/.space-vim && \
-    wget -q -O /root/.spacevim "${DOTFILES_BASE_URI}/.spacevim" && \
-    cd ~/.space-vim && make neovim && cd /tmp && \
-
     wget -q -O /root/.gitconfig "${DOTFILES_BASE_URI}/.gitconfig" && \
 
     # Install NPM-based tools incl Lumo and Karma CLI:
     echo "Installing Lumo and Karma CLI..." && \
     npm install -g --unsafe-perm \
-      lumo-cljs@$LUMO_VERSION \
       karma-cli@$KARMA_CLI_VERSION \
       @datadog/datadog-ci && \
 
     # Finish Docker ENTRYPOINT script:
     echo "echo \"`bb --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`lein version`\"" >> /docker-entrypoint.sh && \
-    echo "echo \"lumo `lumo --version` and Planck `planck --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"Node.js `node --version` with NPM `npm --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`python2 --version` and `python3 --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`aws --version` and `sam --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`git --version`\"" >> /docker-entrypoint.sh && \
-    echo "echo \"`pwsh --version`\"" >> /docker-entrypoint.sh && \
     echo 'exec "$@"' >> /docker-entrypoint.sh && \
     chmod +x /docker-entrypoint.sh && \
 
@@ -519,13 +265,6 @@ RUN \
     echo '#!/bin/sh' > /usr/bin/tail && \
     echo 'exec /docker-entrypoint.sh /usr/bin/tail.original $@' >> /usr/bin/tail && \
     chmod +x /usr/bin/tail && \
-
-    # Strip binaries of debugging symbols that are not stripped already so save
-    # some space:
-    strip --strip-unneeded \
-        /usr/local/bin/docker \
-        /usr/local/bin/dockerd \
-        /usr/local/bin/docker-proxy && \
 
     # Save about ~22MB by deleting the pip cache:
     rm -rf /root/.cache && \
