@@ -44,5 +44,3 @@ RUN \
     /opt/google/chrome/chrome --version && \
     chromedriver --version && \
     echo '\n\n'
-
-USER runner
