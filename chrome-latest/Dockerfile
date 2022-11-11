@@ -1,8 +1,10 @@
 FROM ghcr.io/day8/core:latest
 
 RUN \
-    export CHROMEDRIVER_VERSION="95.0.4638.54" && \
-    export CHROMEDRIVER_SHA256SUM="d3db30c72d63a875b9fe1f1f23c8eff3914ea4146a35c7f11f7708c24f47425c" && \
+    export CHROME_VERSION="107.0.5304.110-1" && \
+    export CHROME_SHA256SUM="52e6d1be974c36cb40469f03b128cf21b36359a05fdadbb2e0379fbb17ef341b" && \
+    export CHROMEDRIVER_VERSION="107.0.5304.62" && \
+    export CHROMEDRIVER_SHA256SUM="502f124092160cbfde42705cb24aad8b48b4b5c6c22b440a34d83034019d408f" && \
 
     cd /tmp && \
 
@@ -20,9 +22,12 @@ RUN \
 
     rm -rf /var/lib/apt/lists/* && \
 
-    wget -q "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" && \
-    dpkg -i google-chrome-stable_current_amd64.deb && \
-    rm -f google-chrome-stable_current_amd64.deb && \
+    wget -q "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb" && \
+    echo "Verifying ChromeDriver package checksum..." && \
+    sha256sum "google-chrome-stable_${CHROME_VERSION}_amd64.deb" && \
+    echo "$CHROME_SHA256SUM *google-chrome-stable_${CHROME_VERSION}_amd64.deb" | sha256sum -c - && \
+    dpkg -i "google-chrome-stable_${CHROME_VERSION}_amd64.deb" && \
+    rm -f "google-chrome-stable_${CHROME_VERSION}_amd64.deb" && \
 
     # Install ChromeDriver
     #
