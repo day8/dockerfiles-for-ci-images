@@ -8,25 +8,25 @@ RUN \
     export CHROMIUM_SHA256SUM="5e2e38ffbed6ff9bef287026c8d2628b12b5a43b5bf7c235bfa182e7fd5d213f" && \
     export CHROMEDRIVER_VERSION="2.29" && \
     export CHROMEDRIVER_SHA256SUM="bb2cf08f2c213f061d6fbca9658fc44a367c1ba7e40b3ee1e3ae437be0f901c2" && \
-
+    #
     export DEBIAN_FRONTEND="noninteractive" && \
-
+    #
     cd /tmp && \
-
+    #
     # Turn on Bash extended glob support so we can use patterns like !("file1"|"file2")
     shopt -s extglob && \
-
+    #
     # Refresh package lists.
     apt-get update -qq && \
-
+    #
     # These are dependencies of xvfb and/or Chrome. Unfortunately due to the old version of Chrome
     # used (56.x) there is a dependency on old libraries like libgtk2.0-0 that take up a lot of
     # extra space.
     apt-get install -qq -y --no-install-recommends \
        libxcursor1 libgtk2.0-0 libgconf-2-4 libxtst6 && \
-
+    #
     rm -rf /var/lib/apt/lists/* && \
-
+    #
     # Install Chrome
     #
     # We have an Electron app that uses an older Chrome version. So we want to test with that same older version of
@@ -69,7 +69,6 @@ RUN \
     sed -i 's|HERE/chrome"|HERE/chrome" --disable-setuid-sandbox --no-sandbox|g' \
         /opt/chromium/$CHROMIUM_VERSION/chrome-wrapper && \
     rm chromium-linux.zip && \
-
     # Save about ~18MB by deleting all Chromium locales except English:
     #rm -f /opt/chromium/latest/locales/!(en-GB.pak|en-US.pak) && \
 
@@ -98,23 +97,23 @@ RUN \
     echo "bbe6059047b0e03433aee358b01d12c8dc083532fbd8160494aeb9dc74f3a3d9 *libpango-1.0-0_1.40.14-1ubuntu0.1_amd64.deb" | sha256sum -c - && \
     dpkg -i "libpango-1.0-0_1.40.14-1ubuntu0.1_amd64.deb" && \
     rm -f "libpango-1.0-0_1.40.14-1ubuntu0.1_amd64.deb" && \
-
+    #
     wget -q "http://mirrors.kernel.org/ubuntu/pool/main/p/pango1.0/libpangocairo-1.0-0_1.40.14-1ubuntu0.1_amd64.deb" && \
     echo "Verifying libpangocairo-1.0-0_1.40.14-1ubuntu0.1_amd64.deb checksum..." && \
     sha256sum "libpangocairo-1.0-0_1.40.14-1ubuntu0.1_amd64.deb" && \
     echo "cb0f273b2ae6f752aa8d295aedb38eb4820cffc2c0c7fc25bc341ec8b182930a *libpangocairo-1.0-0_1.40.14-1ubuntu0.1_amd64.deb" | sha256sum -c - && \
     dpkg -i "libpangocairo-1.0-0_1.40.14-1ubuntu0.1_amd64.deb" && \
     rm -f "libpangocairo-1.0-0_1.40.14-1ubuntu0.1_amd64.deb" && \
-
+    #
     wget -q "http://mirrors.kernel.org/ubuntu/pool/main/p/pango1.0/libpangoft2-1.0-0_1.40.14-1ubuntu0.1_amd64.deb" && \
     echo "Verifying libpangoft2-1.0-0_1.40.14-1ubuntu0.1_amd64.deb checksum..." && \
     sha256sum "libpangoft2-1.0-0_1.40.14-1ubuntu0.1_amd64.deb" && \
     echo "e64b05c5108e501745955288a19492876f2bfbc7f54497fd6b87ae7b8b2238eb *libpangoft2-1.0-0_1.40.14-1ubuntu0.1_amd64.deb" | sha256sum -c - && \
     dpkg -i "libpangoft2-1.0-0_1.40.14-1ubuntu0.1_amd64.deb" && \
     rm -f "libpangoft2-1.0-0_1.40.14-1ubuntu0.1_amd64.deb" && \
-
+    #
     echo '\n\n' && \
-
+    #
     # Install ChromeDriver
     #
     # ChromeDriver version MUST be the correct version for the Chrome release it is being used with.

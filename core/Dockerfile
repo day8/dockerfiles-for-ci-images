@@ -42,16 +42,16 @@ RUN \
     export GIT_GPGKEY="E1DD270288B4E6030699E45FA1715D88E1DF1F24" && \
     export DEBIAN_FRONTEND="noninteractive" && \
     export DOTFILES_BASE_URI="https://raw.githubusercontent.com/day8/dockerfiles-for-dev-ci-images/master/dotfiles/" && \
-
+    #
     cd /tmp && \
-
+    #
     # Turn on Bash extended glob support so we can use patterns like !("file1"|"file2")
     shopt -s extglob && \
-
+    #
     apt-get update -qq && \
     apt-get dist-upgrade -qq -y && \
     echo '\n\n' && \
-
+    #
     # Install tools needed by the subsequent commands.
     apt-get install -qq -y --no-install-recommends \
         locales tzdata \
@@ -59,7 +59,7 @@ RUN \
         curl wget \
         unzip && \
     echo '\n\n' && \
-
+    #
     # Set the default locale to en_AU.UTF-8
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     sed -i -e 's/# en_AU.UTF-8 UTF-8/en_AU.UTF-8 UTF-8/' /etc/locale.gen && \
@@ -67,25 +67,25 @@ RUN \
     echo 'LANG="en_AU.UTF-8"' > /etc/default/locale && \
     dpkg-reconfigure locales && \
     update-locale LANG=en_AU.UTF-8 && \
-
+    #
     # Set the default timezone to Australia/Sydney.
     ln -s --force /usr/share/zoneinfo/Australia/Sydney /etc/localtime && \
     dpkg-reconfigure tzdata && \
-
+    #
     # When adding PPAs do not depend on `software-properties-common` for the `add-apt-repository`
     # command as that adds several hundred megabytes of dependencies.
     echo "Adding 'Git stable releases' PPA..." && \
     echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu focal main" > /etc/apt/sources.list.d/git-core-ubuntu-ppa-focal.list && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $GIT_GPGKEY && \
     echo '\n\n' && \
-
+    #
     # Refresh package lists after adding package repositories.
     apt-get update -qq && \
-
+    #
     # Begin /docker-entrypoint.sh script. This is amended throughout the RUN
     # command with additional lines.
     echo '#!/bin/bash' > /docker-entrypoint.sh && \
-
+    #
     # Install development tooling, common editors and language runtimes.
     apt-get install -qq -y --no-install-recommends \
       git zstd \
@@ -97,10 +97,10 @@ RUN \
       popularity-contest && \
     rm -rf /var/lib/apt/lists/* && \
     echo '\n\n' && \
-
+    #
     # Start a X11 virtual framebuffer to run tests in Chrome.
     echo 'Xvfb :99 -screen 0 1920x1080x24 &' >> /docker-entrypoint.sh && \
-
+    #
     # Install Node.js:
     echo "Installing Node.js LTS ${NODEJS_VERSION}..." && \
     wget -q "https://nodejs.org/dist/v${NODEJS_VERSION}/node-v${NODEJS_VERSION}-linux-x64.tar.xz" && \
@@ -109,7 +109,7 @@ RUN \
     echo "${NODEJS_SHA256SUM} *node-v${NODEJS_VERSION}-linux-x64.tar.xz" | sha256sum -c - && \
     tar --strip-components=1 -C /usr -Jxf "node-v${NODEJS_VERSION}-linux-x64.tar.xz" && \
     rm -f "node-v${NODEJS_VERSION}-linux-x64.tar.xz" && \
-
+    #
     # Install Clojure:
     echo "Installing 'Official' Clojure CLI ${CLOJURE_VERSION}..." && \
     wget -q "https://download.clojure.org/install/linux-install-$CLOJURE_VERSION.sh" && \
@@ -121,7 +121,7 @@ RUN \
     rm -f "linux-install-${CLOJURE_VERSION}.sh" && \
     clojure -e "(clojure-version)" && \
     echo '\n\n' && \
-
+    #
     # Install Leiningen:
     echo "Installing Leiningen ${LEIN_VERSION}..." && \
     mkdir -p $LEIN_INSTALL && \
@@ -135,7 +135,7 @@ RUN \
     mkdir -p /usr/share/java && \
     mv $LEIN_STANDALONE_JAR /usr/share/java/leiningen-$LEIN_VERSION-standalone.jar && \
     echo '\n\n' && \
-
+    #
     # Install babashka:
     echo "Installing babashka..." && \
     wget -q "https://github.com/babashka/babashka/releases/download/v${BABASHKA_VERSION}/babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" && \
@@ -145,7 +145,7 @@ RUN \
     tar -xzf "babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" -C /usr/local/bin && \
     rm -f "babashka-${BABASHKA_VERSION}-linux-amd64.tar.gz" && \
     bb --version && \
-    
+    #
     # Install clj-kondo:
     echo "Installing clj-kondo..." && \
     wget -q "https://github.com/clj-kondo/clj-kondo/releases/download/v${CLJ_KONDO_VERSION}/clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" && \
@@ -155,7 +155,7 @@ RUN \
     unzip "clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" -d /usr/local/bin && \
     rm -f "clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip" && \
     clj-kondo --version && \
-    
+    #
     # Install Terraform:
     echo "Installing Terraform..." && \
     wget -q "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
@@ -166,7 +166,7 @@ RUN \
     rm -f "terraform_${TERRAFORM_VERSION}_linux_amd64.zip" && \
     strip --strip-unneeded /usr/local/bin/terraform && \
     terraform --version && \
-
+    #
     # install AWS CLI
     echo "Install AWS CLI..." && \
     wget -q "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-${AWS_CLI_VERSION}.zip" && \
@@ -177,7 +177,7 @@ RUN \
     ./aws-installation/aws/install && \
     rm -rf awscli-exe-linux-x86_64-${AWS_CLI_VERSION}.zip aws-installation && \
     aws --version && \
-
+    #
     # Install AWS SAM CLI
     echo "Install AWS SAM CLI..." && \
     wget -q "https://github.com/aws/aws-sam-cli/releases/download/v${AWS_SAM_CLI_VERSION}/aws-sam-cli-linux-x86_64.zip" && \
@@ -188,7 +188,7 @@ RUN \
     ./sam-installation/install && \
     rm -rf aws-sam-cli-linux-x86_64.zip sam-installation && \
     sam --version && \
-    
+    #
     ## Install Hasura CLI
     echo "Install Hasura CLI..." && \
     wget -q "https://github.com/hasura/graphql-engine/releases/download/v${HASURA_CLI_VERSION}/cli-hasura-linux-amd64" && \
@@ -198,17 +198,17 @@ RUN \
     mv cli-hasura-linux-amd64 /usr/local/bin/hasura && \
     chmod +x /usr/local/bin/hasura && \
     hasura version && \
-    
+    #
     # Install pipenv
     echo "Installing pipenv..." && \
     pip3 -q install pipenv && \
     echo '\n\n' && \
-
+    #
     # Install pytest
     echo "Installing pytest..." && \
     pip3 -q install pytest && \
     echo '\n\n' && \
-
+    #
     # Install gh
     #
     # GitHub's official command line tool.
@@ -227,15 +227,15 @@ RUN \
     dpkg -i "gh_${GH_VERSION}_linux_amd64.deb" && \
     rm -f "gh_${GH_VERSION}_linux_amd64.deb" && \
     echo '\n\n' && \
-
+    #
     wget -q -O /root/.gitconfig "${DOTFILES_BASE_URI}/.gitconfig" && \
-
+    #
     # Install NPM-based tools incl Lumo and Karma CLI:
     echo "Installing Lumo and Karma CLI..." && \
     npm install -g --unsafe-perm \
       karma-cli@$KARMA_CLI_VERSION \
       @datadog/datadog-ci && \
-
+    #
     # Finish Docker ENTRYPOINT script:
     echo "echo \"`bb --version`\"" >> /docker-entrypoint.sh && \
     echo "echo \"`lein version`\"" >> /docker-entrypoint.sh && \
@@ -245,7 +245,7 @@ RUN \
     echo "echo \"`git --version`\"" >> /docker-entrypoint.sh && \
     echo 'exec "$@"' >> /docker-entrypoint.sh && \
     chmod +x /docker-entrypoint.sh && \
-
+    #
     # GitHub Actions overrides ENTRYPOINT with the --entrypoint CLI option to execute a long-running
     # tail command so that once created the container does not exit until explicitly stopped.
     #
@@ -265,16 +265,16 @@ RUN \
     echo '#!/bin/sh' > /usr/bin/tail && \
     echo 'exec /docker-entrypoint.sh /usr/bin/tail.original $@' >> /usr/bin/tail && \
     chmod +x /usr/bin/tail && \
-
+    #
     # Save about ~22MB by deleting the pip cache:
     rm -rf /root/.cache && \
-
+    #
     # Delete npm's cache:
     rm -rf /root/.npm && \
-
+    #
     # Delete the .m2 repository because we cache this with actions/cache in GitHub Actions:
     rm -rf /root/.m2 && \
-
+    #
     # Cleanup
     rm -rf /usr/share/icons/* \
            /var/lib/apt/lists/*
