@@ -35,7 +35,6 @@ RUN \
     export AWS_SAM_CLI_SHA256SUM="3fcdf752ab30e6355087bcfa451a7d3ca6eb23445b893ecfcd0dea4fab166382" && \
     export HASURA_CLI_VERSION="2.13.0" && \
     export HASURA_CLI_SHA256SUM="aea853476164e70dfd7b12cc85933bc0accb6747e474420cb3c6e9af005be4d4" && \
-    export LUMO_VERSION="1.10.1" && \
     export KARMA_CLI_VERSION="2.0.0" && \
     export GH_VERSION="2.18.1" && \
     export GH_SHA256SUM="aca6852c457ae975155c936ad5c2691ff65a62a33142c94722bf76034a7ac43f" && \
@@ -230,7 +229,7 @@ RUN \
     #
     wget -q -O /root/.gitconfig "${DOTFILES_BASE_URI}/.gitconfig" && \
     #
-    # Install NPM-based tools incl Lumo and Karma CLI:
+    # Install NPM-based tools incl Karma CLI & datadog-ci:
     echo "Installing Lumo and Karma CLI..." && \
     npm install -g --unsafe-perm \
       karma-cli@$KARMA_CLI_VERSION \
