@@ -9,7 +9,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Build ghcr.io/day8/core
         uses: elgohr/Publish-Docker-Github-Action@v4
         with:
@@ -29,7 +29,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
           workdir: chrome-latest
-      - name: Build ghcr.io/day8/chrome-56
+      - name: Build ghcr.io/day8/chrome-87
         uses: elgohr/Publish-Docker-Github-Action@v4
         with:
           name: day8/chrome-56
@@ -37,9 +37,18 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
-          workdir: chrome-56
+          workdir: chrome-87
+#      - name: Build ghcr.io/day8/chrome-56
+#        uses: elgohr/Publish-Docker-Github-Action@v4
+#        with:
+#          name: day8/chrome-56
+#          tag_names: true
+#          registry: ghcr.io
+#          username: ${{ github.repository_owner }}
+#          password: ${{ secrets.GLOBAL_TOKEN_FOR_GITHUB }}
+#          workdir: chrome-56
       - name: Slack notification
-        uses: homoluctus/slatify@v2.0.1
+        uses: lazy-actions/slatify@master
         if: always()
         with:
           type: ${{ job.status  }}
