@@ -33,12 +33,12 @@ On image startup the exact versions of important software are printed to the
 console.
 
 | Name                                                | Version               | Description | Origin | 
-| --------------------------------------------------- | --------------------- | ----------- | ------ |
+| --------------------------------------------------- |-----------------------| ----------- | ------ |
 | Leiningen                                           | `2.9.x`               | Clojure(Script) build tool. Day8's main build tool. | [GitHub Releases Assets](https://github.com/technomancy/leiningen/releases) |
-| Clojure                                             | `1.10.x`              | 'Official' Clojure CLI tools. | [Clojure Website](https://clojure.org/guides/getting_started) |
+| Clojure                                             | `1.11.x`              | 'Official' Clojure CLI tools. | [Clojure Website](https://clojure.org/guides/getting_started) |
 | OpenJDK                                             | `11.x` (LTS)          | Java runtime. Dependency of Leiningen, `clojure` CLI etc. | [Ubuntu Package: `openjdk-11-headless`](https://packages.ubuntu.com/focal-updates/openjdk-11-jdk-headless) |
-| Node.js                                             | `16.x` (LTS)          | JavaScript runtime. Dependency of `shadow-cljs`. | [NodeSource Package Repository](https://github.com/nodesource/distributions) |
-| NPM                                                 | `6.x` (LTS)           | JavaScript package manager. Dependency of `shadow-cljs`. | Bundled with Node.js |
+| Node.js                                             | `18.12.x` (LTS)       | JavaScript runtime. Dependency of `shadow-cljs`. | [NodeSource Package Repository](https://github.com/nodesource/distributions) |
+| NPM                                                 | `9.1.x` (LTS)         | JavaScript package manager. Dependency of `shadow-cljs`. | Bundled with Node.js |
 | Python 2                                            | `2.7.x`               | Python 2 runtime. | [Ubuntu Package: `python2`](https://packages.ubuntu.com/focal/python2) |
 | Python 3                                            | `3.8.x`               | Python 3 runtime. | [Ubuntu Package: `python3`](https://packages.ubuntu.com/focal/python3) |
 | `pip`                                               | Latest at build time. | Python package manager. | [Ubuntu Package: `python3-pip`](https://packages.ubuntu.com/focal/python3-pip) |
@@ -46,7 +46,7 @@ console.
 | `pytest`                                            | Latest at build time. | Python test runner. | [Python Package: `pytest`](https://pypi.org/project/pytest/) |
 | Git                                                 | Latest at build time. | Dependency of [`actions/checkout`](https://github.com/actions/checkout) and [`day8/lein-git-inject`](https://github.com/day8/lein-git-inject) | ['Git stable releases' Ubuntu PPA](https://launchpad.net/~git-core/+archive/ubuntu/ppa) |
 | [`aws`](https://docs.aws.amazon.com/cli/index.html) | Latest at build time. | Interface to Amazon Web Services. Dependency of S3 deployments. | [Official AWS Package: `awscli-exe-linux-x86_64.zip`](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html) |
-| [`sam`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html) | | Creates and manages AWS serverless applications. | [Official AWS Package: `aws-sam-cli-linux-x86_64.zip`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-linux.html) |
+| [`sam`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html) |                       | Creates and manages AWS serverless applications. | [Official AWS Package: `aws-sam-cli-linux-x86_64.zip`](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-linux.html) |
 | GNU Compiler Collection                             | `9.3.x`               | C (`gcc`) and C++ (`g++`) compiler. Dependency of `npm install...` and therefore `shadow-cljs`. | [Ubuntu Package: `build-essential`](https://packages.ubuntu.com/focal/build-essential) |
 | `make`                                              | Latest at build time. | Build automation tool, esp common for older C/C++ projects. Dependency of space-vim. | [Ubuntu Package: `build-essential`](https://packages.ubuntu.com/focal/build-essential) |
 | `cmake`                                             | Latest at build time. | Build automation tool, esp common for newer C/C++ projects. |  [Ubuntu Package: `cmake`](https://packages.ubuntu.com/focal/cmake) |
@@ -109,7 +109,7 @@ jobs:
 
 #### Problem
 
-The `day8/chrome-56:5.0.0` Docker image is provided as we need to test against a version equivalent to an old Electron version.
+The `day8/chrome-87:6.0.0` Docker image is provided as we need to test against a version equivalent to an old Electron version.
 
 When the version of Chromium used needs to be upgraded to match an Electron upgrade.
 
