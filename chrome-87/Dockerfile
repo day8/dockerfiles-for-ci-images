@@ -1,14 +1,14 @@
-FROM ghcr.io/day8/core:latest
+
 
 # Launcher Electron Chrome version 87.0.4280.141 from Wednesday, January 6, 2021
 #
 
-RUN \
-    export CHROMIUM_VERSION="87" && \
-    export CHROMIUM_SHA256SUM="36759ed6d151645d00a3a015200334edc70188b422eec51bcaa5790c8e906e27" && \
+
+    export CHROMIUM_VERSION="87.0.4280.0" && \
+    export CHROMIUM_SHA256SUM="e8c00b766c50b57898c0084f41eac7642b527b591bd079dc8191d04352260b34" && \
     export CHROMIUM_PACKAGE_URL="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F812859%2Fchrome-linux.zip?generation=1601581775200441&alt=media" && \
-    export CHROMEDRIVER_VERSION="87" && \
-    export CHROMEDRIVER_SHA256SUM="d859f8ecb21e26d3ddaf3f229da695bc86512f4e6c9fe32533af7a8b36783ec5" && \
+    export CHROMEDRIVER_VERSION="87.0.4280.0" && \
+    export CHROMEDRIVER_SHA256SUM="1412212c24d7e24a0bb3969aac125e576729cbbe5321413af16e2eb2be4b5db3" && \
     export CHROMEDRIVER_PACKAGE_URL="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F812859%2Fchromedriver_linux64.zip?generation=1601581780133920&alt=media" && \
 
     #
@@ -55,7 +55,7 @@ RUN \
     echo "$CHROMEDRIVER_SHA256SUM *chromedriver_linux64.zip" | sha256sum -c - && \
     unzip -q chromedriver_linux64.zip && \
     rm -f chromedriver_linux64.zip && \
-    mv chromedriver /usr/local/bin/chromedriver && \
+    mv chromedriver_linux64/chromedriver /usr/local/bin/chromedriver && \
     chmod +x /usr/local/bin/chromedriver && \
     chrome-wrapper --version && \
     chromedriver --version && \
