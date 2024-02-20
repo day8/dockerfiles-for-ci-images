@@ -4,10 +4,13 @@ FROM ghcr.io/day8/core:latest
 #
 
 RUN \
-    export CHROME_VERSION="87.0.4280.141" && \
-    export CHROME_SHA256SUM="e8c00b766c50b57898c0084f41eac7642b527b591bd079dc8191d04352260b34" && \
-    export CHROMEDRIVER_VERSION="87.0.4280.88" && \
-    export CHROMEDRIVER_SHA256SUM="929a3b4246742a842fd49391dddde6e829cb7f2e94aed92091ba88586380dac6" && \
+    export CHROMIUM_VERSION="87" && \
+    export CHROMIUM_SHA256SUM="36759ed6d151645d00a3a015200334edc70188b422eec51bcaa5790c8e906e27" && \
+    export CHROMIUM_PACKAGE_URL="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F812859%2Fchrome-linux.zip?generation=1601581775200441&alt=media" && \
+    export CHROMEDRIVER_VERSION="87" && \
+    export CHROMEDRIVER_SHA256SUM="d859f8ecb21e26d3ddaf3f229da695bc86512f4e6c9fe32533af7a8b36783ec5" && \
+    export CHROMEDRIVER_PACKAGE_URL="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F812859%2Fchromedriver_linux64.zip?generation=1601581780133920&alt=media"
+
     #
     cd /tmp && \
     #
@@ -25,12 +28,17 @@ RUN \
     #
     rm -rf /var/lib/apt/lists/* && \
     #
-    wget -q "https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb" && \
-    echo "Verifying ChromeDriver package checksum..." && \
-    sha256sum "google-chrome-stable_${CHROME_VERSION}_amd64.deb" && \
-    echo "$CHROME_SHA256SUM *google-chrome-stable_${CHROME_VERSION}_amd64.deb" | sha256sum -c - && \
-    dpkg -i "google-chrome-stable_${CHROME_VERSION}_amd64.deb" && \
-    rm -f "google-chrome-stable_${CHROME_VERSION}_amd64.deb" && \
+    wget -q -O chromium-linux.zip $CHROMIUM_PACKAGE_URL && \
+    echo "Verifying Chrome package checksum..." && \
+    sha256sum chromium-linux.zip && \
+    echo "$CHROMIUM_SHA256SUM *chromium-linux.zip" | sha256sum -c - && \
+    unzip -q chromium-linux.zip && \
+    mkdir -p /opt/chromium && \
+    mv chrome-linux /opt/chromium/$CHROMIUM_VERSION && \
+    ln -s /opt/chromium/$CHROMIUM_VERSION /opt/chromium/latest && \
+    ln -s /opt/chromium/latest/chrome-wrapper /usr/local/bin/chrome-wrapper && \
+
+
     #
     # Install ChromeDriver
     #
@@ -41,7 +49,7 @@ RUN \
     # For older versions of Chrome (e.g. '56.x') look through https://chromedriver.storage.googleapis.com/index.html
     # and find the newest release with a 'notes.txt' file that mentions the major version e.g. 'Supports Chrome v56-58'.
     echo "Installing ChromeDriver ${CHROMEDRIVER_VERSION}..." && \
-    wget -q https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip && \
+    wget -q -O chromedriver_linux64.zip $CHROMEDRIVER_PACKAGE_URL && \
     echo "Verifying ChromeDriver package checksum..." && \
     sha256sum chromedriver_linux64.zip && \
     echo "$CHROMEDRIVER_SHA256SUM *chromedriver_linux64.zip" | sha256sum -c - && \
@@ -49,6 +57,6 @@ RUN \
     rm -f chromedriver_linux64.zip && \
     mv chromedriver /usr/local/bin/chromedriver && \
     chmod +x /usr/local/bin/chromedriver && \
-    /opt/google/chrome/chrome --version && \
+    chrome-wrapper --version && \
     chromedriver --version && \
     echo '\n\n'
