@@ -1,9 +1,9 @@
-
+FROM ghcr.io/day8/core:latest
 
 # Launcher Electron Chrome version 87.0.4280.141 from Wednesday, January 6, 2021
 #
 
-
+RUN \
     export CHROMIUM_VERSION="87.0.4280.0" && \
     export CHROMIUM_SHA256SUM="e8c00b766c50b57898c0084f41eac7642b527b591bd079dc8191d04352260b34" && \
     export CHROMIUM_PACKAGE_URL="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F812859%2Fchrome-linux.zip?generation=1601581775200441&alt=media" && \
