@@ -9,7 +9,7 @@ RUN \
     export CHROMIUM_PACKAGE_URL="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F812859%2Fchrome-linux.zip?generation=1601581775200441&alt=media" && \
     export CHROMEDRIVER_VERSION="87" && \
     export CHROMEDRIVER_SHA256SUM="d859f8ecb21e26d3ddaf3f229da695bc86512f4e6c9fe32533af7a8b36783ec5" && \
-    export CHROMEDRIVER_PACKAGE_URL="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F812859%2Fchromedriver_linux64.zip?generation=1601581780133920&alt=media"
+    export CHROMEDRIVER_PACKAGE_URL="https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F812859%2Fchromedriver_linux64.zip?generation=1601581780133920&alt=media" && \
 
     #
     cd /tmp && \
