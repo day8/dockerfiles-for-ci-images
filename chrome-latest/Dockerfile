@@ -6,8 +6,8 @@ RUN \
     export CHROME_FOR_TESTING_FILENAME=$(basename "${CHROME_FOR_TESTING_URL%%\?*}") && \
     export CHROMEDRIVER_URL="https://storage.googleapis.com/chrome-for-testing-public/${CHROME_FOR_TESTING_VERSION}/linux64/chromedriver-linux64.zip"  && \
     export CHROMEDRIVER_FILENAME=$(basename "${CHROMEDRIVER_URL%%\?*}") && \
-    export CHROME_FOR_TESTING_SHA256SUM="" && \
-    export CHROMEDRIVER_SHA256SUM="502f124092160cbfde42705cb24aad8b48b4b5c6c22b440a34d83034019d408f" && \
+    export CHROME_FOR_TESTING_SHA256SUM="f2496409f3f440c039c967751818480c6029da43b808db307fd2381cabc836ee" && \
+    export CHROMEDRIVER_SHA256SUM="a1e864dd3b087733e5c654f57b93a241ee5f9dbf82c6b5a48e7c1768ea9e78e6" && \
     #
     cd /tmp && \
     #
