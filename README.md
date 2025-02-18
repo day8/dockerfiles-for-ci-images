@@ -95,7 +95,7 @@ Therefore we no longer publish images to Docker Hub and use GitHub Container Reg
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     container:
       image: ghcr.io/day8/chrome-latest:5.0.0
       credentials:
